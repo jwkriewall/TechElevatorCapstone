@@ -23,6 +23,7 @@ public class Exercises {
 		int numberOfBirds = 6;
 		int numberOfNests = 3;
 		int numberOfExtraBirds = numberOfBirds - numberOfNests;
+		System.out.println(numberOfExtraBirds);
 
         /*
         3. 3 raccoons are playing in the woods. 2 go home to eat dinner. How
@@ -34,55 +35,84 @@ public class Exercises {
         /*
         4. There are 5 flowers and 3 bees. How many less bees than flowers?
         */
+		int numberOfFlowers = 5;
+		int numberOfBees = 3;
+		int differenceOfFlowersAndBees = numberOfFlowers - numberOfBees;
 
         /*
         5. 1 lonely pigeon was eating breadcrumbs. Another pigeon came to eat
         breadcrumbs, too. How many pigeons are eating breadcrumbs now?
         */
+		int lonelyPigeonEatingBreadcrumbs = 1;
+		int hungryPigeon = 1;
+		int totalPigeonsEatingBreadcrumbs = lonelyPigeonEatingBreadcrumbs + hungryPigeon;
 
         /*
         6. 3 owls were sitting on the fence. 2 more owls joined them. How many
         owls are on the fence now?
         */
+		int owlsOnFence = 3;
+		int owlsJoining = 2;
+		int totalOwlsOnFence = owlsOnFence + owlsJoining;
 
         /*
         7. 2 beavers were working on their home. 1 went for a swim. How many
         beavers are still working on their home?
         */
+		int beaversWorkingOnHome = 2;
+		int swimmingBeavers = 1;
+		int beaversWhoRemainWorkingOnHome = beaversWorkingOnHome - swimmingBeavers;
 
         /*
         8. 2 toucans are sitting on a tree limb. 1 more toucan joins them. How
         many toucans in all?
         */
-
+		int toucansOnATreeLimb = 2;
+		int toucansWhoAreJoining = 1;
+		int totalToucans = toucansOnATreeLimb + toucansWhoAreJoining;
         /*
         9. There are 4 squirrels in a tree with 2 nuts. How many more squirrels
         are there than nuts?
         */
-
+		int squirrelsInTheTree = 4;
+		int nutsInTree = 2;
+		int differenceBetweenSquirrelsAndNuts = squirrelsInTheTree - nutsInTree;
         /*
         10. Mrs. Hilt found a quarter, 1 dime, and 2 nickels. How much money did
         she find?
         */
-
+		int quarter = 25;
+		int dime = 10;
+		int nickel = 5;
+		int mrsHiltTotalCents = quarter + dime + (2 * nickel);
         /*
         11. Mrs. Hilt's favorite first grade classes are baking muffins. Mrs. Brier's
         class bakes 18 muffins, Mrs. MacAdams's class bakes 20 muffins, and
         Mrs. Flannery's class bakes 17 muffins. How many muffins does first
         grade bake in all?
         */
-
+		int hiltClassMuffins = 18;
+		int macAdamsClassMuffins = 20;
+		int flanneryClassMuffins = 17;
+		int firstGradeMuffinsBaked = hiltClassMuffins + macAdamsClassMuffins + flanneryClassMuffins;
         /*
         12. Mrs. Hilt bought a yoyo for 24 cents and a whistle for 14 cents. How
         much did she spend in all for the two toys?
         */
-
+		int yoyoCostCents = 24;
+		int whistleCostCents = 14;
+		int totalToyCost = yoyoCostCents + whistleCostCents;
         /*
         13. Mrs. Hilt made 5 Rice Krispie Treats. She used 8 large marshmallows
-        and 10 mini marshmallows.How many marshmallows did she use
+        and 10 mini marshmallows. How many marshmallows did she use
         altogether?
         */
-
+		
+		int totalRiceKrispiesMade = 5;
+		int largeMarshmallowCount = 8;
+		int smallMarshmallowCount = 10;
+		//I assume the marshmallows needed per rice krispie treat is 18
+		int totalMarshmallowCountUsed = totalRiceKrispiesMade(smallMarshmallowCount + largeMarshmallowCount);
         /*
         14. At Mrs. Hilt's house, there was 29 inches of snow, and Brecknock
         Elementary School received 17 inches of snow. How much more snow
