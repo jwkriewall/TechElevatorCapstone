@@ -10,6 +10,8 @@ public class Exercises {
 	 sleepIn(false, true) → true
 	 */
 	public boolean sleepIn(boolean weekday, boolean vacation) {
+		//if sleepIn = (weekday == vacation);
+		
 		return false;
 	}
 
@@ -22,6 +24,18 @@ public class Exercises {
 	 monkeyTrouble(true, false) → false
 	 */
 	public boolean monkeyTrouble(boolean aSmile, boolean bSmile) {
+		if (aSmile == true && bSmile == true) {
+			return true;
+		}
+		if (!aSmile == true && !bSmile == true) {
+			return true;
+		}
+		if (aSmile == true && bSmile == false) {
+			return false;
+		}
+		if (aSmile == false && bSmile == true) {
+			return false;
+		}
 		return false;
 	}
 
