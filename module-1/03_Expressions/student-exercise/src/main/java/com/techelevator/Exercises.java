@@ -4,13 +4,17 @@ public class Exercises {
 
 	/*
 	 1. The parameter weekday is true if it is a weekday, and the parameter vacation is true if we are on
-	 vacation. We sleep in if it is not a weekday or we're on vacation. Return true if we sleep in.
+	 vacation. 
+	 We sleep in if it is not a weekday or we're on vacation. Return true if we sleep in.
 	 sleepIn(false, false) → true
 	 sleepIn(true, false) → false
 	 sleepIn(false, true) → true
 	 */
 	public boolean sleepIn(boolean weekday, boolean vacation) {
-		//if sleepIn = (weekday == vacation);
+		
+		if (!weekday || vacation) {
+			return true;
+		}
 		
 		return false;
 	}
@@ -40,13 +44,18 @@ public class Exercises {
 	}
 
 	/*
-	 3. Given two int values, return their sum. Unless the two values are the same, then return double their sum.
+	 3. Given two int values, return their sum. 
+	 Unless the two values are the same, then return double their sum.
 	 sumDouble(1, 2) → 3
 	 sumDouble(3, 2) → 5
 	 sumDouble(2, 2) → 8
 	 */
 	public int sumDouble(int a, int b) {
-		return 0;
+		if (a == b) {
+			return (a + b) * 2;
+		}
+		else 
+		return a + b;
 	}
 
 	/*
@@ -85,14 +94,31 @@ public class Exercises {
 	}
 
 	/*
-	 7. Given 2 int values, return true if one is negative and one is positive. Except if the parameter
-	 "negative" is true, then return true only if both are negative.
+	 7. Given 2 int values, 
+	 return true if one is negative and one is positive. 
+	 Except if the parameter "negative" is true, 
+	 then return true only if both are negative.
+	 
 	 posNeg(1, -1, false) → true
 	 posNeg(-1, 1, false) → true
 	 posNeg(-4, -5, true) → true
 	 */
 	public boolean posNeg(int a, int b, boolean negative) {
+		if (negative == true) {
+			if (a < 0 && b < 0) {
+				return true;
+			}
+		}
+		if (negative == false) {
+			if (a > 0 && b < 0) {
+				return true;
+			}
+			if (a < 0 && b > 0) {
+				return true;
+			}
+		}
 		return false;
+		
 	}
 
 	/*
