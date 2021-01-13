@@ -59,7 +59,8 @@ public class Exercises {
 	}
 
 	/*
-	 4. Given an int n, return the absolute difference between n and 21, except return double the absolute
+	 4. Given an int n, return the absolute difference between n and 21, 
+	 except return double the absolute
 	 difference if n is over 21.
 	 diff21(19) → 2
 	 diff21(10) → 11
@@ -68,28 +69,42 @@ public class Exercises {
 	 diff21(-10) → 31
 	 */
 	public int diff21(int n) {
-		return 0;
+		if (n > 21) {
+			return (n - 21) * 2;
+		}
+		return (21 - n);
 	}
 
 	/*
-	 5. We have a loud talking parrot. The "hour" parameter is the current hour time in the range 0..23.
-	 We are in trouble if the parrot is talking and the hour is before 7 or after 20. Return true if
-	 we are in trouble.
+	 5. We have a loud talking parrot. 
+	 The "hour" parameter is the current hour time in the range 0..23.
+	 We are in trouble if the parrot is talking and the hour is before 7 or after 20. 
+	 Return true if we are in trouble.
+	 
 	 parrotTrouble(true, 6) → true
 	 parrotTrouble(true, 7) → false
 	 parrotTrouble(false, 6) → false
 	 */
 	public boolean parrotTrouble(boolean talking, int hour) {
+		if (talking && (hour < 7 || hour > 20)) {
+			return true;
+		}
 		return false;
-	}
+		}
+	
 
 	/*
-	 6. Given 2 ints, a and b, return true if one if them is 10 or if their sum is 10.
+	 6. Given 2 ints, a and b, return true if one if them is 10 
+	 or if their sum is 10.
+	 
 	 makes10(9, 10) → true
 	 makes10(9, 9) → false
 	 makes10(1, 9) → true
 	 */
 	public boolean makes10(int a, int b) {
+		if (a == 10 || b == 10 || (a + b) == 10) {
+			return true;
+		}
 		return false;
 	}
 
@@ -122,23 +137,38 @@ public class Exercises {
 	}
 
 	/*
-	 8. Return true if the given non-negative number is a multiple of 3 or a multiple of 5.
+	 8. Return true if the given non-negative number is a multiple of 3 
+	 or a multiple of 5.
+	 
 	 (Hint: Think "mod".)
 	 or35(3) → true
 	 or35(10) → true
 	 or35(8) → false
 	 */
 	public boolean or35(int n) {
+		if (n >= 0) {
+			if (n % 3 == 0 || n % 5 == 0) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	/*
-	 9. Given two temperatures, return true if one is less than 0 and the other is greater than 100.
+	 9. Given two temperatures, return true if one is less than 0 
+	 and the other is greater than 100.
+	 
 	 icyHot(120, -1) → true
 	 icyHot(-1, 120) → true
 	 icyHot(2, 120) → false
 	 */
 	public boolean icyHot(int temp1, int temp2) {
+		if (temp1 > 100 && temp2 < 0) {
+			return true;
+		}
+		if (temp1 < 0 && temp2 > 100) {
+			return true;
+		}
 		return false;
 	}
 
@@ -149,28 +179,43 @@ public class Exercises {
 	 in1020(8, 99) → false
 	 */
 	public boolean in1020(int a, int b) {
+		if (a > 9 && a < 21) {
+			return true;
+		}
+		if (b > 9 && b < 21) {
+			return true;
+		}
 		return false;
 	}
 
 	/*
-	 11. We'll say that a number is "teen" if it is in the range 13..19 inclusive. Given 3 int values,
-	 return true if 1 or more of them are teen.
+	 11. We'll say that a number is "teen" if it is in the range 13..19 inclusive. 
+	 Given 3 int values, return true if 1 or more of them are teen.
+	 
 	 hasTeen(13, 20, 10) → true
 	 hasTeen(20, 19, 10) → true
 	 hasTeen(20, 10, 13) → true
 	 */
 	public boolean hasTeen(int a, int b, int c) {
+		if (((a > 12) && (a < 20)) || ((b > 12) && (b < 20)) || ((c > 12) && (c < 20))) {
+				return true;
+		}
 		return false;
 	}
 
 	/*
-	 12. We'll say that a number is "teen" if it is in the range 13..19 inclusive. Given 2 int values,
+	 12. We'll say that a number is "teen" if it is in the range 13..19 inclusive. 
+	 Given 2 int values,
 	 return true if one or the other is teen, but not both.
+	 
 	 loneTeen(13, 99) → true
 	 loneTeen(21, 19) → true
 	 loneTeen(13, 13) → false
 	 */
 	public boolean loneTeen(int a, int b) {
+		if ((a > 12 && a < 20) ^ (b > 12 && b < 20)) {
+			return true;
+		}
 		return false;
 	}
 
