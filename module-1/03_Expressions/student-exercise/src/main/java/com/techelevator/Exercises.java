@@ -272,7 +272,9 @@ public class Exercises {
 				return b;
 			}
 		}
-		return 0;
+		//if (a > 20 || a < 10) && (b > 20 || b < 10){
+			return 0;
+		//}
 	}
 
 	/*
@@ -583,18 +585,13 @@ public class Exercises {
 	//Is there a static return value?
 	
 	public int teaParty(int tea, int candy) {
-		if ((tea >= (candy * 2)) || (candy >= (tea * 2))) {
-			return 2;
-		}
-		if (tea >= 5 && candy >= 5) {
-			return 1;
-		}
-		if (tea < 5 || candy < 5) {
+		if(tea < 5 || candy < 5) {
 			return 0;
 		}
-		
-		return 0;
-		
+		if(candy * 2 <= tea || tea * 2 <= candy) { 
+			return 2;
+		}
+			return 1;
 	}
 
 	/*
@@ -688,11 +685,11 @@ public class Exercises {
 	 luckySum(13, 13, 3) → 0
 	 */
 	public int luckySum(int a, int b, int c) {
-		if(a != 13 && b != 13 && c != 13) {
-			return a + b + c;
+		if (a == 13 && b == 13) {
+			return 0;
 		}
 		if (a == 13){
-			return 0;
+			return c;
 		}
 		if (b == 13){
 			return a;
@@ -700,7 +697,7 @@ public class Exercises {
 		if (c == 13){
 			return a + b;
 		}
-		return 0;
+		return a + b + c;
 	}
 
 }
