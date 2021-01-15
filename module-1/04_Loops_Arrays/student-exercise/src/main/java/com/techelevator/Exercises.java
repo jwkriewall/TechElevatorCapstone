@@ -10,7 +10,7 @@ public class Exercises {
 	 firstLast6([13, 6, 1, 2, 3]) → false
 	 */
 	public boolean firstLast6(int[] nums) {
-		if (nums[0] == 6 || nums[nums.length - 1] == 0) {
+		if (nums[0] == 6 || nums[nums.length - 1] == 6) {
 			return true;
 		}
 		return false;
@@ -24,6 +24,9 @@ public class Exercises {
 	 sameFirstLast([1, 2, 1]) → true
 	 */
 	public boolean sameFirstLast(int[] nums) {
+		if (nums.length >= 1 && nums[0] == nums[nums.length - 1]) {
+			return true;
+		}
 		return false;
 	}
 
@@ -32,7 +35,8 @@ public class Exercises {
 	 makePi() → [3, 1, 4]
 	 */
 	public int[] makePi() {
-		return new int[] {};
+		int[] piNumbers = {3, 1, 4};
+		return piNumbers;
 	}
 
 	/*
@@ -43,6 +47,10 @@ public class Exercises {
 	 commonEnd([1, 2, 3], [1, 3]) → true
 	 */
 	public boolean commonEnd(int[] a, int[] b) {
+		if (a[0] == b[0] || a[a.length - 1] == b[b.length - 1]) {
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -53,7 +61,7 @@ public class Exercises {
 	 sum3([7, 0, 0]) → 7
 	 */
 	public int sum3(int[] nums) {
-		return 0;
+		return nums[0] + nums[1] + nums[2];
 	}
 
 	/*
@@ -64,7 +72,9 @@ public class Exercises {
 	 rotateLeft3([7, 0, 0]) → [0, 0, 7]
 	 */
 	public int[] rotateLeft3(int[] nums) {
-		return new int[] {};
+		int [] numbersRotated = {nums[1], nums[2], nums[0]};
+		
+		return numbersRotated;
 	}
 
 	/*
@@ -75,7 +85,7 @@ public class Exercises {
 	 reverse3([7, 0, 0]) → [0, 0, 7]
 	 */
 	public int[] reverse3(int[] nums) {
-		return new int[] {};
+		return new int[] {nums[2], nums[1], nums[0]};
 	}
 
 	/*
@@ -86,17 +96,32 @@ public class Exercises {
 	 maxEnd3([2, 11, 3]) → [3, 3, 3]
 	 */
 	public int[] maxEnd3(int[] nums) {
+		if (nums[0] > nums[2]) {
+			return new int[] {nums[0], nums[0], nums[0]};
+		}
+		if (nums[0] < nums[2]) {
+			return new int[] {nums[2], nums[2], nums[2]};
+		}
 		return new int[] {};
 	}
 
 	/*
-	 9. Given an array of ints, return the sum of the first 2 elements in the array. If the array length
+	 9. Given an array of ints, return the sum of the first 2 elements in the array. 
+	 
+	 If the array length
 	  is less than 2, just sum up the elements that exist, returning 0 if the array is length 0.
+	 
 	 sum2([1, 2, 3]) → 3
 	 sum2([1, 1]) → 2
 	 sum2([1, 1, 1, 1]) → 2
 	 */
 	public int sum2(int[] nums) {
+		if (nums.length >= 2) {
+			return (nums[0] + nums[1]);
+		}
+		if (nums.length == 1) {
+			return (nums[0]);
+		}
 		return 0;
 	}
 
@@ -108,18 +133,28 @@ public class Exercises {
 	 middleWay([5, 2, 9], [1, 4, 5]) → [2, 4]
 	 */
 	public int[] middleWay(int[] a, int[] b) {
-		return new int[] {};
+		
+		int [] middle = {a[1], b[1]};
+		return middle;
 	}
 
 	/*
 	 11. Return the number of even ints in the given array. Note: the % "mod" operator computes the 
 	 remainder, e.g. 5 % 2 is 1.
+	 
 	 countEvens([2, 1, 2, 3, 4]) → 3
 	 countEvens([2, 2, 0]) → 3
 	 countEvens([1, 3, 5]) → 0
 	 */
 	public int countEvens(int[] nums) {
-		return 0;
+		int evenNumbers = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] % 2 == 0) {
+				evenNumbers++;
+			}
+			
+		}
+		return evenNumbers;
 	}
 
 	/*
@@ -143,7 +178,18 @@ public class Exercises {
 	 has22([2, 1, 2]) → false
 	 */
 	public boolean has22(int[] nums) {
-		return false;
+		boolean has2Twos = false;
+		
+		for (int i = 0; i < nums.length - 1; i++) {
+			if (nums[i] == 2) {
+				if (nums[i+1] == 2) {
+					has2Twos = true;
+					break;
+				}
+			}
+		}
+		
+		return has2Twos;
 	}
 	
 	/*
