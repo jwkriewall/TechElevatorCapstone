@@ -158,9 +158,11 @@ public class Exercises {
 	}
 
 	/*
-	 12. Return the sum of the numbers in the array, returning 0 for an empty array. Except the number 
+	 12. Return the sum of the numbers in the array, returning 0 for an empty array. 
+	 Except the number 
 	 13 is very unlucky, so it does not count and numbers that come immediately after a 13 also do 
 	 not count.
+	 
 	 sum13([1, 2, 2, 1]) → 6
 	 sum13([1, 1]) → 2
 	 sum13([1, 2, 2, 1, 13]) → 6
@@ -168,7 +170,22 @@ public class Exercises {
 	 sum13([1, 2, 2, 1, 13, 3, 4]) → 10
 	 */
 	public int sum13(int[] nums) {
-		return 0;
+		int sum = 0;
+		if (nums.length == 0){
+			return 0;
+		}
+		
+		
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] != 13) {
+				sum = sum += nums[i];
+			
+				if (i > 0 && nums[i - 1] == 13) {
+					sum = sum -= nums[i];
+				}
+			}
+		}
+		return sum;
 	}
 
 	/*
@@ -194,21 +211,37 @@ public class Exercises {
 	
 	/*
 	 14. Given an array of ints, return true if the array contains no 1's and no 3's.
+	 
 	 lucky13([0, 2, 4]) → true
 	 lucky13([1, 2, 3]) → false
 	 lucky13([1, 2, 4]) → false
 	 */
+	
+	//optimize this using for loop - nums[i] == 1 or 3
 	public boolean lucky13(int[] nums) {
-		return false;
+		if (nums[0] == 1 || nums[1] == 1 || nums[2] == 1 || nums[0] == 3 || nums[1] == 3 || nums[2] == 3) {
+			return false;
+		}
+		return true;
 	}
 
 	/*
 	 15. Given an array of ints, return true if the sum of all the 2's in the array is exactly 8.
+	 
 	 sum28([2, 3, 2, 2, 4, 2]) → true
 	 sum28([2, 3, 2, 2, 4, 2, 2]) → false
 	 sum28([1, 2, 3, 4]) → false
 	 */
 	public boolean sum28(int[] nums) {
+		int sum = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] == 2) {
+				sum = sum += 2;
+			}
+		}
+		if (sum == 8) {
+			return true;
+		}
 		return false;
 	}
 
