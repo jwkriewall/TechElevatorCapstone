@@ -171,23 +171,21 @@ public class Exercises {
 	 */
 	public int sum13(int[] nums) {
 		int sum = 0;
-		if (nums.length == 0){
-			return 0;
-		}
-		
 		
 		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] != 13) {
-				sum = sum += nums[i];
-			
-				if (i > 0 && nums[i - 1] == 13) {
-					sum = sum -= nums[i];
-				}
+			if (nums[i] == 13) {
+				i++;	
+			}
+			else {
+				sum += nums[i];
 			}
 		}
 		return sum;
 	}
 
+	//
+	
+	
 	/*
 	 13. Given an array of ints, return true if the array contains a 2 next to a 2 somewhere.
 	 has22([1, 2, 2]) → true
