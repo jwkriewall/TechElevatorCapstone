@@ -44,7 +44,7 @@ import java.util.Scanner;
 	
 	//Store the remainder when the number is divided by 2 in an array.
 	//Divide number by 2
-	//Repeat the above two steps until the number is greater than zero.
+	//Repeat the above two steps until the remaining number is greater than zero.
 	//Print the array in reverse order now.
 	
 public class DecimalToBinary {
@@ -53,21 +53,31 @@ public class DecimalToBinary {
 	
 	Scanner input = new Scanner(System.in);
 	
-		String result = "";
+		
+		
+		int[] binary = new int[20];
 			
-		System.out.print("Please enter in a series of decimal values (separated by spaces) ");
+		System.out.print("Please enter in a series of decimal values (separated by spaces): ");
 		String numbersArray = input.nextLine();
 		String[] array = numbersArray.split(" ");
-	
-		int binary[] = new int[20];
-	     int index = 0;
-	     while(num > 0){
-	       binary[index++] = array[i] %2;
-	       num = num/2;
-	     }
-	     for(int i = index-1;i >= 0;i--){
-	       System.out.print(binary[i]);
-	     }
+		
+		int[] numbers = new int[array.length];
+		for (int i = 0; i < array.length; i++) {
+			numbers[i] = Integer.parseInt(array[i]);
+		}
+		
+		for (int i = 0; i < numbers.length; i++) {
+			while (numbers[i] >= 0) {
+				binary[i++] = numbers[i] % 2;
+				numbers[i] = numbers[i] / 2;
+			}
+		}
+		for (int i = 0; i < numbers.length; i++) {
+			
+			for (int j = i - 1; j >= 0; j--) {
+				System.out.println(binary[j]);
+			}
+		}
 	}
 }
 

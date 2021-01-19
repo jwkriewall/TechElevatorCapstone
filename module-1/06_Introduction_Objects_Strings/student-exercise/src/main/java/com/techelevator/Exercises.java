@@ -242,26 +242,36 @@ public class Exercises {
 	
 
 	/*
-	 Given a string and an int n, return a string made of the first and last n chars from the string. The
-	 string length will be at least n.
+	 Given a string and an int n, return a string made of the first and last n chars from the string. 
+	 The string length will be at least n.
+	 
 	 nTwice("Hello", 2) → "Helo"
 	 nTwice("Chocolate", 3) → "Choate"
 	 nTwice("Chocolate", 1) → "Ce"
 	 */
 	public String nTwice(String str, int n) {
-		return null;
+		return str.substring(0, n) + str.substring(str.length() - n);
 	}
 
 	/*
-	 Given a string and an index, return a string length 2 starting at the given index. If the index is
-	 too big or too small to define a string length 2, use the first 2 chars. The string length will be
-	 at least 2.
+	 Given a string and an index, return a string length 2 starting at the given index. 
+	 If the index is
+	 too big or too small to define a string length 2, use the first 2 chars. 
+	 The string length will be at least 2.
+	 
 	 twoChar("java", 0) → "ja"
 	 twoChar("java", 2) → "va"
 	 twoChar("java", 3) → "ja"
 	 */
 	public String twoChar(String str, int index) {
-		return null;
+		if (str.length() < index + 1 && index > 0) {
+			return str.substring(0,2);
+		}
+		if (str.length() > index + 1 && str.length() >= 2 && index > 0) {
+			return str.substring(index, index + 2);
+		}
+		else
+		return str.substring(0, 2);
 	}
 
 	/*
@@ -272,60 +282,120 @@ public class Exercises {
 	 middleThree("solving") → "lvi"
 	 */
 	public String middleThree(String str) {
-		return null;
+		if (str.length() > 3) {
+			return str.substring((str.length() - 1) / 2 - 1, str.length() - str.length() / 2 + 1 );
+		}
+		return str;
 	}
 
 	/*
 	 Given a string, return true if "bad" appears starting at index 0 or 1 in the string, such as with
-	 "badxxx" or "xbadxx" but not "xxbadxx". The string may be any length, including 0. Note: use .equals()
-	 to compare 2 strings.
+	 "badxxx" or "xbadxx" but not "xxbadxx". The string may be any length, including 0. 
+	 Note: use .equals()to compare 2 strings.
 	 hasBad("badxx") → true
 	 hasBad("xbadxx") → true
 	 hasBad("xxbadxx") → false
 	 */
 	public boolean hasBad(String str) {
+		if (str.length() >= 3 && str.substring(0, 3).equals("bad")) {
+			return true;
+		}
+		if (str.length() >= 4 && str.substring(1,4).equals("bad")) {
+			return true;
+		}
 		return false;
 	}
 
 	/*
-	 Given a string and a non-negative int n, return a larger string that is n copies of the original string.
+	 Given a string and a non-negative int n, 
+	 return a larger string that is n copies of the original string.
+	 
 	 stringTimes("Hi", 2) → "HiHi"
 	 stringTimes("Hi", 3) → "HiHiHi"
 	 stringTimes("Hi", 1) → "Hi"
 	 */
 	public String stringTimes(String str, int n) {
-		return null;
+		String result = "";
+		for (int i = 0; i < n; i++) {
+			result = result + str;
+		}
+		return result;
 	}
 
 	/*
-	 Given a string and a non-negative int n, we'll say that the front of the string is the first 3 chars, or
-	 whatever is there if the string is less than length 3. Return n copies of the front;
+	 Given a string and a non-negative int n, we'll say that the front of the string is the first 3 chars, 
+	 or whatever is there if the string is less than length 3. 
+	 Return n copies of the front;
+	 
 	 frontTimes("Chocolate", 2) → "ChoCho"
 	 frontTimes("Chocolate", 3) → "ChoChoCho"
 	 frontTimes("Abc", 3) → "AbcAbcAbc"
 	 */
 	public String frontTimes(String str, int n) {
-		return null;
+		String result = "";
+		if (str.length() >= 3) {
+			String firstThree = str.substring(0,3);
+			for (int i = 0; i < n; i++) {
+				result = firstThree + result;
+			}
+		}
+		if(str.length() == 2) {
+			String firstTwo =  str.substring(0, 2);
+			for (int i = 0; i < n; i++) {
+				result = firstTwo + result;
+			}
+		}
+		if(str.length() == 1) {
+			String firstOne =  str.substring(0, 1);
+			for (int i = 0; i < n; i++) {
+				result = firstOne + result;
+			}
+		}
+		
+		return result;
 	}
 
 	/*
-	 Count the number of "xx" in the given string. We'll say that overlapping is allowed, so "xxx" contains 2 "xx".
+	 Count the number of "xx" in the given string. We'll say that overlapping is allowed, 
+	 so "xxx" contains 2 "xx".
 	 countXX("abcxx") → 1
 	 countXX("xxx") → 2
-	 countXX("xxxx") →
+	 countXX("xxxx") → 3
 	 */
+	
+	//Review this one!
+	
+	
 	public int countXX(String str) {
-		return 0;
+		int xCount = 0;
+		for (int i = 0; i < str.length() - 1; i++) {
+			if(str.substring(i, i + 2).equals("xx")) {
+				xCount++;
+			}
+		}
+		return xCount;
 	}
 
 	/*
-	 Given a string, return true if the first instance of "x" in the string is immediately followed by another "x".
+	 * 
+	 * 
+	 * Review needed
+	 * 
+	 Given a string, return true if the first instance of "x" in the string 
+	 is immediately followed by another "x".
+	 
 	 doubleX("axxbb") → true
 	 doubleX("axaxax") → false
 	 doubleX("xxxxx") → true
 	 */
 	public boolean doubleX(String str) {
-		return false;
+		boolean twoX = false;
+		for (int i = 0; i < str.length(); i++) {
+			if (str.substring(i,i+1).equals("xx")) {
+				twoX = true;
+			}
+		}
+		return twoX;
 	}
 
 	/*
