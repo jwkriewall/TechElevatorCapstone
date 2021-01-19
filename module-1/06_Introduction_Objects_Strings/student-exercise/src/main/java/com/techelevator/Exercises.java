@@ -381,6 +381,7 @@ public class Exercises {
 	 * 
 	 * Review needed
 	 * 
+	 * 
 	 Given a string, return true if the first instance of "x" in the string 
 	 is immediately followed by another "x".
 	 
@@ -389,14 +390,25 @@ public class Exercises {
 	 doubleX("xxxxx") → true
 	 */
 	public boolean doubleX(String str) {
-		boolean twoX = false;
-		for (int i = 0; i < str.length(); i++) {
-			if (str.substring(i,i+1).equals("xx")) {
-				twoX = true;
-			}
-		}
-		return twoX;
+		return false;
 	}
+		
+//	How can I manipulate this code to work for this problemset?
+//		for (int i = 0; i < str.length() - 1; i++) {
+//			if (str.substring(i,i+1).equals("x")) {
+//				if (str.substring(i+1,i+2).equals("x")) {
+//					
+//				
+//				return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
+		
+		//int i = str.indexOf("x");
+			
+		//}
 
 	/*
 	 Given a string, return a new string made of every other char starting with the first, so "Hello" yields "Hlo".
@@ -405,7 +417,11 @@ public class Exercises {
 	 stringBits("Heeololeo") → "Hello"
 	 */
 	public String stringBits(String str) {
-		return null;
+		String result = "";
+		for (int i = 0; i < str.length(); i+=2) {
+			result = result + str.substring(i,i+1);
+		}
+		return result;
 	}
 
 	/*
