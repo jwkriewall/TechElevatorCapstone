@@ -131,7 +131,7 @@ public class Exercises {
 	 */
 	public String comboString(String a, String b) {
 		if (a.length() > b.length()) {
-			return b + a + a;
+			return b + a + b;
 		}
 		return a + b + a;
 	}
@@ -193,12 +193,14 @@ public class Exercises {
 	 theEnd("oh", true) → "o"
 	 */
 	public String theEnd(String str, boolean front) {
-		if (front = true) {
+		if (front) {
 			return str.substring(0,1);
 		}
-		
+		else if(!front) {
 			return str.substring(str.length() - 1);
 		}
+		return null;
+	}
 
 	/*
 	 Given a string, return a version without both the first and last char of the string. 
@@ -390,6 +392,11 @@ public class Exercises {
 	 doubleX("xxxxx") → true
 	 */
 	public boolean doubleX(String str) {
+		for (int i = 0; i < str.length() - 1; i++) {
+			if (str.charAt(i) == 'x' && str.charAt(i+1) == 'x') {
+				return true;
+			}
+		}
 		return false;
 	}
 		
@@ -451,10 +458,8 @@ public class Exercises {
 		for(int i = 0; i < str.length() - 1; i++) {
 		
 			if (str.substring(str.length() - 2).equals(str.substring(i,i+2))) {
-			count++;
-				
+			count++;	
 			}
-			
 		}
 		if (count > 0) {
 			return count - 1;
