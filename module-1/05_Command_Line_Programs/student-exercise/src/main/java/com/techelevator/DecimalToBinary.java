@@ -66,10 +66,13 @@ public class DecimalToBinary {
 		//String binary = "";
 		for (int j = 0; j < numbers.length; j++) {
 			String binary = "";
-			for (int i = numbers[j]; i < numbersArray.length; i /= 2) {
-				binary = (i % 2) + binary;
+			
+			while(numbers[j] > 0) {
+				binary = (numbers[j] % 2) + binary;
+				numbers[j] /= 2;
 			}
-		System.out.println(numbers[j] + " in binary is " + binary + ".");
+		
+		System.out.println(numbersArray[j] + " in binary is " + binary + ".");
 		
 		}
 		input.close();

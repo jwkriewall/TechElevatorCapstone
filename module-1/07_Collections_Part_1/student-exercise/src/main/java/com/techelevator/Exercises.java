@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Exercises {
@@ -16,8 +17,9 @@ public class Exercises {
 	 array2List( {"Left", "Right", "Forward", "Back"} )  ->  ["Left", "Right", "Forward", "Back"]
 	 */
 	public List<String> array2List(String[] stringArray) {
-		String[] newStringArray = stringArray.toArray( new String[stringArray.size()])
-			return printThis;
+		
+		List<String> result = Arrays.asList(stringArray);
+		return result;
 		}
 		
 
@@ -30,9 +32,8 @@ public class Exercises {
 	 list2Array( ["Left", "Right", "Forward", "Back"] )  ->  {"Left", "Right", "Forward", "Back"}
 	 */
 	public String[] list2Array(List<String> stringList) {
-		List<String> strArr = new ArrayList<String>();
-		for (String printThis : strArr)
-			return printThis;
+		String [] result = stringList.toArray(new String [stringList.size()]);
+			return result;
 		
 	}
 
@@ -48,11 +49,11 @@ public class Exercises {
 		List<String> words = new ArrayList<String>();
 		
 		for(String word : stringArray) {
-			if ( word.length() != 4) {
+			if (word.length() != 4) {
 				words.add(word);
 			}
 		}
-		return null;
+		return words;
 	}
 
 	/*
