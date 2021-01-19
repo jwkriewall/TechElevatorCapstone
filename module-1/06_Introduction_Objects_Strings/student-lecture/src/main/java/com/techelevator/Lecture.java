@@ -108,6 +108,14 @@ public class Lecture {
 		// If just beginning is given, end will fill in.
 		
 		boolean contains = str.contains("elevator");
+		
+		
+		//Splits a string on a character into an array
+		String strToSplit = "This is a String to split on the space";
+		String[] parts = strToSplit.split(" ");
+		
+		
+		String countDown = String.join("-->", "Five", "Four", "Three", "Two", "One");
 
 		/* Other commonly used methods:
 		 *

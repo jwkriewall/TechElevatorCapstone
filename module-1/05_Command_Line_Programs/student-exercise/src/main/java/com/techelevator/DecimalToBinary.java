@@ -52,32 +52,28 @@ public class DecimalToBinary {
 	public static void main(String[] args) {
 	
 	Scanner input = new Scanner(System.in);
-	
 		
 		
-		int[] binary = new int[20];
 			
 		System.out.print("Please enter in a series of decimal values (separated by spaces): ");
-		String numbersArray = input.nextLine();
-		String[] array = numbersArray.split(" ");
+		String [] numbersArray = input.nextLine().split(" ");
+		int[] numbers = new int[numbersArray.length];
 		
-		int[] numbers = new int[array.length];
-		for (int i = 0; i < array.length; i++) {
-			numbers[i] = Integer.parseInt(array[i]);
+		for (int i = 0; i < numbersArray.length; i++) {
+			numbers[i] = Integer.parseInt(numbersArray[i]);
 		}
 		
-		for (int i = 0; i < numbers.length; i++) {
-			while (numbers[i] >= 0) {
-				binary[i++] = numbers[i] % 2;
-				numbers[i] = numbers[i] / 2;
+		//String binary = "";
+		for (int j = 0; j < numbers.length; j++) {
+			String binary = "";
+			for (int i = numbers[j]; i < numbersArray.length; i /= 2) {
+				binary = (i % 2) + binary;
 			}
+		System.out.println(numbers[j] + " in binary is " + binary + ".");
+		
 		}
-		for (int i = 0; i < numbers.length; i++) {
-			
-			for (int j = i - 1; j >= 0; j--) {
-				System.out.println(binary[j]);
-			}
-		}
+		input.close();
+	//}
 	}
 }
 

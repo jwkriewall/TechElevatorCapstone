@@ -1,5 +1,8 @@
 package com.techelevator;
 
+import java.util.Scanner;
+import com.techelevator.data.NumberCruncher;
+
 
 public class ImportExample {
 	

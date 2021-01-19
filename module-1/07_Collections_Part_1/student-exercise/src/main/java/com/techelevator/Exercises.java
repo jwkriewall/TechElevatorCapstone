@@ -16,8 +16,12 @@ public class Exercises {
 	 array2List( {"Left", "Right", "Forward", "Back"} )  ->  ["Left", "Right", "Forward", "Back"]
 	 */
 	public List<String> array2List(String[] stringArray) {
-		return null;
-	}
+		String[] newStringArray = stringArray.toArray( new String[stringArray.size()])
+			return printThis;
+		}
+		
+
+	
 
 	/*
 	 Given a list of Strings, return an array containing the same Strings in the same order
@@ -26,7 +30,10 @@ public class Exercises {
 	 list2Array( ["Left", "Right", "Forward", "Back"] )  ->  {"Left", "Right", "Forward", "Back"}
 	 */
 	public String[] list2Array(List<String> stringList) {
-		return null;
+		List<String> strArr = new ArrayList<String>();
+		for (String printThis : strArr)
+			return printThis;
+		
 	}
 
 	/*
@@ -37,6 +44,14 @@ public class Exercises {
 	 no4LetterWords( {"Jack", "Jill", "Jane", "John", "Jim"} )  ->  ["Jim"]
 	 */
 	public List<String> no4LetterWords(String[] stringArray) {
+		
+		List<String> words = new ArrayList<String>();
+		
+		for(String word : stringArray) {
+			if ( word.length() != 4) {
+				words.add(word);
+			}
+		}
 		return null;
 	}
 

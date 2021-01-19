@@ -431,7 +431,11 @@ public class Exercises {
 	 stringSplosion("ab") → "aab"
 	 */
 	public String stringSplosion(String str) {
-		return null;
+		String returnThis = "";
+		for (int i = 0; i < str.length() - 1; i++) {
+			returnThis += str.substring(0,i+2);
+		}
+		return str.substring(0,1) + returnThis;
 	}
 
 	/*
@@ -442,17 +446,36 @@ public class Exercises {
 	 last2("axxxaaxx") → 2
 	 */
 	public int last2(String str) {
+		int count = 0;
+		
+		for(int i = 0; i < str.length() - 1; i++) {
+		
+			if (str.substring(str.length() - 2).equals(str.substring(i,i+2))) {
+			count++;
+				
+			}
+			
+		}
+		if (count > 0) {
+			return count - 1;
+		}
 		return 0;
 	}
 
 	/*
-	 Given a string, return a version where all the "x" have been removed. Except an "x" at the very start or end
-	 should not be removed.
+	 Given a string, return a version where all the "x" have been removed. 
+	 Except an "x" at the very start or end should not be removed.
 	 stringX("xxHxix") → "xHix"
 	 stringX("abxxxcd") → "abcd"
 	 stringX("xabxxxcdx") → "xabcdx"
 	 */
 	public String stringX(String str) {
+		for(int i = 0; i < str.length(); i++) {
+			//if (str.indexOf(i+1).equals("x")) {
+				str.replace("x", "");
+			}
+		
+		//}
 		return null;
 	}
 
@@ -481,13 +504,26 @@ public class Exercises {
 	}
 
 	/*
-	 Suppose the string "yak" is unlucky. Given a string, return a version where all the "yak" are removed.
+	 Suppose the string "yak" is unlucky. 
+	 Given a string, return a version where all the "yak" are removed.
 	 The "yak" strings will not overlap.
+	 
 	 stringYak("yakpak") → "pak"
 	 stringYak("pakyak") → "pak"
 	 stringYak("yak123ya") → "123ya"
 	 */
 	public String stringYak(String str) {
+		
+		for (int i = 0; i < str.length(); i++) {
+			if (str.substring(i, i+3).equals("yak")) {
+				
+				//minusYak =  minusYak += str.substring(0, i);
+				//minusYak = minusYak += str.substring(i+3);
+				str.substring(i,i+3).replace("yak", "");
+			}
+			
+			return str;
+		}
 		return null;
 	}
 
