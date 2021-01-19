@@ -63,7 +63,19 @@ public class Exercises {
 	 arrayInt2ListDouble( {84, 99, 3285, 13, 877} ) -> [42, 49.5, 1642.5, 6.5, 438.5]
 	 */
 	public List<Double> arrayInt2ListDouble(int[] intArray) {
-		return null;
+		
+		List<Double> dividedValues = new ArrayList<Double>();
+		//dividedValues is a named (EMPTY) Array List of Doubles.
+		// dividedValues represents a potential Array List of Doubles.
+		
+		for(Integer dividedByTwo : intArray) {
+			// Integer describes the nature of the array being input.
+			// dividedByTwo is a named (EMPTY) set, to be filled by intArray.
+			// intArray is the 
+			dividedValues.add(dividedByTwo / 2.0);
+			
+		}
+		return dividedValues;
 	}
 
 	/*
@@ -73,7 +85,17 @@ public class Exercises {
 	 findLargest( [34070, 1380, 81238, 7782, 234, 64362, 627] ) -> 64362
 	 */
 	public Integer findLargest(List<Integer> integerList) {
-		return null;
+		List<Integer> highestValue = new ArrayList<Integer>();
+		
+		int value = integerList.get(0);
+		for (Integer input : integerList) {
+		//for (int i = 0; i < highestValue.size(); i++) {
+			//while(integerList.get(i) > integerList.get(i + 1))
+			//if (integerList.get(i) > integerList.get(i + 1)) {
+				//value = integerList.get(i);
+			}
+		
+		return value;
 	}
 
 	/*
@@ -83,7 +105,17 @@ public class Exercises {
 	 oddOnly( {734, 233, 782, 811, 3, 9999} ) -> [233, 811, 3, 9999]
 	 */
 	public List<Integer> oddOnly(Integer[] integerArray) {
-		return null;
+		List<Integer> onlyOddValues = new ArrayList<Integer>();
+		
+		for (Integer modulusTwo : integerArray) {
+			if(modulusTwo % 2 == 1) {
+				onlyOddValues.add(modulusTwo);
+			}
+			//if(modulusTwo % 2 == 0) {
+				//onlyOddValues.remove(modulusTwo);
+			//}
+		}
+		return onlyOddValues;
 	}
 
 	/*
