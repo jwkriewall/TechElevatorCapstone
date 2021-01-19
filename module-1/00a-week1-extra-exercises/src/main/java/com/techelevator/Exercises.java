@@ -9,7 +9,15 @@ public class Exercises {
 	 arrayCount9([1, 9, 9, 3, 9]) → 3
 	 */
 	public int arrayCount9(int[] nums) {
-		return 0;
+		
+		int ninesInArray = 0;
+		
+		for(int i = 0; i < nums.length; i++) {
+			if (nums[i] == 9) 
+				ninesInArray++;
+			
+		}
+		return ninesInArray;
 	}
 
 	/*
@@ -19,7 +27,30 @@ public class Exercises {
 	 arrayFront9([1, 2, 3, 4, 5]) → false
 	 */
 	public boolean arrayFront9(int[] nums) {
-		return false;
+		
+		boolean nineInFirstFour = false;
+		
+			if (nums.length >= 4) {
+				if(nums[0] == 9 || nums[1] == 9 || nums[2] == 9 || nums[3] == 9) 
+					nineInFirstFour = true;
+			}
+			if (nums.length == 3) {
+				if(nums[0] == 9 || nums[1] == 9 || nums[2] == 9)
+					nineInFirstFour = true;
+			}
+			if (nums.length == 2) {
+				if(nums[0] == 9 || nums[1] == 9)
+					nineInFirstFour = true;
+			}
+			if (nums.length == 1) {
+				if(nums[0] == 9)
+					nineInFirstFour = true;
+			}
+			
+		return nineInFirstFour;
+		
+		
+		
 	}
 
 	/*
@@ -29,6 +60,12 @@ public class Exercises {
 	 array123([1, 1, 2, 1, 2, 3]) → true
 	 */
 	public boolean array123(int[] nums) {
+		
+		for (int i = 0; i < nums.length - 2; i++) {
+			if (nums[i] == 1 && nums[i + 1] == 2 && nums[i + 2] == 3) {
+				return true;
+			}
+		}	
 		return false;
 	}
 	
@@ -40,10 +77,20 @@ public class Exercises {
 	 noTriples([1, 1, 1, 2, 2, 2, 1]) → false
 	 */
 	public boolean noTriples(int[] nums) {
-		return false;
+		
+		boolean haveTriple = true;
+		
+		for (int i = 0; i < nums.length - 2; i++) {
+			if(nums[i] == nums[i+1] && nums[i] == nums[i+2])
+				haveTriple = false;
+		}
+		
+		return haveTriple;
 	}
 
 	/*
+	 * 
+	 * $$$$$$$
 	 5. Given an array of ints, return a new array length 2 containing the first and last elements from the 
 	 original array. The original array will be length 1 or more.
 	 makeEnds([1, 2, 3]) → [1, 3]
@@ -51,7 +98,14 @@ public class Exercises {
 	 makeEnds([7, 4, 6, 2]) → [7, 2]
 	 */
 	public int[] makeEnds(int[] nums) {
-		return new int[]{};
+	
+		
+		//int length = nums[nums.length];
+		
+		//int lastNumber = Integer.parseInt(nums[nums.length]);
+		
+		return new int[] {nums[0], nums[nums.length - 1]};
+		
 	}
 
 	/*
@@ -61,6 +115,10 @@ public class Exercises {
 	 has23([4, 5]) → false
 	 */
 	public boolean has23(int[] nums) {
+		for (int i = 0; i < nums.length; i++)
+			if (nums[i] == 2 || nums[i] == 3){
+				return true;
+		}
 		return false;
 	}
 
@@ -71,19 +129,35 @@ public class Exercises {
 	 no23([3, 5]) → false
 	 */
 	public boolean no23(int[] nums) {
-		return false;
+		
+		for (int i = 0; i < nums.length; i++) {
+			if(nums[i] == 2 || nums[i] == 3)
+				return false;
+		}
+		return true;
 	}
 
 	/*
-	 8. Given an int array, return a new array with double the length where its last element is the same as the 
-	 original array, and all the other elements are 0. The original array will be length 1 or more. Note: by 
+	 * 
+	 * 
+	 * 
+	 * 
+	 8. Given an int array, return a new array with double the length 
+	 where its last element is the same as the original array, 
+	 and all the other elements are 0. 
+	 The original array will be length 1 or more. Note: by 
 	 default, a new int array contains all 0's.
+	 
 	 makeLast([4, 5, 6]) → [0, 0, 0, 0, 0, 6]
 	 makeLast([1, 2]) → [0, 0, 0, 2]
 	 makeLast([3]) → [0, 3]
 	 */
 	public int[] makeLast(int[] nums) {
-		return new int[]{};
+		
+		int [] arrayLength = new int[nums.length * 2];
+		arrayLength[arrayLength.length - 1] = nums[nums.length - 1];
+		
+		return arrayLength;
 	}
 
 	/*
@@ -93,10 +167,25 @@ public class Exercises {
 	 double23([2, 3]) → false
 	 */
 	public boolean double23(int[] nums) {
-		return false;
+		boolean two2s = false;
+		
+		
+			if (nums.length == 2 && nums[0] == 2 && nums[1] == 2) {
+				two2s = true;
+			}
+
+			if (nums.length == 2 && nums[0] == 3 && nums[1] == 3) {
+				two2s = true;
+		}
+		return two2s;
 	}
 
 	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 10. Given an int array length 3, if there is a 2 in the array immediately followed by a 3, set the 3 element to 0. 
 	 Return the changed array.
 	 fix23([1, 2, 3]) → [1, 2, 0]
@@ -104,7 +193,18 @@ public class Exercises {
 	 fix23([1, 2, 1]) → [1, 2, 1]
 	 */
 	public int[] fix23(int[] nums) {
-		return new int[]{};
+		// check if 2 followed by 3
+		// change nums[position three] to 0
+		//return updated int
+		
+		for (int i = 0; i <= nums.length; i++) {
+			if (nums[i] <= 2 && nums[i] == 2) {
+				if (nums[i+1] == 3) {
+					nums[i+1] = 0;
+				}
+			}
+		}
+		return new int[]{nums[0], nums[1], nums[2]};
 	}
 
 	/*

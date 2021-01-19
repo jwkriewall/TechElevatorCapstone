@@ -2,14 +2,19 @@ package com.techelevator;
 
 public class Exercises {
 
-	/*
+	/*------------------------>
+	 * 
+	 * 
+	 * 
 	 Given a string name, e.g. "Bob", return a greeting of the form "Hello Bob!".
 	 helloName("Bob") → "Hello Bob!"
 	 helloName("Alice") → "Hello Alice!"
 	 helloName("X") → "Hello X!"
 	 */
 	public String helloName(String name) {
-		return null;
+		String hello = "Hello ";
+		String exclamation = "!";
+		return hello + name + exclamation;
 	}
 
 	/*
@@ -20,7 +25,9 @@ public class Exercises {
 	 makeAbba("What", "Up") → "WhatUpUpWhat"
 	 */
 	public String makeAbba(String a, String b) {
-		return null;
+		String first = a;
+		String second = b;
+		return first + second + second + first;
 	}
 
 	/*
@@ -32,7 +39,9 @@ public class Exercises {
 	 makeTags("cite", "Yay") → "<cite>Yay</cite>"
 	 */
 	public String makeTags(String tag, String word) {
-		return null;
+		String cite = "<" + tag + ">";
+		String endCite = "</" + tag + ">";
+		return cite + word + endCite;
 	}
 
 	/*
@@ -44,18 +53,30 @@ public class Exercises {
 	 makeOutWord("[[]]", "word") → "[[word]]"
 	 */
 	public String makeOutWord(String out, String word) {
-		return null;
+		
+		// Get first 2 chars of out
+		// Get last 2 chars of out
+		// Create new string with first 2 + word + last 2
+		
+		String first = out.substring(0, 2);
+		String last = out.substring(out.length() - 2);
+		return first + word + last;
 	}
 
 	/*
-	 Given a string, return a new string made of 3 copies of the last 2 chars of the original string. The string
-	 length will be at least 2.
+	 Given a string, return a new string made of 3 copies of the last 2 chars of the original string. 
+	 The string length will be at least 2.
 	 extraEnd("Hello") → "lololo"
 	 extraEnd("ab") → "ababab"
 	 extraEnd("Hi") → "HiHiHi"
 	 */
+	
+	//Why does this work?????
+	
 	public String extraEnd(String str) {
-		return null;
+		String lastChar = str.substring(str.length());
+		String secondToLastChar = str.substring(str.length() - 2);
+		return secondToLastChar + lastChar + secondToLastChar + lastChar + secondToLastChar + lastChar;
 	}
 
 	/*
@@ -67,17 +88,26 @@ public class Exercises {
 	 firstTwo("ab") → "ab"
 	 */
 	public String firstTwo(String str) {
-		return null;
+		if (str.length() == 0) {
+			return "";
+		}
+		if (str.length() == 1) {
+			return str.substring(0);
+		}
+		String firstChar = str.substring(0,2);
+		return firstChar;
 	}
 
 	/*
-	 Given a string of even length, return the first half. So the string "WooHoo" yields "Woo".
+	 Given a string of even length, return the first half. 
+	 So the string "WooHoo" yields "Woo".
+	 
 	 firstHalf("WooHoo") → "Woo"
 	 firstHalf("HelloThere") → "Hello"
 	 firstHalf("abcdef") → "abc"
 	 */
 	public String firstHalf(String str) {
-		return null;
+		return str.substring(0, str.length()/2);
 	}
 
 	/*
@@ -88,7 +118,7 @@ public class Exercises {
 	 withoutEnd("coding") → "odin"
 	 */
 	public String withoutEnd(String str) {
-		return null;
+		return str.substring(1,str.length() - 1);
 	}
 
 	/*
@@ -100,18 +130,26 @@ public class Exercises {
 	 comboString("aaa", "b") → "baaab"
 	 */
 	public String comboString(String a, String b) {
-		return null;
+		if (a.length() > b.length()) {
+			return b + a + a;
+		}
+		return a + b + a;
 	}
 
 	/*
-	 Given 2 strings, return their concatenation, except omit the first char of each. The strings will
-	 be at least length 1.
+	 Given 2 strings, return their concatenation, except omit the first char of each. 
+	 The strings will be at least length 1.
+	 
 	 nonStart("Hello", "There") → "ellohere"
 	 nonStart("java", "code") → "avaode"
 	 nonStart("shotl", "java") → "hotlava"
 	 */
 	public String nonStart(String a, String b) {
-		return null;
+		
+		String newString1 = a.substring(1);
+		String newString2 = b.substring(1);
+		
+		return newString1 + newString2;
 	}
 
 	/*
@@ -122,7 +160,10 @@ public class Exercises {
 	 left2("Hi") → "Hi"
 	 */
 	public String left2(String str) {
-		return null;
+		if(str.length() > 2) {
+			return str.substring(2) + str.substring(0,2);
+		}
+		return (str.substring(0));
 	}
 
 	/*
@@ -133,29 +174,44 @@ public class Exercises {
 	 right2("Hi") → "Hi"
 	 */
 	public String right2(String str) {
-		return null;
+		if(str.length() > 2) {
+			return str.substring(str.length() - 2, str.length()) + str.substring(0, str.length() - 2);
+		}
+		return (str.substring(0));
 	}
 
 	/*
-	 Given a string, return a string length 1 from its front, unless front is false, in which case
+	 * 
+	 * I cannot figure this out!!!
+	 * 
+	 Given a string, return a string length 1 from its front, 
+	 unless front is false, in which case
 	 return a string length 1 from its back. The string will be non-empty.
+	 
 	 theEnd("Hello", true) → "H"
 	 theEnd("Hello", false) → "o"
 	 theEnd("oh", true) → "o"
 	 */
 	public String theEnd(String str, boolean front) {
-		return null;
-	}
+		if (front = true) {
+			return str.substring(0,1);
+		}
+		
+			return str.substring(str.length() - 1);
+		}
 
 	/*
-	 Given a string, return a version without both the first and last char of the string. The string
-	 may be any length, including 0.
+	 Given a string, return a version without both the first and last char of the string. 
+	 The string may be any length, including 0.
 	 withoutEnd2("Hello") → "ell"
 	 withoutEnd2("abc") → "b"
 	 withoutEnd2("ab") → ""
 	 */
 	public String withoutEnd2(String str) {
-		return null;
+		if (str.length() > 2) {
+			return str.substring(1, str.length() - 1);
+		}
+		return "";
 	}
 
 	/*
@@ -166,6 +222,7 @@ public class Exercises {
 	 middleTwo("Practice") → "ct"
 	 */
 	public String middleTwo(String str) {
+		
 		return null;
 	}
 
@@ -315,7 +372,21 @@ public class Exercises {
 	 altPairs("CodingHorror") → "Congrr"
 	 */
 	public String altPairs(String str) {
-		return null;
+		String newStr = "";
+		
+		//Loop through string
+		// Skip every 2nd set of #s
+		// get the value and value next to it and add to string
+		// be careful of last index
+		
+		for (int i = 0; i < str.length(); i += 4) {
+			newStr += str.charAt(i);
+			if (i + 1 < str.length()) {
+				newStr += str.charAt(i + 1);
+			}
+		}
+		
+		return newStr;
 	}
 
 	/*
