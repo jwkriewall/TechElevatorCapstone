@@ -3,6 +3,7 @@ package com.techelevator;
 import java.util.Map;
 import java.lang.String;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Exercises {
@@ -124,20 +125,29 @@ public class Exercises {
 		// determine if Paul's money < 1000
 		// if true, transfer PetersMoney / 2 to Paul
 		
+		int petersBankAccount = peterPaul.get("Peter");
 		int paulsBankAccount = peterPaul.get("Paul");
 		int paulsTransfer = 0;
 		
 		if (peterPaul.get("Peter") > 0 && peterPaul.get("Paul") < 1000) {
-			paulsTransfer = (peterPaul.get("Peter") / 2);
 			
-			robPeterToPayPaul.put("'Paul", paulsBankAccount + paulsTransfer);
+			paulsTransfer = (petersBankAccount / 2);
+			
+		// if paul's transfer puts hisbank account at more than 1000, return 1000
+			robPeterToPayPaul.put("Paul", paulsBankAccount + paulsTransfer);
+		}
+		if (paulsBankAccount > 1000) {
+		peterPaul.put("Paul", 1000);
+		peterPaul.put("Peter", petersBankAccount);
+		return robPeterToPayPaul;
 		}
 		
 		return robPeterToPayPaul;
 	}
 
 	/*
-	 * Modify and return the given Map as follows: if "Peter" has $50 or more, AND "Paul" has $100 or more,
+	 * Modify and return the given Map as follows: 
+	 * if "Peter" has $50 or more, AND "Paul" has $100 or more,
 	 * then create a new "PeterPaulPartnership" worth a combined contribution of a quarter of each partner's
 	 * current worth.
 	 *
@@ -146,11 +156,30 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> peterPaulPartnership(Map<String, Integer> peterPaul) {
-		return null;
+		
+		// if peterPaul.get("Peter") >= 5000
+		// if peterPaul.get("Paul") >= 10000
+		// populate new array peterPaulPartnership equal to .25Paul's worth + .25Peter's worth.
+		
+		Map <String, Integer> peterPaulPartnership = new LinkedHashMap <String, Integer>();
+		
+		
+		if (peterPaul.get("Peter") >= 5000 && peterPaul.get("Paul") >= 10000) {
+			// following int initializes Int variable that shows how much peter would give
+			double peterGiving = (peterPaul.get("Peter") * 0.25);
+			double paulGiving = (peterPaul.get("Paul") * 0.25);
+			peterPaulPartnership.put("PeterPaulPartnership", (int) (peterGiving + paulGiving));
+		}
+		
+		//expected map containing ["Peter"-><3750>]
+		// map was [<PeterPaulPartnership=3750>]
+		
+		return peterPaulPartnership;
 	}
 
 	/*
-	 * Given an array of non-empty Strings, return a Map<String, String> where for every different String in the array,
+	 * Given an array of non-empty Strings, 
+	 * return a Map<String, String> where for every different String in the array,
 	 * there is a key of its first character with the value of its last character.
 	 *
 	 * beginningAndEnding(["code", "bug"]) → {"b": "g", "c": "e"}
@@ -158,8 +187,22 @@ public class Exercises {
 	 * beginningAndEnding(["muddy", "good", "moat", "good", "night"]) → {"g": "d", "m": "t", "n": "t"}
 	 */
 	public Map<String, String> beginningAndEnding(String[] words) {
-		return null;
+		
+		Map <String, String> beginningAndEnding = new HashMap <String, String>();
+		// find first character of first String
+		// find first and last character in first String
+		
+		// compare against other Strings in array
+		// if String is different
+		// .put() letters into beginningAndEnding array
+		
+	
+		for (String word : words) {
+			beginningAndEnding.put(word.charAt(0) + "", word.charAt(word.length() - 1) + "");
+		}
+			return beginningAndEnding;
 	}
+	
 
 	/*
 	 * Given an array of Strings, return a Map<String, Integer> with a key for each different String, with the value the
