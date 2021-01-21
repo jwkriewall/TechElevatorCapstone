@@ -65,13 +65,13 @@ public class Exercises {
 	public List<Double> arrayInt2ListDouble(int[] intArray) {
 		
 		List<Double> dividedValues = new ArrayList<Double>();
-		//dividedValues is a named (EMPTY) Array List of Doubles.
+		// dividedValues is a named (EMPTY) Array List of Doubles.
 		// dividedValues represents a potential Array List of Doubles.
 		
 		for(Integer dividedByTwo : intArray) {
 			// Integer describes the nature of the array being input.
 			// dividedByTwo is a named (EMPTY) set, to be filled by intArray.
-			// intArray is the 
+			// intArray is the input
 			dividedValues.add(dividedByTwo / 2.0);
 			
 		}
@@ -85,18 +85,28 @@ public class Exercises {
 	 findLargest( [34070, 1380, 81238, 7782, 234, 64362, 627] ) -> 64362
 	 */
 	public Integer findLargest(List<Integer> integerList) {
-		List<Integer> highestValue = new ArrayList<Integer>();
+		List<Integer> numsArray = new ArrayList<Integer>();
 		
-		int value = integerList.get(0);
-		for (Integer input : integerList) {
-		//for (int i = 0; i < highestValue.size(); i++) {
-			//while(integerList.get(i) > integerList.get(i + 1))
-			//if (integerList.get(i) > integerList.get(i + 1)) {
-				//value = integerList.get(i);
+		
+		int biggestValue = 0;
+		
+		for (Integer nums : integerList) {
+			if (nums > biggestValue)
+				biggestValue = nums;
+				
 			}
+		numsArray.add(biggestValue);
 		
-		return value;
+		return numsArray.get(0);
 	}
+
+	private int integerList(int i) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
 
 	/*
 	 Given an array of Integers, return a List of Integers containing just the odd values.
@@ -119,51 +129,110 @@ public class Exercises {
 	}
 
 	/*
-	 Given a List of Integers, and an int value, return true if the int value appears two or more times in
-	 the list.
+	 Given a List of Integers, and an int value, 
+	 return true if the int value appears two or more times in the list.
+	 
 	 foundIntTwice( [5, 7, 9, 5, 11], 5 ) -> true
 	 foundIntTwice( [6, 8, 10, 11, 13], 8 -> false
 	 foundIntTwice( [9, 23, 44, 2, 88, 44], 44) -> true
 	 */
 	public boolean foundIntTwice(List<Integer> integerList, int intToFind) {
+		List<Integer> doubleNumbers = new ArrayList<Integer>();
 		
-		for (Integer intList : integerList) {
-			if (intList == intToFind) {
-				integerList.remove(intToFind);
-				if(intList == intToFind) {
+		int count = 0;
+		
+		for (Integer doubleNumbers : integerList) {
+			if (doubleNumbers.contains(intToFind)) {
+				
+				count++;
+			}
+			if (count >= 2) {
 				return true;
-				}
 			}
 		}
 		return false;
 	}
 
 	/*
-	 Given an array of Integers, return a List that contains the same Integers (as Strings). Except any multiple of 3
-	should be replaced by the String "Fizz", any multiple of 5 should be replaced by the String "Buzz",
+	 Given an array of Integers, return a List that contains the same Integers (as Strings). 
+	Except any multiple of 3 should be replaced by the String "Fizz", 
+	any multiple of 5 should be replaced by the String "Buzz",
 	and any multiple of both 3 and 5 should be replaced by the String "FizzBuzz"
+	
 	** INTERVIEW QUESTION **
 	
 	fizzBuzzList( {1, 2, 3} )  ->  [1, 2, "Fizz"]
 	 fizzBuzzList( {4, 5, 6} )  ->  [4, "Buzz", 6]
 	 fizzBuzzList( {7, 8, 9, 10, 11, 12, 13, 14, 15} )  ->  [7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]
 	
-	 HINT: To convert an integer x to a string you can call x.toString() in your code (e.g. if x = 1 then x.ToString()
-	 equals "1")
+	 HINT: To convert an integer x to a string you can call x.toString() in your code 
+	 (e.g. if x = 1 then x.ToString() equals "1")
 	 */
 	public List<String> fizzBuzzList(Integer[] integerArray) {
-		return null;
+		
+		List<String> fizzBuzz = new ArrayList<String>();
+			for (Integer fB : integerArray) {
+				// if integer in array is multiple of 3 and 5, array updates to "FizzBuzz"
+				// if integer in array is multiple of 3, array updates to "Fizz"
+				// if integer in array is multiple of 5, array updates to "Buzz"
+				
+				if(fB % 5 == 0 && fB % 3 == 0) {
+					// turn fB into String
+					// String == FizzBuzz
+					// put FizzBuzz into fizzBuzz array
+					String divisibleBy5And3 = fB.toString();
+					divisibleBy5And3 = "FizzBuzz";
+					
+					fizzBuzz.add(divisibleBy5And3);
+				}
+				
+				if(fB % 3 == 0 && fB % 5 != 0) {
+					String divisibleByThree = fB.toString();
+					divisibleByThree = "Fizz";
+					
+					fizzBuzz.add(divisibleByThree);
+				
+				}
+				if(fB % 5 == 0 && fB % 3 != 0) {
+					String divisibleByFive = fB.toString();
+					divisibleByFive = "Buzz";
+					
+					fizzBuzz.add(divisibleByFive);
+					
+				}
+				else {
+					String number = fB.toString();
+					fizzBuzz.add(number);
+				}
+			}
+		return fizzBuzz;
+			
 	}
 
 	/*
 	 Given two lists of Integers, interleave them beginning with the first element in the first list followed
-	 by the first element of the second. Continue interleaving the elements until all elements have been interwoven.
+	 by the first element of the second. 
+	 Continue interleaving the elements until all elements have been interwoven.
 	 Return the new list. If the lists are of unequal lengths, simply attach the remaining elements of the longer
 	 list to the new list before returning it.
 	 interleaveLists( [1, 2, 3], [4, 5, 6] )  ->  [1, 4, 2, 5, 3, 6]
 	 */
 	public List<Integer> interleaveLists(List<Integer> listOne, List<Integer> listTwo) {
-		return null;
+		List<Integer> newList = new ArrayList<Integer>();
+		for(int num : listOne) {
+			newList.add(num);
+		}
+		
+		if (listOne.size() <= listTwo.size()) {
+		
+		int index = 1;
+		for(int number : listTwo) {
+			newList.add(index,number);
+				index += 2;	
+			}
+		}
+		
+		return newList;
 	}
 
 }

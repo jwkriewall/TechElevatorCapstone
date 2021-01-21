@@ -396,6 +396,7 @@ public class Exercises {
 			if (str.charAt(i) == 'x' && str.charAt(i+1) == 'x') {
 				return true;
 			}
+// I need to figure out how to return after the first instance of a character existing in a String.
 		}
 		return false;
 	}

@@ -1,10 +1,14 @@
 package com.techelevator;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.Map.Entry;
 
 public class Lecture {
 
@@ -18,19 +22,41 @@ public class Lecture {
 		System.out.println();
 
 		/* DECLARE AND INSTANTIATE A SET */
-
+		// HashSet does not maintain order
+		// LinkedHashSet maintains insertion order
+		// LinkedHashSet doesn't keep values as index
+		// (Linked)HashSet doesn't keep duplicate values!
+		
+		// Set<Integer> setOfNumbers = new LinkedHashSet <Integer>();
+		
+		// TreeSet does not allow null and maintains the natural order of the data type it is holding.
+		
+		Set<Integer> setOfNumbers = new TreeSet <Integer>();
 		
 		/* ADD ITEMS TO THE SET */
-
+		setOfNumbers.add(1);
+		setOfNumbers.add(30);
+		setOfNumbers.add(10);
+		setOfNumbers.add(301); 
+		setOfNumbers.add(301); //duplicates ignored without warning or error
+		setOfNumbers.add(5);
+		setOfNumbers.add(5708);
 		
 		/* LOOP OVER A SET */
+		
+		for(Integer number : setOfNumbers) {
+			System.out.println(number);
+		}
 
 
 		
 		/*USE CASE:  USE A SET TO REMOVE DUPLICATES AND ORDER THE ARRAY */
 		String[] instructorWorkLog = {"Rachelle", "John", "Matt", "Kevin", "Rachelle", "Steve", "John", "Rachelle" };
 		
-
+		Set<String> workset = new TreeSet<String>();
+		for (String contributor : instructorWorkLog) {
+			workset.add(contributor);
+		}
 		
 		
 		System.out.println("####################");
@@ -39,28 +65,56 @@ public class Lecture {
 		System.out.println();
 		
 		/* DECLARING AND INSTANTIATING A MAP */
+		// Map<key data type, value data typ>
+		Map<String, String> animalNoises = new HashMap<String, String>();
 
 		
 		/* ADDING ITEMS TO A MAP */
-
+		// items added using .put(key, value)
+		animalNoises.put("Cow", "Moo");
+		animalNoises.put("Chicken", "Cluck");
+		animalNoises.put("Dog", "Bark");
+		animalNoises.put("Cat", "Meow");
+		// keys must be unique, but value does not
+		animalNoises.put("Lion", "Roar");
+		animalNoises.put("Duck", "Roar");
 		
 		/* UPDATING AN ITEM IN A MAP */
-
-
+		
+		//if update exists in map, it updates, if not it adds
+		animalNoises.put("Duck", "Quack");
+		
 		/* RETRIEVING AN ITEM FROM A MAP */
-
-			
+		// Retrieve an item using .get(key)
+		
+		String catNoise = animalNoises.get("Cat");
+		// ^^^ Retrieves "Cat"
+		
+		// If key doesn't exist, then get() returns null.
+		if (wolfNoise != null) {
+			String wolfNoise = animalNoises.get("Wolf");
+		}
+		
 		/* REMOVING AN ITEM FROM A MAP */
 		
+		// Can remove a key/value pair using .remove(key)
+		// .remove() returns the value then removes the key/value from the map
+		
+		String lionNoise = animalNoises.remove("Lion");
+		
+		
 		// If the key does not exists, the null returned
-
+		String lionNoiseAfterRemove = animalNoises.remove("Lion");
 		
 		
 		/* CHECK IF AN ITEM EXISTS */
 		// containsKey(key) returns TRUE if the KEY exists in the Map
-
+		boolean catExists = animalNoises.containsKey("Cat"); // returns true if the key is in the map
+		boolean wolfExists = animalNoises.containsKey("Wolf"); // returns false if the map does not contain the key
+		
 		// containsValue(value) returns TRUE if the VALUE exists in the Map
-
+		boolean meowExists = animalNoises.containsValue("Meow");
+		boolean baaExists = animalNoises.containsValue("Baa");
 		
 		System.out.println();
 		
@@ -68,7 +122,17 @@ public class Lecture {
 		/* LOOPING OVER A MAP */
 		// Loop through a map by looping through the Keys
 		// Then using the keys to get the value
-
+		for (String key : animalNoises.keySet()) {
+			System.out.println("Key: " + key());
+			System.out.println("Value: " + animalNoises.get(key));
+		}
+		
+		// Looping through a map by looping through the entry set
+		for (Entry <String, String> entry : animalNoises.entrySet()) {
+			System.out.println("Key: " + entry.getKey());
+			System.out.println("Value: " + entry.getValue());
+			
+		}
 
 		System.out.println();
 		
@@ -79,6 +143,10 @@ public class Lecture {
 		accounts.put(56789, 200d);
 		
 		// Transfer half of Map 12345's money to account 56789
+		double halfOfAccount12345 = accounts.get(12345 / 2.0);
+		// accounts.put(12345, halfOfAccount12345);
+		accounts.put(12345, accounts.get(12345) - halfOfAccount12345);
+		accounts.put(56789, accounts.get(56789) + halfOfAccount12345);
 		
 
 		

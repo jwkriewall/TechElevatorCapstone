@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.util.Map;
+import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +36,41 @@ public class Exercises {
 	 *
 	 */
 	public String animalGroupName(String animalName) {
+		
+		
+		
+		
+		Map<String, String> animalGroupName = new HashMap<String, String>();
+		
+		animalGroupName.put("Rhino", "Crash");
+		animalGroupName.put("Giraffe", "Tower");
+		animalGroupName.put("Elephant", "Herd");
+		animalGroupName.put("Lion", "Pride");
+		animalGroupName.put("Crow", "Murder");
+		animalGroupName.put("Pigeon", "Kit");
+		animalGroupName.put("Flamingo", "Pat");
+		animalGroupName.put("Deer", "Herd");
+		animalGroupName.put("Dog", "Pack");
+		animalGroupName.put("Crocodile", "Float");
+		
+		// populate Map
+		
+		// is animalName a key?
+		// return key using .get()
+		
+		// .equalsIgnoreCase()
+		
+		animalName = animalName.toLowerCase();
+		
+		if (animalGroupName.containsKey(animalName.toLowerCase())){
+			return animalGroupName.get(animalName.toLowerCase());
+		}
 		return null;
 	}
 
 	/*
-	 * Given an String item number (a.k.a. SKU), return the discount percentage if the item is on sale.
+	 * Given a String item number (a.k.a. SKU), 
+	 * return the discount percentage if the item is on sale.
 	 * If the item is not on sale, return 0.00.
 	 *
 	 * If the item number is empty or null, return 0.00.
@@ -60,11 +92,23 @@ public class Exercises {
 	 *
 	 */
 	public double isItOnSale(String itemNumber) {
-		return -1.0;
+		Map <String, Double> isItOnSale = new HashMap <String,Double>();
+		isItOnSale.put("KITCHEN4001", 0.20);
+		isItOnSale.put("GARAGE1070", 0.15);
+		isItOnSale.put("LIVINGROOM", 0.10);
+		isItOnSale.put("KITCHEN6073", 0.40);
+		isItOnSale.put("BEDROOM3434", 0.60);
+		isItOnSale.put("BATH0073", 0.15);
+		
+		if (isItOnSale.containsKey(itemNumber.toUpperCase())) {
+			return isItOnSale.get(itemNumber);
+		}
+		return 0.00;
 	}
 
 	/*
-	 * Modify and return the given Map as follows: if "Peter" has more than 0 money, transfer half of it to "Paul",
+	 * Modify and return the given Map as follows: 
+	 * if "Peter" has more than 0 money, transfer half of it to "Paul",
 	 * but only if Paul has less than $10s.
 	 *
 	 * Note, monetary amounts are specified in cents: penny=1, nickel=5, ... $1=100, ... $10=1000, ...
@@ -74,7 +118,22 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> robPeterToPayPaul(Map<String, Integer> peterPaul) {
-		return null;
+		Map <String, Integer> robPeterToPayPaul = new HashMap <String, Integer>();
+		
+		// determine if peter's money is > 0
+		// determine if Paul's money < 1000
+		// if true, transfer PetersMoney / 2 to Paul
+		
+		int paulsBankAccount = peterPaul.get("Paul");
+		int paulsTransfer = 0;
+		
+		if (peterPaul.get("Peter") > 0 && peterPaul.get("Paul") < 1000) {
+			paulsTransfer = (peterPaul.get("Peter") / 2);
+			
+			robPeterToPayPaul.put("'Paul", paulsBankAccount + paulsTransfer);
+		}
+		
+		return robPeterToPayPaul;
 	}
 
 	/*
@@ -130,7 +189,21 @@ public class Exercises {
 	 *
 	 */
 	public Map<Integer, Integer> integerCount(int[] ints) {
-		return null;
+		Map <Integer, Integer> intCounts = new HashMap<Integer, Integer>();
+		
+		for (int i : ints) {
+			// Does this exist in the map? 
+				// Add values
+			// Add the key with a value of (i)
+			if (intCounts.containsKey(i)) {
+				intCounts.put( i , intCounts.get(i)+1);
+			}
+			else {
+				intCounts.put(i, 2);
+			}
+		}
+		
+		return intCounts;
 	}
 
 	/*
