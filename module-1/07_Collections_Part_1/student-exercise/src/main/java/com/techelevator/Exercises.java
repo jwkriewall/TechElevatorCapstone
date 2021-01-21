@@ -141,7 +141,7 @@ public class Exercises {
 		
 		int count = 0;
 		
-		for (Integer doubleNumbers : integerList) {
+		for (Integer doubleNumber : integerList) {
 			if (doubleNumbers.contains(intToFind)) {
 				
 				count++;
