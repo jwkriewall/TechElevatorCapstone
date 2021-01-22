@@ -43,16 +43,16 @@ public class Exercises {
 		
 		Map<String, String> animalGroupName = new HashMap<String, String>();
 		
-		animalGroupName.put("Rhino", "Crash");
-		animalGroupName.put("Giraffe", "Tower");
-		animalGroupName.put("Elephant", "Herd");
-		animalGroupName.put("Lion", "Pride");
-		animalGroupName.put("Crow", "Murder");
-		animalGroupName.put("Pigeon", "Kit");
-		animalGroupName.put("Flamingo", "Pat");
-		animalGroupName.put("Deer", "Herd");
-		animalGroupName.put("Dog", "Pack");
-		animalGroupName.put("Crocodile", "Float");
+		animalGroupName.put("rhino", "Crash");
+		animalGroupName.put("giraffe", "Tower");
+		animalGroupName.put("elephant", "Herd");
+		animalGroupName.put("lion", "Pride");
+		animalGroupName.put("crow", "Murder");
+		animalGroupName.put("pigeon", "Kit");
+		animalGroupName.put("flamingo", "Pat");
+		animalGroupName.put("deer", "Herd");
+		animalGroupName.put("dog", "Pack");
+		animalGroupName.put("crocodile", "Float");
 		
 		// populate Map
 		
@@ -60,13 +60,14 @@ public class Exercises {
 		// return key using .get()
 		
 		// .equalsIgnoreCase()
-		
+		if (animalName != null) {
 		animalName = animalName.toLowerCase();
 		
-		if (animalGroupName.containsKey(animalName.toLowerCase())){
-			return animalGroupName.get(animalName.toLowerCase());
+		if (animalGroupName.containsKey(animalName)){
+			return animalGroupName.get(animalName);
+			}
 		}
-		return null;
+		return "unknown";
 	}
 
 	/*
@@ -133,16 +134,12 @@ public class Exercises {
 			
 			paulsTransfer = (petersBankAccount / 2);
 			
-		// if paul's transfer puts hisbank account at more than 1000, return 1000
+			// if paul's transfer puts hisbank account at more than 1000, return 1000
 			robPeterToPayPaul.put("Paul", paulsBankAccount + paulsTransfer);
+			robPeterToPayPaul.put("Peter", petersBankAccount - paulsTransfer);
+			return robPeterToPayPaul;
 		}
-		if (paulsBankAccount > 1000) {
-		peterPaul.put("Paul", 1000);
-		peterPaul.put("Peter", petersBankAccount);
-		return robPeterToPayPaul;
-		}
-		
-		return robPeterToPayPaul;
+		return peterPaul;
 	}
 
 	/*
@@ -161,20 +158,29 @@ public class Exercises {
 		// if peterPaul.get("Paul") >= 10000
 		// populate new array peterPaulPartnership equal to .25Paul's worth + .25Peter's worth.
 		
-		Map <String, Integer> peterPaulPartnership = new LinkedHashMap <String, Integer>();
+		Map <String, Integer> peterPaulPartnership = new HashMap <String, Integer>();
 		
-		
+		// if following conditions are met, modify the Map to include peterPaulPartnership
+		// as well as updated values for peter key and paul key.
 		if (peterPaul.get("Peter") >= 5000 && peterPaul.get("Paul") >= 10000) {
 			// following int initializes Int variable that shows how much peter would give
 			double peterGiving = (peterPaul.get("Peter") * 0.25);
 			double paulGiving = (peterPaul.get("Paul") * 0.25);
+			
+			//next two lines update the peterPaul values at each Key by:
+			// taking total and subtracting how much each gave.
+			peterPaul.put("Peter", ((int) peterPaul.get("Peter") - (int) peterGiving));
+			peterPaul.put("Paul", ((int) peterPaul.get("Paul") - (int) paulGiving));
+			
+			// fills the peterPaulPartnership Map with new Key and subsequent value
 			peterPaulPartnership.put("PeterPaulPartnership", (int) (peterGiving + paulGiving));
+			return peterPaulPartnership;
 		}
 		
 		//expected map containing ["Peter"-><3750>]
 		// map was [<PeterPaulPartnership=3750>]
 		
-		return peterPaulPartnership;
+		return peterPaul;
 	}
 
 	/*
@@ -189,20 +195,20 @@ public class Exercises {
 	public Map<String, String> beginningAndEnding(String[] words) {
 		
 		Map <String, String> beginningAndEnding = new HashMap <String, String>();
-		// find first character of first String
-		// find first and last character in first String
-		
+	
 		// compare against other Strings in array
+		
 		// if String is different
 		// .put() letters into beginningAndEnding array
 		
-	
 		for (String word : words) {
-			beginningAndEnding.put(word.charAt(0) + "", word.charAt(word.length() - 1) + "");
+			if (word != beginningAndEnding.get(word) &&
+					beginningAndEnding.get(word.substring(0,1)) != beginningAndEnding.get(word.substring(0,1))) {
+				beginningAndEnding.put(word.substring(0,1), word.substring(word.length() - 2, word.length() - 1));
+			}
 		}
-			return beginningAndEnding;
+		return beginningAndEnding;
 	}
-	
 
 	/*
 	 * Given an array of Strings, return a Map<String, Integer> with a key for each different String, with the value the
@@ -216,9 +222,25 @@ public class Exercises {
 	 * wordCount(["c", "b", "a"]) → {"b": 1, "c": 1, "a": 1}
 	 *
 	 */
-	public Map<String, Integer> wordCount(String[] words) {
-		return null;
-	}
+	public Map<String, Integer> wordCount(String[] words) {	
+		Map<String, Integer> counter = new HashMap<>();
+		// initialize a new map called counter that holds key String and Value Integer
+		
+		// for-each loop 
+		// if the map counter contains the word, increase the value currentCount AND
+		// .put the word with it's count into the array.
+		// if no duplicate exists, .put word + 1
+		for (String word : words) {
+			if(counter.containsKey(word)) {
+				int currentCount = counter.get(word);
+					currentCount++;
+					counter.put(word, currentCount) ;
+			} else {
+				counter.put(word, 1);
+		}			
+	}			
+	return counter;
+}
 
 	/*
 	 * Given an array of int values, return a Map<Integer, Integer> with a key for each int, with the value the
@@ -259,7 +281,18 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Boolean> wordMultiple(String[] words) {
-		return null;
+		Map <String, Boolean> wordMultiple = new HashMap <String, Boolean>();
+		
+		for (String word : words) {
+			if (wordMultiple.containsKey(word)) {
+				wordMultiple.put(word, true);
+			}
+			else {
+				wordMultiple.put(word, false);
+			}
+		}
+		
+		return wordMultiple;
 	}
 
 	/*
