@@ -3,7 +3,12 @@ package com.techelevator;
 public class Employee {
 
 	
-	public Employee (int employeeId, String firstName, String lastName, double annualSalary) {}
+	public Employee (int employeeId, String firstName, String lastName, double salary) {
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.annualSalary = salary;
+	}
 
 	private int employeeId;
 	private String firstName = "";
@@ -45,7 +50,7 @@ public class Employee {
 	
 	
 	public void raiseSalary(double percent) {
-		this.annualSalary = (this.annualSalary * percent);
+		this.annualSalary = ((this.annualSalary * percent) / 100.0) + this.annualSalary;
 	}
 	
 	

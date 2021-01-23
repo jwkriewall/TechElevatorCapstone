@@ -305,8 +305,20 @@ public class Exercises {
 	 * 	 → {"SKU1": 100, "SKU2": 64, "SKU3": 44, "SKU4": 5}
 	 *
 	 */
-	public Map<String, Integer> consolidateInventory(Map<String, Integer> mainWarehouse,
-			Map<String, Integer> remoteWarehouse) {
+	public Map<String, Integer> consolidateInventory(Map<String, Integer> mainWarehouse, Map<String, Integer> remoteWarehouse) {
+			Map <String, Integer> consolidateInventory = new HashMap<String, Integer>();
+			// for each loop on remote warehouse values, .put them into main warehouse
+			// if a key is contained in main warehouse, add the result of the two values
+			
+			// I want to put all the keys / values into consolidatedInventory
+			
+			//for (Map consolidatedWarehouse : mainWarehouse.get(String)) {
+				//consolidatedWare
+			//}
+			//for (Map remoteWarehouse.get(String) : consolidateInventory) {
+				
+			//}
+			
 		return null;
 	}
 

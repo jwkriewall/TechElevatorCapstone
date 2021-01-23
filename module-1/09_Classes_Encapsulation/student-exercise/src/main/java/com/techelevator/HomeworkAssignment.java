@@ -8,7 +8,8 @@ public class HomeworkAssignment {
 		private String letterGrade;
 		
 		public HomeworkAssignment(int possibleMarks, String submitterName) {
-			
+			this.possibleMarks = possibleMarks;
+			this.submitterName = submitterName;
 		}
 
 		public int getEarnedMarks() {
@@ -27,28 +28,28 @@ public class HomeworkAssignment {
 			return submitterName;
 		}
 
+		
+		
 		public String getLetterGrade() {
-			if (this.possibleMarks / this.earnedMarks >= 90.00) {
+			
+			double score = (((double) this.earnedMarks / this.possibleMarks) * 100.0);		
+			
+			if (score >= 90.00) {
 				letterGrade = "A";
 			}
-			if (this.possibleMarks / this.earnedMarks >= 80.00 && 
-					this.possibleMarks / this.earnedMarks < 90.00) {
+			if (score >= 80.00 && score < 90.00) {
 				letterGrade = "B";
 			}
-			if (this.possibleMarks / this.earnedMarks >= 70.00 && 
-				this.possibleMarks / this.earnedMarks < 80.00){
+			if (score >= 70.00 && score < 80.00){
 				letterGrade = "C";
 			}
-			if (this.possibleMarks / this.earnedMarks >= 60.00 && 
-					this.possibleMarks / this.earnedMarks < 70.00) {
+			if (score >= 60.00 && score < 70.00) {
 				letterGrade = "D";
 			}
-			else {
+			if (score < 60.00) {
 				letterGrade = "F";
 			}
-			return letterGrade;
-		}
+		return letterGrade;
 		
-		
-	
+	}
 }
