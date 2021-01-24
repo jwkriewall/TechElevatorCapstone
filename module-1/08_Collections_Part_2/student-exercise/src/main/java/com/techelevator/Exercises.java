@@ -312,12 +312,9 @@ public class Exercises {
 			
 			// I want to put all the keys / values into consolidatedInventory
 			
-			//for (Map consolidatedWarehouse : mainWarehouse.get(String)) {
-				//consolidatedWare
-			//}
-			//for (Map remoteWarehouse.get(String) : consolidateInventory) {
+			{
 				
-			//}
+			}
 			
 		return null;
 	}
@@ -337,8 +334,20 @@ public class Exercises {
 	 * last2Revisited(["hixxhi", "xaxxaxaxx", "axxxaaxx"]) → {"hixxhi": 1, "xaxxaxaxx": 1, "axxxaaxx": 2}
 	 *
 	 */
+	
+	// for each loop, turn each entry in the string into separate entry
+	// iterate over each entry to find how many it contains
 	public Map<String, Integer> last2Revisited(String[] words) {
-		return null;
+		Map <String, Integer> last2 = new HashMap <String, Integer>();
+		int count = 0;
+		for (String word : words) {
+			if (last2.containsKey(word.substring(word.length() - 3, word.length() - 1))) {
+				// how can I check for each position in the string for the key?
+				count++;
+				last2.put(word,  count);
+			}
+		}
+		return last2;
 	}
 
 }

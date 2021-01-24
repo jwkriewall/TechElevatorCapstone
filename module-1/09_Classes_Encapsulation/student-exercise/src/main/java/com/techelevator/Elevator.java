@@ -4,13 +4,13 @@ public class Elevator {
 	
 	public Elevator(int numberOfLevels) {
 		this.numberOfLevels = numberOfLevels;
-		// how many floors are available
+		// numberOfLevels = how many floors are available
 	}
 	private final static int DEFAULT_FLOOR = 1;
-	
+
 	private int numberOfLevels;
-	private int currentFloor = 1;
-	private int numberOfFloors = numberOfLevels;
+	private int currentFloor = DEFAULT_FLOOR;
+	private int numberOfFloors;
 	private boolean doorOpen;
 	
 	public int getCurrentFloor() {
@@ -46,24 +46,31 @@ public class Elevator {
 		// calculate if there are that many floors in building
 		// if so, add number of floors to current floor to get new floor
 		
-		if (doorOpen) {
+		if (isDoorOpen()) {
 			if (numberOfLevels >= desiredFloor) {
 				this.currentFloor = desiredFloor;
+				this.doorOpen = false;
+				
 			}
 		}
 	}
 	public void goDown(int desiredFloor) {
 		if (isDoorOpen()) {
 			if (desiredFloor < 1){
-				this.currentFloor = DEFAULT_FLOOR;
+				this.doorOpen = false;
+				this.currentFloor = 1;
+				
 			}
-			else {
+			if (isDoorOpen()){
 				if (numberOfLevels <= desiredFloor) {
+				this.doorOpen = false;
 				this.currentFloor = desiredFloor;
+				
 			}
 		}
 		
 	}
 	
 }
+
 }
