@@ -58,7 +58,7 @@ public class Elevator {
 		if (isDoorOpen()) {
 			if (desiredFloor < 1){
 				this.doorOpen = false;
-				this.currentFloor = 1;
+				this.currentFloor = DEFAULT_FLOOR;
 				
 			}
 			if (isDoorOpen()){
