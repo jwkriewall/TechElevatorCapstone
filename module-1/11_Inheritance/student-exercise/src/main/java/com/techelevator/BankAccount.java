@@ -7,11 +7,24 @@ public class BankAccount {
 	private int balance;
 	
 	
+	public BankAccount(String accountHolderName, String accountNumber) {
+		this.accountHolderName = accountHolderName;
+		this.accountNumber = accountNumber;
+	}
+	
+	public BankAccount(String accountHolderName, String accountNumber, int balance) {
+		this.accountHolderName = accountHolderName;
+		this.accountNumber = accountNumber;
+		this.balance = balance;
+	}
+	
 	public int deposit(int amountToDeposit) {
-		return amountToDeposit;
+		this.balance += amountToDeposit;
+		return balance;
 	}
 	public int withdraw(int amountToWithdraw) {
-		return amountToWithdraw;
+		this.balance -= amountToWithdraw;
+		return balance;
 	}
 	
 	public String getAccountHolderName() {
