@@ -41,5 +41,14 @@ public class BankAccount {
         balance = balance - amountToWithdraw;
         return balance;
     }
+    
+ // 1. Add a new method to allow customers to transfer money between Bank Accounts.
+    // I tried balance.withdraw(transferAmount) but received an error. Why?
+    public int transferTo(BankAccount destinationAccount, int transferAmount) {
+    	balance = balance - transferAmount;
+    	//SavingsAccount.withdraw(transferAmount);
+    	destinationAccount.deposit(transferAmount);
+    	return this.balance;
+    }
 
 }
