@@ -1,6 +1,6 @@
 package com.techelevator;
 
-public class BankAccount {
+public class BankAccount implements Accountable {
 
     private String accountHolderName;
     private String accountNumber;
@@ -45,10 +45,9 @@ public class BankAccount {
  // 1. Add a new method to allow customers to transfer money between Bank Accounts.
     // I tried balance.withdraw(transferAmount) but received an error. Why?
     public int transferTo(BankAccount destinationAccount, int transferAmount) {
-    	balance = balance - transferAmount;
-    	//SavingsAccount.withdraw(transferAmount);
+    	//balance = balance - transferAmount;
+    	withdraw(transferAmount);
     	destinationAccount.deposit(transferAmount);
     	return this.balance;
     }
-
 }
