@@ -40,20 +40,39 @@ public class BankCustomer {
 		this.phoneNumber = phoneNumber;
 	}
 	public List<Accountable>  getAccounts() {
-		
 		return accounts;
+	}
+	
+	
+	public boolean isVip() {
+		// for loop the accounts List to add each together.
+		// if sum is >= 25000, return true.
+		int total = 0;
+		List<Accountable> account = new ArrayList<Accountable>();
+		for (Accountable accounts: account) {
+			total += accounts.getBalance();
+			//total += account.get(0,1000);
+			System.out.println(total);
+		}
+		//if () {
+			
+	//	}
+		return true;
 	}
 
 	
 	
 	public void addAccount(Accountable newAccount) {
-		if (getAddress() != null) {
-			List<Accountable> accounts = new ArrayList<Accountable>();
-				for(Accountable account : accounts) {
-					accounts.add(account);
-			}
-		}
+		
+		accounts.add(newAccount);
+		
+// I want to take accounts List and add an array to it.
+//		List<Accountable> allAccounts = new ArrayList<Accountable> ();
+//		for(Accountable accounts : allAccounts) {
+//			allAccounts.add(newAccount);
+//		}
 	}
-	
-	
-}
+}	
+		
+
+

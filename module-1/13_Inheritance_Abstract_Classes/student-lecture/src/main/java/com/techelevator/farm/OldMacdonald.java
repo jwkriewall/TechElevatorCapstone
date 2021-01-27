@@ -2,8 +2,13 @@ package com.techelevator.farm;
 
 public class OldMacdonald {
 	public static void main(String[] args) {
+		
+		Chicken chicken = new Chicken();
+		FarmAnimal cow = new Cow();
+		FarmAnimal cat = new Cat();
 
-		FarmAnimal[] animals = new FarmAnimal[] { new Cow(), new Chicken(), new Sheep(), new Cat() };
+		FarmAnimal[] animals = new FarmAnimal[] { cow, chicken, new Sheep(), cat };
+		
 		
 		System.out.println("Animals on the farm: ");
 		for (FarmAnimal animal : animals) {
@@ -12,8 +17,8 @@ public class OldMacdonald {
 		
 		System.out.println();
 		
-		Singable[] singers = new Singable[] { new Cow(), new Chicken(), 
-					new Sheep(), new Tractor(), new Cat(), new MusicBox() };
+		Singable[] singers = new Singable[] { cow, chicken, 
+					new Sheep(), new Tractor(), cat, new MusicBox() };
 
 		for (Singable singer : singers) {
 			String name = singer.getName();
@@ -26,7 +31,7 @@ public class OldMacdonald {
 			System.out.println();
 		}
 		
-		Sellable[] itemsForSale = new Sellable[] { new Cow(), new Chicken(), 
+		Sellable[] itemsForSale = new Sellable[] { new Cow(), chicken, 
 														new Sheep(), new MusicBox() };
 		
 		System.out.println("For Sale:");
