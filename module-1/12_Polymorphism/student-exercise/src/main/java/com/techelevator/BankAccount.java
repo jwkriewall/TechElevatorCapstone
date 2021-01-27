@@ -43,7 +43,7 @@ public class BankAccount implements Accountable {
     }
     
  // 1. Add a new method to allow customers to transfer money between Bank Accounts.
-    // I tried balance.withdraw(transferAmount) but received an error. Why?
+ // I tried balance.withdraw(transferAmount) but received an error. Why?
     public int transferTo(BankAccount destinationAccount, int transferAmount) {
     	//balance = balance - transferAmount;
     	withdraw(transferAmount);

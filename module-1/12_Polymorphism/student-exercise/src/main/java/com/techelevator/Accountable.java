@@ -1,8 +1,10 @@
 package com.techelevator;
 
+import java.util.List;
+
 public interface Accountable {
 	
-	public static int getBalance(String accountHolder, String accountNumber, int balance) {
-		return balance;
-	}
+	public int getBalance();
+
+	
 }
