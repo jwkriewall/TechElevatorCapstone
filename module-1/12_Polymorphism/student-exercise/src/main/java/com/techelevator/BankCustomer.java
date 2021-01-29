@@ -53,17 +53,13 @@ public class BankCustomer {
 		// if sum is >= 25000, return true.
 		int total = 0;
 		for (Accountable account : accounts) {
-			//total;
+			total += account.getBalance();
+			if (total > 24999) {
+				return true;
+			}
+			
 		}
-		
-		
-		
-		
-//		for (Accountable account : accounts) {
-//			total += account;
-//		}
-		
-		return true;
+		return false;
 	}
 
 	
