@@ -70,5 +70,8 @@ public class WordCountTest {
 		test.put("sheep", 1);
 		Assert.assertEquals(test, result);
 	}
+	
+	// Matt, can you leave a note in the comments or here in code on how to make these tests more elaborate?
+	// Would like ideas on what I could do, especially for this last one.
 
 }
