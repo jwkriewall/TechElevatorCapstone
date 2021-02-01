@@ -137,19 +137,18 @@ public class Exercises {
 	 foundIntTwice( [9, 23, 44, 2, 88, 44], 44) -> true
 	 */
 	public boolean foundIntTwice(List<Integer> integerList, int intToFind) {
-		List<Integer> doubleNumbers = new ArrayList<Integer>();
+		//List<Integer> doubleNumbers = new ArrayList<Integer>();
 		
 		int count = 0;
 		
-		for (Integer doubleNumber : integerList) {
-			if (doubleNumbers.contains(intToFind)) {
-				
+		for (Integer check : integerList) {
+			if(check.equals(intToFind)) {
 				count++;
+			}
 			}
 			if (count >= 2) {
 				return true;
 			}
-		}
 		return false;
 	}
 
@@ -161,7 +160,7 @@ public class Exercises {
 	
 	** INTERVIEW QUESTION **
 	
-	fizzBuzzList( {1, 2, 3} )  ->  [1, 2, "Fizz"]
+	 fizzBuzzList( {1, 2, 3} )  ->  [1, 2, "Fizz"]
 	 fizzBuzzList( {4, 5, 6} )  ->  [4, "Buzz", 6]
 	 fizzBuzzList( {7, 8, 9, 10, 11, 12, 13, 14, 15} )  ->  [7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]
 	
@@ -200,9 +199,9 @@ public class Exercises {
 					fizzBuzz.add(divisibleByFive);
 					
 				}
-				else {
+				if (fB % 5 != 0 && fB % 3 != 0){
 					String number = fB.toString();
-					fizzBuzz.add(number);
+					fizzBuzz.add(number.toString());
 				}
 			}
 		return fizzBuzz;
