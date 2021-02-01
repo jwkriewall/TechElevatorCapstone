@@ -108,4 +108,12 @@ public class FruitTreeTest {
 		Assert.assertEquals(expectedRemaining, fruitTree.getPiecesOfFruitLeft());
 	}
 	
+	@Test
+	public void can_hold_different_fruit() {
+		// Arrange is going to be to create a new fruit tree
+		FruitTree pearTree = new FruitTree("Pears", 5);
+		// Act
+		String fruitType = pearTree.getTypeOfFruit();
+		Assert.assertEquals("Pears", fruitType);
+	}
 }
