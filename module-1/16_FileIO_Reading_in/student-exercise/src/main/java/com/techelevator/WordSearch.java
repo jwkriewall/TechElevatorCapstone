@@ -2,7 +2,6 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class WordSearch {
@@ -56,14 +55,12 @@ public class WordSearch {
 							}
 							count++;
 						}
-						
 					
-					
-				}
+					}
 
-			}
+				}
 		
-		}
+			}
 		finally {
 			
 		}
