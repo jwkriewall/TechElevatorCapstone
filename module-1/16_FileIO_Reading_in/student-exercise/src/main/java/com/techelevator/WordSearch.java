@@ -11,6 +11,7 @@ public class WordSearch {
 		
 		Scanner input = new Scanner(System.in);
 		Scanner wordInput = new Scanner(System.in);
+		Scanner yesOrNo = new Scanner(System.in);
 		
 		System.out.print("What is the file that should be searched? ");
 		String textFileLocation = input.nextLine();
@@ -26,16 +27,37 @@ public class WordSearch {
 				System.out.print("What is the search word you are looking for? ");
 				String word = wordInput.nextLine();	
 				
+				System.out.print("Should the search word be case sensitive? (Y/N) ");
+				String answer = yesOrNo.nextLine();
+				
+				
+				
 				int count = 1;
 				
-				while (scanner.hasNextLine()) {
-					
-					String line = scanner.nextLine();
-					if(line.contains(word)) {
-						System.out.println(count + ") " + line);
+				
+				if (answer.equals("Y")) {
+					while (scanner.hasNextLine()) {
 						
+						String line = scanner.nextLine();
+						if(line.contains(word)) {
+							System.out.println(count + ") " + line);
+							
+						}
+						count++;
 					}
-					count++;
+				}
+					if (answer.equals("N")) {
+						while (scanner.hasNextLine()) {
+							
+							String line = scanner.nextLine();
+							if(line.toLowerCase().contains(word.toLowerCase())) {
+								System.out.println(count + ") " + line);
+								
+							}
+							count++;
+						}
+						
+					
 					
 				}
 
