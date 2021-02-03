@@ -21,10 +21,7 @@ public class ColorWriterExample {
 				//printWriter.println(getOutput(i));
 				//bufferedWriter.write(getOutput(i) + "\n");  // \n is a carriage return
 				bufferedWriter.write(getOutput(i) + System.getProperty("line.separator")); 
-					/*
-					 * System.getProperty("line.separator") gets the carriage return used 
-					 * by the current Operating System.
-					 */
+			
 			}
 		}
 		
