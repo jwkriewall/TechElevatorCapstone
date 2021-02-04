@@ -52,21 +52,21 @@ public class Airplane {
 		int firstClassSeatsRemaining = this.totalFirstClassSeats - this.bookedFirstClassSeats;
 		int coachSeatsRemaining = this.totalCoachSeats - this.bookedCoachSeats;
 		
-		if ((totalSeatsOnPlane) > 0)
+		if (totalNumberOfSeats < totalSeatsOnPlane)
 				//(firstClassSeatsRemaining) >= (totalNumberOfSeats)) 
 		{
 			
 			if (forFirstClass) {
 				// below code should ask whether there are enough of the specific type of seat to book
 				// there may be enough space on the plane, but not enough in the specific class;
-				if (firstClassSeatsRemaining > 0) {
+				if (firstClassSeatsRemaining > totalNumberOfSeats) {
 					this.bookedFirstClassSeats += totalNumberOfSeats;
 					return true;
 				}
 			}
 			if (!forFirstClass) {
-				if(availableCoachSeats > 0) {
-				this.bookedCoachSeats += coachSeatsRemaining;
+				if(coachSeatsRemaining > totalNumberOfSeats) {
+				this.bookedCoachSeats += totalNumberOfSeats;
 				return true;
 				}
 			
