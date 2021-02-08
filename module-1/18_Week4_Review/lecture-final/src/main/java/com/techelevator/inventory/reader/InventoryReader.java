@@ -9,4 +9,5 @@ import com.techelevator.inventory.Slot;
 public interface InventoryReader {
 
 	Map<String, Slot> read() throws FileNotFoundException;
+	
 }

@@ -9,6 +9,8 @@ public class CateringSystemCLI {
 	public CateringSystemCLI(Menu menu) {
 		this.menu = menu;
 	}
+	
+	
 
 	public void run() {
 		while (true) {
@@ -20,6 +22,10 @@ public class CateringSystemCLI {
 			ELSE IF the User's Choice is Purchase,
 				THEN go to the purchase menu
 			*/
+
+			menu.selectionFromMainMenu();
+			
+			
 		}
 	}
 
