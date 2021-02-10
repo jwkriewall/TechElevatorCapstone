@@ -2,21 +2,50 @@
 
 -- 1. All of the films that Nick Stallone has appeared in
 -- (30 rows)
+SELECT film.title
+FROM actor
+JOIN film_actor ON film_actor.actor_id = actor.actor_id
+JOIN film ON film_actor.film_id = film.film_id
+WHERE actor.first_name = 'NICK' AND actor.last_name = 'STALLONE';
 
 -- 2. All of the films that Rita Reynolds has appeared in
 -- (20 rows)
+SELECT film.title
+FROM actor
+JOIN film_actor ON actor.actor_id = film_actor.actor_id
+JOIN film ON film_actor.film_id = film.film_id
+WHERE actor.first_name = 'RITA' AND actor.last_name = 'REYNOLDS';
 
 -- 3. All of the films that Judy Dean or River Dean have appeared in
 -- (46 rows)
+SELECT title
+FROM actor
+JOIN film_actor ON actor.actor_id = film_actor.actor_id
+JOIN film ON film.film_id = film_actor.film_id
+WHERE actor.first_name = 'JUDY' OR actor.first_name = 'RIVER' AND actor.last_name = 'DEAN';
 
 -- 4. All of the the ‘Documentary’ films
 -- (68 rows)
+SELECT film.title
+FROM film
+JOIN film_category ON film.film_id = film_category.film_id
+JOIN category ON category.category_id = film_category.category_id
+WHERE category.name = 'Documentary';
 
 -- 5. All of the ‘Comedy’ films
 -- (58 rows)
+SELECT film.title
+FROM film
+JOIN film_category ON film.film_id = film_category.film_id
+JOIN category ON category.category_id = film_category.category_id
+WHERE category.name = 'Comedy';
 
 -- 6. All of the ‘Children’ films that are rated ‘G’
 -- (10 rows)
+SELECT *
+FROM film
+JOIN --------
+WHERE category.name = 'Children';
 
 -- 7. All of the ‘Family’ films that are rated ‘G’ and are less than 2 hours in length
 -- (3 rows)
@@ -46,8 +75,17 @@
 -- (NOTE: Keep in mind that an employee may work at multiple stores.)
 -- (Store 1 has 7928 total rentals and Store 2 has 8121 total rentals)
 
--- 16. The top ten film titles by number of rentals
+SELECT store.store_id, address.address, COUNT(rental.inventory_id), SUM(payment.amount), round(AVG(payment.amount), 2)
+FROM store
+JOIN address ON store.address_id = address.address_id
+JOIN inventory ON store.store_id = inventory.inventory_id
+JOIN rental ON rental.inventory_id = inventory.inventory_id
+JOIN payment ON rental.rental_id = payment.rental_id
+GROUP BY store.store_id, address.address;
+
+-- 16. The top ten film titles by number of rentals (LIMIT 10)
 -- (#1 should be “BUCKET BROTHERHOOD” with 34 rentals and #10 should have 31 rentals)
+
 
 -- 17. The top five film categories by number of rentals 
 -- (#1 should be “Sports” with 1179 rentals and #5 should be “Family” with 1096 rentals)
@@ -60,3 +98,18 @@
 
 -- 20. The top 5 “Comedy” actors ranked by number of rentals of films in the “Comedy” category starring that actor 
 -- (#1 should have 87 rentals and #5 should have 72 rentals)
+SELECT actor.first_name, actor.last_name, COUNT(payment.rental_id)
+FROM actor
+JOIN film_actor ON actor.actor_id = film_actor.actor_id
+JOIN film ON film.film_id = film_actor.film_id
+JOIN film_category ON film.film_id = film_category.film_id
+JOIN category ON film_category.category_id = category.category_id
+JOIN inventory ON film.film_id = inventory.film_id
+JOIN rental ON inventory.inventory_id = rental.inventory_id
+JOIN payment ON rental.rental_id = payment.rental_id
+WHERE category.name = 'Comedy'
+
+GROUP BY actor.first_name, actor.last_name, payment.payment_id
+ORDER BY payment.payment_id DESC;
+
+--LIMIT 5;
