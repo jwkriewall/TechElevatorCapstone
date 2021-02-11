@@ -170,10 +170,24 @@ LIMIT 5;
 
 -- 19. The top 10 actors ranked by number of rentals of films starring that actor 
 -- (#1 should be “GINA DEGENERES” with 753 rentals and #10 should be “SEAN GUINESS” with 599 rentals)
+SELECT actor.first_name, actor.last_name, COUNT(payment.rental_id) AS number_of_rentals
+FROM actor
+JOIN film_actor ON actor.actor_id = film_actor.actor_id
+JOIN film ON film.film_id = film_actor.film_id
+JOIN film_category ON film.film_id = film_category.film_id
+JOIN category ON film_category.category_id = category.category_id
+JOIN inventory ON film.film_id = inventory.film_id
+JOIN rental ON inventory.inventory_id = rental.inventory_id
+JOIN payment ON rental.rental_id = payment.rental_id
+GROUP BY actor.first_name, actor.last_name, actor.actor_id
+ORDER BY number_of_rentals DESC
+LIMIT 10;
+
+
 
 -- 20. The top 5 “Comedy” actors ranked by number of rentals of films in the “Comedy” category starring that actor 
 -- (#1 should have 87 rentals and #5 should have 72 rentals)
-SELECT actor.first_name, actor.last_name, COUNT(payment.rental_id)
+SELECT actor.first_name, actor.last_name, COUNT(payment.rental_id) AS number_of_rentals
 FROM actor
 JOIN film_actor ON actor.actor_id = film_actor.actor_id
 JOIN film ON film.film_id = film_actor.film_id
@@ -183,8 +197,8 @@ JOIN inventory ON film.film_id = inventory.film_id
 JOIN rental ON inventory.inventory_id = rental.inventory_id
 JOIN payment ON rental.rental_id = payment.rental_id
 WHERE category.name = 'Comedy'
-
-GROUP BY actor.first_name, actor.last_name, payment.payment_id
-ORDER BY payment.payment_id DESC;
+GROUP BY actor.first_name, actor.last_name
+ORDER BY number_of_rentals DESC
+LIMIT 5;
 
 --LIMIT 5;
