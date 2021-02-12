@@ -18,12 +18,15 @@ VALUES ('EUCLIDEAN PI', 'The epic story of Euclid as a pizza delivery boy in anc
 
 -- 3. Hampton Avenue plays Euclid, while Lisa Byway plays his slightly
 -- overprotective mother, in the film, "Euclidean PI". Add them to the film.
-SELECT * FROM film
-JOIN film_actor ON film_actor.film_id = film.film_id
-JOIN actor ON film_actor.actor_id= actor.actor_id
-WHERE film.title = 'EUCLIDEAN PI';
-UPDATE film SET actor.first_name = 'HAMPTON', actor_last_name = 'AVENUE';
 
+INSERT INTO film_actor(film_id, actor_id)
+VALUES (1001, 202);
+
+INSERT INTO film_actor(film_id, actor_id)
+VALUES (1001, 201);
+
+SELECT * FROM actor
+WHERE actor.first_name = 'HAMPTON';
 
 -- 4. Add Mathmagical to the category table.
 SELECT * FROM category;
@@ -31,17 +34,54 @@ INSERT INTO category (name) VALUES ('Mathmagical');
 
 -- 5. Assign the Mathmagical category to the following films, "Euclidean PI",
 -- "EGG IGBY", "KARATE MOON", "RANDOM GO", and "YOUNG LANGUAGE"
+SELECT * FROM film_category;
+WHERE category.name = 'Mathmagical';
+
 SELECT * FROM film
-JOIN film_category ON film.film_id = film_category.film_id
-JOIN category ON film_category.category_id = category.category_id;
-UPDATE film SET category.name = 'Mathmagical'
+JOIN film_category ON film_category.film_id = film.film_id
+JOIN category ON category.category_id = film_category.category_id
+WHERE film.title = 'EGG IGBY';
+INSERT INTO category (name) VALUES ('Mathmagical');
+
+SELECT * FROM film
+JOIN film_category ON film_category.film_id = film.film_id
+JOIN category ON category.category_id = film_category.category_id
 WHERE film.title = 'EUCLIDEAN PI';
+
+INSERT INTO film_category(film_id, category_id) VALUES (1001, 17);
+
+SELECT * FROM film
+JOIN film_category ON film_category.film_id = film.film_id
+JOIN category ON category.category_id = film_category.category_id
+WHERE film.title = 'EUCLIDEAN PI';
+
+
+INSERT INTO film_category(film_id, category_id) VALUES(274, 17);
+
+UPDATE film_category SET category_id = 17
+WHERE film_category.film_id = 494;
+
+UPDATE film_category SET category_id = 17
+WHERE film_id = 714;
+
+UPDATE film_category SET category_id = 17
+WHERE film_id = 996;
 
 -- 6. Mathmagical films always have a "G" rating, adjust all Mathmagical films
 -- accordingly.
 -- (5 rows affected)
 
+UPDATE film SET rating = 'G'
+WHERE film.film_id IN (SELECT film_id FROM film_category WHERE category_id = 17);
+
 -- 7. Add a copy of "Euclidean PI" to all the stores.
+SELECT * FROM store;
+
+INSERT INTO inventory (film_id, store_id)
+VALUES (1001, 1);
+
+INSERT INTO inventory (film_id, store_id)
+VALUES (1001, 2);;
 
 -- 8. The Feds have stepped in and have impounded all copies of the pirated film,
 -- "Euclidean PI". The film has been seized from all stores, and needs to be
