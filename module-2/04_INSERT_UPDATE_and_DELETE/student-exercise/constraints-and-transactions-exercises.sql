@@ -89,15 +89,42 @@ VALUES (1001, 2);;
 -- (Did it succeed? Why?)
 -- <YOUR ANSWER HERE>
 
+-- the delete command did not work because the film ID is referenced on the film_actor table.
+DELETE FROM film
+WHERE film.title = 'EUCLIDEAN PI';
+
+
+
 -- 9. Delete Mathmagical from the category table.
 -- (Did it succeed? Why?)
 -- <YOUR ANSWER HERE>
+
+-- the delete command did not work because the category name is used as a foreign key in the film_category table.
+
+DELETE FROM category
+WHERE category.name = 'Mathmagical';
+
+
 
 -- 10. Delete all links to Mathmagical in the film_category tale.
 -- (Did it succeed? Why?)
 -- <YOUR ANSWER HERE>
 
+-- The delete command worked! I was able to delete the titles links to Mathmagical because I started at the relational midpoint.
+-- The film names still exist and the category still exists, but they are no longer linked to each other.
+DELETE FROM film_category
+WHERE category_id = 17;
+
 -- 11. Retry deleting Mathmagical from the category table, followed by retrying
 -- to delete "Euclidean PI".
 -- (Did either deletes succeed? Why?)
 -- <YOUR ANSWER HERE>
+
+-- The mathmagical category delete worked because there was now no longer a link between it and another table.
+-- However, the Euclidean Pi delete didn't work because it is still referenced in the film_actor table.
+
+DELETE FROM category 
+WHERE category.name = 'Mathmagical';
+
+DELETE FROM film
+WHERE film.title = 'EUCLIDEAN PI';
