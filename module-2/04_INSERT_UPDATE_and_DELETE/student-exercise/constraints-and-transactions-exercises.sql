@@ -121,7 +121,7 @@ WHERE category_id = 17;
 -- <YOUR ANSWER HERE>
 
 -- The mathmagical category delete worked because there was now no longer a link between it and another table.
--- However, the Euclidean Pi delete didn't work because it is still referenced in the film_actor table.
+-- However, the Euclidean Pi delete didn't work because the film title is still referenced in the film_actor table.
 
 DELETE FROM category 
 WHERE category.name = 'Mathmagical';
