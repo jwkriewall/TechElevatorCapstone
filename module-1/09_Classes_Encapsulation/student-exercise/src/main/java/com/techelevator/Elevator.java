@@ -2,75 +2,46 @@ package com.techelevator;
 
 public class Elevator {
 	
-	public Elevator(int numberOfLevels) {
-		this.numberOfLevels = numberOfLevels;
+	int numberOfFloors;
+	int currentFloor;
+	boolean doorOpen;
+	
+	private final int DEFAULT_FLOOR = 1;
+	
+	public Elevator(int numberOfFloors) {
+		this.numberOfFloors = numberOfFloors;
 		// numberOfLevels = how many floors are available
 	}
-	private final static int DEFAULT_FLOOR = 1;
 
-	private int numberOfLevels;
-	private int currentFloor = DEFAULT_FLOOR;
-	private int numberOfFloors;
-	private boolean doorOpen;
-	
-	public int getCurrentFloor() {
-		return this.currentFloor;
-	}
 	public int getNumberOfFloors() {
-		return this.numberOfFloors;
+		return numberOfFloors;
 	}
-	public boolean getDoorOpen() {
-		return this.doorOpen;
+
+	public int getCurrentFloor() {
+		return currentFloor;
 	}
-	
-	
+
+	public boolean isDoorOpen() {
+		return doorOpen;
+	}
 	
 	public void openDoor() {
 		this.doorOpen = true;
 	}
+	
 	public void closeDoor() {
 		this.doorOpen = false;
 	}
-	public boolean isDoorOpen() {
-		if (this.doorOpen = true) {
-			return true;
+	public void goUP(int desiredFloor) {
+		if (desiredFloor <= numberOfFloors && doorOpen == false) {
+			currentFloor = desiredFloor;
 		}
-		return false;
-		
-		
-	}
-	public void goUp(int desiredFloor) {
-		
-		
-		// if elevator is closed
-		// calculate if there are that many floors in building
-		// if so, add number of floors to current floor to get new floor
-		
-		if (isDoorOpen()) {
-			if (numberOfLevels >= desiredFloor) {
-				this.currentFloor = desiredFloor;
-				this.doorOpen = false;
-				
-			}
-		}
-	}
-	public void goDown(int desiredFloor) {
-		if (isDoorOpen()) {
-			if (desiredFloor < 1){
-				this.doorOpen = false;
-				this.currentFloor = DEFAULT_FLOOR;
-				
-			}
-			if (isDoorOpen()){
-				if (numberOfLevels <= desiredFloor) {
-				this.doorOpen = false;
-				this.currentFloor = desiredFloor;
-				
-			}
-		}
-		
 	}
 	
-}
+	public void goDown(int desiredFloor) {
+		if (desiredFloor >= DEFAULT_FLOOR && desiredFloor < currentFloor && doorOpen == false) {
+			currentFloor = desiredFloor;
+		}
+	}
 
 }
