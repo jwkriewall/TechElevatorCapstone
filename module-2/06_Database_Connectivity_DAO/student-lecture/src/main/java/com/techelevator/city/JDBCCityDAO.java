@@ -39,10 +39,10 @@ public class JDBCCityDAO implements CityDAO {
 		// completes.
 		newCity.setId(getNextCityId());
 		jdbcTemplate.update(sqlInsertCity, newCity.getId(),
-										  newCity.getName(),
-										  newCity.getCountryCode(),
-										  newCity.getDistrict(),
-										  newCity.getPopulation());
+										   newCity.getName(),
+										   newCity.getCountryCode(),
+										   newCity.getDistrict(),
+										   newCity.getPopulation());
 	}
 	
 	@Override
