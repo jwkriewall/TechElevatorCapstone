@@ -44,6 +44,7 @@ public class AddressBookApp {
 		contactDao.delete(newContact.getContactId());
 		
 		System.out.println(contactDao.get(newContact.getContactId()));
+		
 	}
 
 }
