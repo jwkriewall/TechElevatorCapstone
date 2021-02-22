@@ -4,6 +4,7 @@ public class City {
 
     private String full_name;
     private int geoname_id;
+    private int population;
     
     public void setFullName(String full_name) {
         this.full_name = full_name;
@@ -16,9 +17,19 @@ public class City {
     public String getFull_name(){
         return full_name;
     }
+    
+    
 
-    public String toString(){
-        return full_name;
+    public int getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+
+	public String toString(){
+        return full_name + " ("+ population + ")";
     }
 
 
