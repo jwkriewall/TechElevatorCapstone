@@ -40,8 +40,21 @@ public class HotelService {
    * @return
    */
   public Reservation updateReservation(String CSV) {
-    // TODO: Implement method
-    return null;
+    Reservation reservation = makeReservation(CSV);
+	
+		  
+	HttpHeaders headers = new HttpHeaders();
+  	headers.setContentType(MediaType.APPLICATION_JSON);
+  	
+  	HttpEntity<Reservation> entity = new HttpEntity<Reservation>(reservation, headers);
+  	
+  	restTemplate.put(BASE_URL + "reservations/" + reservation.getId(), entity);
+  	
+  	// use the put() method.
+  	
+  	
+	  
+    return reservation;
   }
 
   /**
@@ -62,7 +75,10 @@ public class HotelService {
    */
   public Hotel[] listHotels() {
     Hotel[] hotels = null;
-    // TODO: Implement method
+    
+    hotels = restTemplate.getForObject(BASE_URL + "hotels", Hotel[].class);
+    
+    
     return hotels;
   }
 

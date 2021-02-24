@@ -66,17 +66,50 @@ public class AuctionService {
     }
 
     public Auction add(String auctionString) {
-        // place code here
-        return null;
+        
+    
+    	
+    	Auction auction = makeAuction(auctionString);
+    	
+    	if (auction == null) {
+    		return null;
+    	}
+    	
+    	HttpEntity httpEntity = makeEntity(auction);
+    	
+    	RestTemplate restTemplate = new RestTemplate();
+    	
+    	try { 
+    		auction = restTemplate.postForObject(API_URL + auctionString, httpEntity, Auction.class);
+    	}
+    	catch (RestClientResponseException ex) {
+    		console.printError(ex.getRawStatusCode() + " : " + ex.getStatusText());
+    	}
+    	
+        return auction;
     }
 
     public Auction update(String auctionString) {
-        // place code here
-        return null;
+        
+    	
+    	Auction auction = makeAuction(auctionString);
+  
+    	if (auction == null) {
+    		return null;
+    	}
+    	
+    	RestTemplate restTemplate = new RestTemplate();
+    	
+    	restTemplate.put(API_URL + auction.getId(), auction);;
+    	
+        return auction;
     }
 
     public boolean delete(int id) {
-    	// place code here
+    	
+    	restTemplate.delete(API_URL + id);
+    	
+    	
     	return false; 
     }
 
