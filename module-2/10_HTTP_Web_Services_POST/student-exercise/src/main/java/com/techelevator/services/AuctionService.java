@@ -80,7 +80,7 @@ public class AuctionService {
     	RestTemplate restTemplate = new RestTemplate();
     	
     	try { 
-    		auction = restTemplate.postForObject(API_URL + auctionString, httpEntity, Auction.class);
+    		auction = restTemplate.postForObject(API_URL + "/" + auctionString, httpEntity, Auction.class);
     	}
     	catch (RestClientResponseException ex) {
     		console.printError(ex.getRawStatusCode() + " : " + ex.getStatusText());
@@ -100,7 +100,12 @@ public class AuctionService {
     	
     	RestTemplate restTemplate = new RestTemplate();
     	
-    	restTemplate.put(API_URL + auction.getId(), auction);;
+    	try{
+    		restTemplate.put(API_URL + "/" + auction.getId(), auction);;
+    	}
+    	catch (ResourceAccessException ex) {
+    		console.printError(ex.getMessage());
+    	}
     	
         return auction;
     }
