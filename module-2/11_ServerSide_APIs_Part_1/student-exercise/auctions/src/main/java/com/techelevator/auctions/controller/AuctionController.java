@@ -21,17 +21,23 @@ public class AuctionController {
     }
     
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<Auction> list(@RequestParam (required = false) String title_like){
-    	List<Auction> auctions = new ArrayList<Auction>();
+    public List<Auction> list(@RequestParam (required = false, defaultValue = "") String title_like, 
+    						  @RequestParam (required = false, defaultValue = "0") double currentBid_lte){
+    	//List<Auction> auctions = new ArrayList<Auction>();
     	
     	
-    	for (Auction auction : auctions) {
-    	title_like = "";
+    	if (currentBid_lte > 0 && title_like != null) {
+    		return dao.searchByTitleAndPrice(title_like, currentBid_lte);
+    	}
+    	
+    	if (currentBid_lte > 0) {
+        	return dao.searchByPrice(currentBid_lte);
+        }
     	
     	if (title_like != null) {
-    		dao.searchByTitle(title_like);
+    		return dao.searchByTitle(title_like);
     	}
-    	}
+        
         return dao.list();
     	
     }
