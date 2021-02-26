@@ -2,6 +2,7 @@ package com.techelevator.auctions.controller;
 
 import com.techelevator.auctions.DAO.AuctionDAO;
 import com.techelevator.auctions.DAO.MemoryAuctionDAO;
+import com.techelevator.auctions.auctionNotFoundException.auctionNotFoundException;
 import com.techelevator.auctions.model.Auction;
 
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/request")
+@RequestMapping(path = "/auctions")
 public class AuctionController {
 
     private AuctionDAO dao;
@@ -20,15 +21,31 @@ public class AuctionController {
     }
     
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<Auction> list(){
+    public List<Auction> list(@RequestParam (required = false) String title_like){
+    	List<Auction> auctions = new ArrayList<Auction>();
     	
-    	List<Auction> allAuctions = new ArrayList<Auction>();
-    	List<Auction> auctions = dao.list();
     	
     	for (Auction auction : auctions) {
-    		allAuctions.add(auction);
+    	title_like = "";
+    	
+    	if (title_like != null) {
+    		dao.searchByTitle(title_like);
     	}
-    	return allAuctions;
+    	}
+        return dao.list();
+    	
     }
+    
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public Auction get(@PathVariable int id) {
+    	return dao.get(id);
+    }
+    
+    @RequestMapping(path = "", method = RequestMethod.POST)
+    public Auction create(@RequestBody Auction auction) throws auctionNotFoundException {
+    	return dao.create(auction);
+    }
+    
+    
 
 }
