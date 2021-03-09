@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(230, 251, 251);
+}
+
+h1{
+    font-size: 80px;
+    line-height: 10px;
+    text-align: center;
+    color: rgb(166, 23, 159);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}
+
+img {
+    width: 200px;
+}
+
+h2 {
+    color: orange;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Let's Make A Form</title>
+        <link rel="stylesheet" href="homework.css">
+    </head>
+    <body>
+        <header>
+            <h1>This is a form for you to fill out!</h1>
+            <p>WOW SO COOL!</p>
+        </header>
+        <main>
+            <h1>Form For Your Enjoyment</h1>
+
+            <form action="/api/index" method="POST">
+                <div>
+                    <label for="form">Do you like filling out forms?</label>
+                    <input type="checkbox" id="form" name="form" />
+                </div>
+
+                <div>
+                    <label for="Name">What's Your Name?</label>
+                    <input type="text" id="Name" name="Name" />
+                </div>
+
+                <div>
+                    <label for="NumberOfForms">How Many Forms Would You Prefer To Fill Out In One Day?</label>
+                    <input type="range" id="NumberOfForms" name="NumberOfForms"/>
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
