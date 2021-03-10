@@ -21,13 +21,38 @@
                 </div>
 
                 <div>
-                    <label for="Name">What's Your Name?</label>
+                    <label required for="Name">What's Your Name?</label>
                     <input type="text" id="Name" name="Name" />
                 </div>
 
                 <div>
-                    <label for="NumberOfForms">How Many Forms Would You Prefer To Fill Out In One Day?</label>
+                    <label required for="email">What's your email address?</label>
+                    <input type="text" id="email" name="email" />
+                </div>
+
+                <div>
+                    <label for="NumberOfForms">How Many Forms Would You Prefer To Fill Out In One Day (on a spectrum)?</label>
                     <input type="range" id="NumberOfForms" name="NumberOfForms"/>
+                </div>
+
+                <div>
+                    <label for="FormAmount">How Many Forms Did You Fill Out In A Day?</label>
+                    <input type="number" id="FormAmount" name="FormAmount"/>
+                </div>
+
+                <div>
+                    <label for="Color">What color do you prefer your form to be?</label>
+                    <input type="color" id="color" name="color"/>
+                </div>
+
+                <div>
+                    <label for="date">What was the date you filled out your favorite form?</label>
+                    <input type="date" id="color" name="color"/>
+                </div>
+
+                <div>
+                    <label for="submit">Submit here!</label>
+                    <input type="submit" id="submit" name="submit"/>
                 </div>
             </form>
         </main>
