@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../lecture-final"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "10_CSS_Selectors"
+	}
+}
