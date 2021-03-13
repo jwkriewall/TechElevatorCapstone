@@ -49,6 +49,6 @@ header{
 
 header nav ul {
   display: flex;
-  text-direction: row;
+  flex-direction: row;
   justify-content: flex-end;
 }
