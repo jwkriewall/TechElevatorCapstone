@@ -43,3 +43,21 @@ li a:hover {
 .my-account img {
   width: 32px;
 }
+
+
+header {
+  display: flex;
+}
+
+header nav ul {
+  display: flex;
+  flex-direction: row; 
+  justify-content: flex-end;
+}
+
+.spacer {
+   display: flex;
+   flex-grow: 1;
+ }
+
+
