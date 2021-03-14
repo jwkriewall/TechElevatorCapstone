@@ -31,8 +31,7 @@ nav {
 #right-panel {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  
+  margin: auto;
 }
 
 /* YOU WON'T NEED TO CHANGE ANY STYLES BELOW THIS LINE */
