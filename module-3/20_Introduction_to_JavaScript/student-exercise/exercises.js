@@ -236,11 +236,14 @@ firstName, lastName, and age. Populate the properties with your values.
 	}
 */
 
-function createObject(first, last, age){
-	let object = {
-		'firstName': first,
-		'lastName': last,
-		'age': age
+function createObject(firstName, lastName, age){
+	const person = {
+		firstName: firstName,
+		lastName: lastName,
+		age: age
 	};
-
+	return person;
 }
+createObject(JW, Kriewall, 99);
+
+// ??

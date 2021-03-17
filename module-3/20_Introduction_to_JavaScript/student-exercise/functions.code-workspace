@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../21_JavaScript_Functions/student-exercise"
+		},
+		{
+			"path": "../../21_JavaScript_Functions/lecture-final"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "student-exercise"
+	}
+}
