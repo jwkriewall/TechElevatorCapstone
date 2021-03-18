@@ -8,9 +8,12 @@
 		},
 		{
 			"path": "../../21_JavaScript_Functions/lecture-final"
+		},
+		{
+			"path": "../../21_JavaScript_Functions/student-tutorial"
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "student-exercise"
+		"liveServer.settings.multiRootWorkspaceName": "student-tutorial"
 	}
 }

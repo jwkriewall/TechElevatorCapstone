@@ -38,10 +38,14 @@
  */
  let unfilteredArray = [1, 2, 3, 4, 5, 6];
 
+ function useParameterToFilterArray(filterFunction) {
+    //  const newArray = unfilteredArray.filter( (item) => {
+    //      return filterFunction(item);
+    //  });
+    const newArray = unfilteredArray.filter(filterFunction);
+    return newArray;
+ }
 
-// let filteredArray = unfilteredArray.filter((element) => {
-//     return (element - filterFunction) === 0;
-// });
 
 
 /**
@@ -71,26 +75,14 @@
  * @returns {number} the sum of all the parameters (or arguments)
  */
 
-// function addAll num.reduce( (number, number) => {
-//     let sum = 0;
-//     return sum += num;
-// }, '')
+function addAll(){
+    const array = Array.from(arguments);
+    const sum = array.reduce( (initialValue, numberToAdd) => {
+        return initialValue += numberToAdd;
+    }, 0);
+    return sum;
+}
 
-// function addAll (num) {
-//     let sum = 0;
-//     for (let i = 0; i < num.length; i++) {
-//         sum += num[i];
-//     }
-//     return sum;
-// }
-
-// function addAll (num) {
-//     let sum = 0;
-//     num.forEach(num) => {
-//         sum += num;
-//     }
-//     return sum;
-// }
 
 /*
  * Write and document a function called makeHappy that takes
@@ -101,7 +93,7 @@
  /*
  This array takes in an array and adds Happy to the beginning
  Returning the array as a new Array.
- If you input [I, am, happy] you would receive [HappyI, Happyam, Happyhappy].
+ If you input [I, am, happy] you would receive [Happy I, Happy am, Happy happy].
  @param {string} a string input array.
  @returns {string} the output array with Happy prepended.
 */
@@ -110,18 +102,12 @@
 * @param {string[]} stringArray the string array input
 * @returns {string[]} the changed array with Happy added
 */
-// const makeHappy = string.map( (stringArray) => {
-//     let newArray = [];
-//     for (let i = 0; i < stringArray.length; i++){
-//         newArray.put("Happy" + stringArray[i]);
-//     }
-//     console.table(newArray);
-//     return newArray;
-// })
-
-const makeHappy = stringArray.map( string => {
-    return "Happy" + string;
-})
+function makeHappy(stringArray){
+    const newArray = stringArray.map( (currentWord) => {
+        return "Happy " + currentWord;
+    });
+    return newArray;
+}
 
 /*
  * Write and document a function called getFullAddressesOfProperties
@@ -141,7 +127,19 @@ const makeHappy = stringArray.map( string => {
  * Use `map` and an anonymous function.
  */
 
-
+ /**
+  * This function takes in objects and returns a version
+  * with all info on one line.
+  * @param {object} addresses
+  * @returns {string} 
+  */
+ function getFullAddressesOfProperties(addresses){
+     
+     let addressStringArray = addresses.map((address) => {
+        return streetNumber + address.streetName + address.streetType 
+        + address.city + address.state + address.zip;
+     });
+ }
 
 /*
  * Write and document a function called findLargest.
@@ -156,6 +154,16 @@ const makeHappy = stringArray.map( string => {
  * @param {element[]} elements the element array input
  * @returns {element} string or number returned
  */
+
+ function findLargest(elements =''){
+     const largestNum = elements.reduce((biggestNum, element) => {
+         if (biggestNum < element){
+            return biggestNum = element;
+         }
+         else return biggestNum;
+     }, 0);
+     return largestNum;
+ }
 
 /*
  * CHALLENGE
@@ -174,3 +182,20 @@ const makeHappy = stringArray.map( string => {
  *
  * Read the tests to verify you have the correct behavior.
  */
+
+ /**
+  * This function returns the sum of all numbers.
+  * @param {array[]} numberArray;
+  * @returns {number}
+  */
+
+//   function getSumOfSubArrayValues(){
+//     let sum = 0;
+//     let arrayIndexNumber = 0;
+//     const getArray = numberArray.reduce(array, e) => {
+//         arrayIndexNumber = e;
+//         const getSum = array.reduce(arrayToSum, e) => {
+
+//         }
+//     }
+//   }
