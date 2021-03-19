@@ -93,7 +93,7 @@ In this step, you'll create a method called `addTodos`. In this method, you'll c
 ```js
 function addTodos() {
   const ul = document.createElement('ul');
-=  todoList.appendChild(ul);
+  todoList.appendChild(ul);
 }
 ```
 

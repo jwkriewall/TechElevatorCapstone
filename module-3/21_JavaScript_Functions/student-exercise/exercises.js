@@ -155,14 +155,14 @@ function makeHappy(stringArray){
  * @returns {element} string or number returned
  */
 
- function findLargest(elements =''){
-     const largestNum = elements.reduce((biggestNum, element) => {
-         if (biggestNum < element){
-            return biggestNum = element;
+ function findLargest(elements = ''){
+     const largest = elements.reduce((startingElement, element) => {
+         if (startingElement < element){
+            return element;
          }
-         else return biggestNum;
-     }, 0);
-     return largestNum;
+         else return startingElement;
+     });
+     return largest;
  }
 
 /*
@@ -189,13 +189,18 @@ function makeHappy(stringArray){
   * @returns {number}
   */
 
-//   function getSumOfSubArrayValues(){
-//     let sum = 0;
-//     let arrayIndexNumber = 0;
-//     const getArray = numberArray.reduce(array, e) => {
-//         arrayIndexNumber = e;
-//         const getSum = array.reduce(arrayToSum, e) => {
+// function getSumOfSubArrayValues(numberArray){
+//     //let sum = 0;
+//     const makeOneArray = numberArray.reduce((startingArray, nextArray) => {
+//         const startingArray = startingArray += nextArray;
+//         const getSum = makeOneArray.reduce((beginningValue, nextValue) => {
+//             sum = beginningValue += nextValue;
+//             return getSum;
+//         }); // should the array from the prior step go here?
+//     });
+// }
 
-//         }
-//     }
-//   }
+
+// reduce twice
+// they have scope of method they're info
+// return statement of that sum plus the internal array reduction

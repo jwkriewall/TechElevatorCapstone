@@ -23,7 +23,8 @@ function setPageTitle() {
 }
 
 /**
- * This function will loop over the array of groceries that was set above and add them to the DOM.
+ * This function will loop over the array of groceries 
+ * that was set above and add them to the DOM.
  */
 function displayGroceries() {
   const ul = document.querySelector('ul');
@@ -37,5 +38,31 @@ function displayGroceries() {
   });
 }
 
-setPageTitle();
-displayGroceries();
+
+document.addEventListener('DOMContentLoaded', () => {
+  setPageTitle();
+  displayGroceries();
+
+
+  
+  const list = document.querySelector('ul');
+  list.addEventListener('click', (event)=> {
+    if (item.completed == false) {
+      item.completed == true;
+    }
+
+
+
+    
+  })
+});
+
+
+// To do so, add the `.completed` class to the list item and the icon. 
+//     You should check the item to make sure it doesn't already have the completed class. 
+//     There is no sense in performing your logic on an item that is already complete.
+
+// const desc = document.querySelector('.description');
+// desc.addEventListener('click', (event) => {
+//   toggleDescriptionEdit(event.target);
+// })

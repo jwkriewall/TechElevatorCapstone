@@ -60,7 +60,7 @@ function returnGivenParameter(thing) {
  */
 function filterArrayToOnlySingleDigitNumbers(arrayToFilter) {
   return arrayToFilter.filter( (number) => {
-    if (number < 10){
+    if (number < 10 && number > -10){
       return true;
     }
     else
@@ -120,7 +120,7 @@ function reduceArrayToFindProduct(arrayToMultiply) {
 function filterStringArrayForSon(arrayToFilter) {
   return arrayToFilter.filter((name) => {
     // WRITE CODE HERE
-    if (name.search('son')){
+    if (name.includes('son')){
       return true;
     }
     else
@@ -139,7 +139,7 @@ function makeNamesAllCaps(arrayToCapitalize) {
   return arrayToCapitalize.map(
     // WRITE CODE HERE
     (name)=>{
-      return name.toUpperCase;
+      return name.toUpperCase();
     }
   );
 }

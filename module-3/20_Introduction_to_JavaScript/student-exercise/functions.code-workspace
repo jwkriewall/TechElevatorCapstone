@@ -11,9 +11,24 @@
 		},
 		{
 			"path": "../../21_JavaScript_Functions/student-tutorial"
+		},
+		{
+			"path": "../../22_DOM/student-exercise"
+		},
+		{
+			"path": "../../22_DOM/student-tutorial"
+		},
+		{
+			"path": "../../23_Event_Handling/student-tutorial"
+		},
+		{
+			"path": "../../23_Event_Handling/student-exercise"
+		},
+		{
+			"path": "../../23_Event_Handling/lecture-final"
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "student-tutorial"
+		"liveServer.settings.multiRootWorkspaceName": "student-exercise"
 	}
 }
