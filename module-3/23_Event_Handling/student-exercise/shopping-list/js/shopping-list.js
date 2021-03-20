@@ -45,16 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
-  const list = document.querySelector('ul');
+  const list = document.querySelectorAll('li');
   list.addEventListener('click', (event)=> {
-    if (item.completed == false) {
-      item.completed == true;
-    }
-
-
-
+    event.item.classList.add('completed');
     
-  })
+
+   
+    
+  });
 });
 
 
