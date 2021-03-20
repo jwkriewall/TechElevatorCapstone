@@ -46,13 +46,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   const list = document.querySelectorAll('li');
-  list.addEventListener('click', (event)=> {
-    event.item.classList.add('completed');
-    
+  for (item of list) {
+    item.addEventListener('click', function(){
+      this.classList.add('completed');
+    })
+  }
 
-   
-    
-  });
+  for (item of list) {
+    item.addEventListener('dblclick', function(){
+      this.classList.remove('completed');
+    })
+  }
+
+  const button = document.getElementById('toggleAll');
+  button.addEventListener('click', event => {
+    list.forEach(item => {
+      item.classList.add('completed');
+      button.innerText = 'Mark All Incomplete';
+    })
+  })
+
+  button.addEventListener('dblclick', event => {
+    list.forEach(item => {
+      item.classList.remove('completed');
+      button.innerText = 'Mark All Complete';
+    })
+  })
+
 });
 
 
