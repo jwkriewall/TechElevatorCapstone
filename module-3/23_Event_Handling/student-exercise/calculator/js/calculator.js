@@ -1,5 +1,5 @@
 // let display;
-let display = document.querySelector('input#display');
+let display = document.querySelector('div#display.calculator-screen');
 let previous = null;
 let operator = null;
 let operatorClicked = false;

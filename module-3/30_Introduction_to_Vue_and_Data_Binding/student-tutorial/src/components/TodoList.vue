@@ -1,24 +1,39 @@
 <template>
- 
-  <div id="todo-app">
-    <todo-list></todo-list>
-  </div>
+
+<h1>My Daily Routine</h1>
+<ul>
+  <li v-for="todo in todos" v-bind:key="todo.name">{{ todo.name }}</li>
+</ul>
 
 </template>
 
 <script>
- import TodoList from './components/TodoList.vue';
-
 
 export default {
-  name: 'app',
-  components: {
-    TodoList
-
+  data() {
+    return {
+      todos: [
+        {
+          name: 'Wake up'
+        },
+        {
+          name: '5 Minute Morning Movement'
+        },
+        {
+          name: 'Meditate'
+        },
+        {
+          name: 'Brush Teeth'
+        },
+        {
+          name: 'Shower'
+        }
+      ]
+    }
   }
 }
+
 </script>
-   
 
 <style>
 
@@ -53,4 +68,6 @@ li {
 li:last-child{
     border:0px;
 }
+
+
 </style>

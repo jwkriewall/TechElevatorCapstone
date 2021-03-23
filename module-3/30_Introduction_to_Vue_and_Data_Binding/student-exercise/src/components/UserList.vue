@@ -2,11 +2,13 @@
   <table id="tblUsers">
     <thead>
     <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-        <th>Email Address</th>
-        <th>Status</th>
+        
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th> 
+          <th>Email Address</th>
+          <th>Status</th> 
+       
     </tr>
     </thead>
     <tbody>
@@ -24,6 +26,13 @@
         </td>
       </tr>
       <!-- user listing goes here -->
+      <tr class="users" v-for="user in users" v-bind:key="user.id">
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.username}}</td> 
+          <td>{{user.emailAddress}}</td>
+          <td>{{user.status}}</td> 
+        </tr>
     </tbody>
   </table>
 </template>
@@ -42,8 +51,26 @@ export default {
         { firstName: 'Mark', lastName: 'Smith', username: 'msmith', emailAddress: 'msmith@foo.com', status: 'Disabled' }
       ]
     }
+  },
+  // HELP!
+
+  name: 'filter',
+  data() {
+    return {
+      filter: [
+        {
+          firstName, lastName, username, emailAddress, status
+        }
+        
+      ]
+    }
   }
 }
+    
+
+    
+  
+
 </script>
 
 <style scoped>

@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../../23_Event_Handling/lecture-final"
+		},
+		{
+			"path": "../../22_DOM/student-exercise"
+		},
+		{
+			"path": "../../23_Event_Handling/student-exercise"
+		},
+		{
+			"path": "../../00a-extra-css-exercise"
+		},
+		{
+			"path": "../../12_Flexbox/lecture-final"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../student-exercise"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "student-exercise",
+		"liveServer.settings.port": 5501
+	}
+}
