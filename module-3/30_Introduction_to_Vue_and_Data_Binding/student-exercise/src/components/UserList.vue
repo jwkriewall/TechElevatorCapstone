@@ -13,12 +13,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="text" id="firstNameFilter"/></td>
-        <td><input type="text" id="lastNameFilter"/></td>
-        <td><input type="text" id="usernameFilter"/></td>
-        <td><input type="text" id="emailFilter"/></td>
+        <td><input type="text" id="firstNameFilter" v-model="filter.firstName"/></td>
+        <td><input type="text" id="lastNameFilter" v-model="filter.lastName"/></td>
+        <td><input type="text" id="usernameFilter" v-model="filter.username"/></td>
+        <td><input type="text" id="emailFilter" v-model="filter.emailAddress"/></td>
         <td>
-          <select id="statusFilter">
+          <select id="statusFilter" v-model="filter.status">
             <option value="">Show All</option>
             <option value="Active">Active</option>
             <option value="Disabled">Disabled</option>
@@ -49,24 +49,40 @@ export default {
         { firstName: 'Ben', lastName: 'Carter', username: 'bcarter', emailAddress: 'bcarter@gmail.com', status: 'Active' },
         { firstName: 'Katie', lastName: 'Jackson', username: 'kjackson', emailAddress: 'kjackson@yahoo.com', status: 'Active' },
         { firstName: 'Mark', lastName: 'Smith', username: 'msmith', emailAddress: 'msmith@foo.com', status: 'Disabled' }
-      ]
-    }
-  },
-  // HELP!
+      ],
 
-  name: 'filter',
-  data() {
-    return {
       filter: [
         {
-          firstName, lastName, username, emailAddress, status
+          //these need to be connected
+          firstName : '', 
+          lastName : '', 
+          username : '', 
+          emailAddress : '', 
+          status : ''
         }
         
       ]
     }
+  },
+  computed: {
+    filteredList() {
+      return this.users.filter(user => {
+        const filterFirstName = this.filter.firstName;
+        const filterLast = this.filter.lastName;
+        const filterEmail = this.filter.emailAddress;
+        const filterUsername = this.filter.username;
+        const filterStatus = this.filter.status;
+        return (user.firstName.toLowerCase().contains(filterFirstName.toLowerCase()) &&
+                user.lastName.toLowerCase().contains(filterLast.toLowerCase()) &&
+                user.emailAddress.toLowerCase().contains(filterEmail.toLowerCase()) &&
+                user.username.toLowerCase().contains(filterUsername.toLowerCase()) &&
+                user.status.toLowerCase().contains(filterStatus.toLowerCase()));
+      
+      });
+    }
   }
 }
-    
+
 
     
   
