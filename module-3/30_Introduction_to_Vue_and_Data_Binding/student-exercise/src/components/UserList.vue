@@ -64,28 +64,46 @@ export default {
       ]
     }
   },
+
+  // throwing my hands up on this one!!
   computed: {
     filteredList() {
-      return this.users.filter(user => {
-        const filterFirstName = this.filter.firstName;
-        const filterLast = this.filter.lastName;
-        const filterEmail = this.filter.emailAddress;
-        const filterUsername = this.filter.username;
-        const filterStatus = this.filter.status;
-        return (user.firstName.toLowerCase().contains(filterFirstName.toLowerCase()) &&
-                user.lastName.toLowerCase().contains(filterLast.toLowerCase()) &&
-                user.emailAddress.toLowerCase().contains(filterEmail.toLowerCase()) &&
-                user.username.toLowerCase().contains(filterUsername.toLowerCase()) &&
-                user.status.toLowerCase().contains(filterStatus.toLowerCase()));
+      const filterFirstName = this.filter.firstName;
+      const filterLast = this.filter.lastName;
+      const filterEmail = this.filter.emailAddress;
+      const filterUsername = this.filter.username;
+      const filterStatus = this.filter.status;
+      let filteredUsers = this.users;
       
-      });
-    }
+      if (filterFirstName != "") {
+        filteredUsers = filteredUsers.filter((user) => 
+          user.firstName.toLowerCase().includes(filterFirstName.toLowerCase())
+          );
+      }
+      if (filterLast != "") {
+        filteredUsers = filteredUsers.filter((user) => 
+          user.lastName.toLowerCase().includes(filterLast.toLowerCase())
+        );
+      }
+      if (filterEmail != "") {
+        filteredUsers = filteredUsers.filter((user) => 
+          user.emailAddress.toLowerCase().includes(filterEmail.toLowerCase())
+        );
+      }
+      if (filterUsername != "") {
+        filteredUsers = filteredUsers.filter((user) => 
+          user.username.toLowerCase().includes(filterUsername.toLowerCase())
+        );
+      }
+      if (filterStatus != "") {
+        filteredUsers = filteredUsers.filter((user) => 
+          user.status.includes(filterStatus)
+        );
+      }
+      return filteredUsers;
+    }  
   }
-}
-
-
-    
-  
+};
 
 </script>
 
