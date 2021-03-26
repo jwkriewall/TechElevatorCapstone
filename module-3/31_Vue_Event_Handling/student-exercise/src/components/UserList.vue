@@ -44,7 +44,11 @@
           v-bind:class="{ disabled: user.status === 'Disabled' }"
         >
           <td>
-            <input type="checkbox" v-bind:id="user.id" v-bind:value="user.id" />
+            <input type="checkbox" 
+             v-bind:id="user.id" v-bind:value="user.id" 
+             v-on:change="addUserIdToSelectedUserId($event)"/>
+
+
           </td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
@@ -52,36 +56,48 @@
           <td>{{ user.emailAddress }}</td>
           <td>{{ user.status }}</td>
           <td>
-            <button class="btnEnableDisable">Enable or Disable</button>
+            <button v-bind:id="user.id" v-on:click="flipStatus(user.id) " 
+            class="btnEnableDisable">{{ enableOrDisabled }}</button>
           </td>
         </tr>
       </tbody>
     </table>
 
+
+<!----- If the user status = 'Active', the button text displays 'Disable.'
+- If the user status = 'Disabled', the button text displays 'Enable.'
+- When you click the button, it calls a method `flipStatus()` and change the user's status from 'Active' to 'Disabled', or 'Disabled' to 'Active.'
+  - The `flipStatus(id)` method takes the user ID as an argument.
+  - You can use the user ID to find the user in the users array and change their status.
+--->
+
     <div class="all-actions">
-      <button>Enable Users</button>
-      <button>Disable Users</button>
-      <button>Delete Users</button>
+      <button v-show="!isSelectedUserIDsEmpty()">Enable Users</button>
+      <button v-show="!isSelectedUserIDsEmpty()">Disable Users</button>
+      <button v-show="!isSelectedUserIDsEmpty()">Delete Users</button>
     </div>
 
-    <button>Add New User</button>
 
-    <form id="frmAddNewUser">
+
+  
+    <button v-on:click.prevent="toggle()">Add New User</button>
+    
+    <form id="frmAddNewUser" v-if="showForm" v-on:submit.prevent="saveUser()">
       <div class="field">
         <label for="firstName">First Name:</label>
-        <input type="text" name="firstName" />
+        <input type="text" name="firstName" v-model="newUser.firstName"/>
       </div>
       <div class="field">
         <label for="lastName">Last Name:</label>
-        <input type="text" name="lastName" />
+        <input type="text" name="lastName" v-model="newUser.lastName"/>
       </div>
       <div class="field">
         <label for="username">Username:</label>
-        <input type="text" name="username" />
+        <input type="text" name="username" v-model="newUser.username"/>
       </div>
       <div class="field">
         <label for="emailAddress">Email Address:</label>
-        <input type="text" name="emailAddress" />
+        <input type="text" name="emailAddress" v-model="newUser.emailAddress"/>
       </div>
       <button type="submit" class="btn save">Save User</button>
     </form>
@@ -91,8 +107,14 @@
 <script>
 export default {
   name: "user-list",
+  // added code
+  
   data() {
     return {
+      selectedUserIDs: {},
+      enabledButton: false,
+      showForm: false,
+      enableOrDisabled: "Disable",
       filter: {
         firstName: "",
         lastName: "",
@@ -160,8 +182,51 @@ export default {
       ]
     };
   },
-  methods: {},
+  methods: {
+    
+    toggle() {
+      this.showForm = this.showForm ? false : true;
+    },
+    saveUser() {
+      this.users.push(this.newUser);
+      this.resetForm();
+    },
+    resetForm() {
+      this.newUser = {};
+      this.toggle();
+    },
+    isSelectedUserIDsEmpty() {
+      if (this.selectedUserIDs == {}) {
+        return true;
+      }
+      else return false;
+    },
+    addUserIdToSelectedUserId(){
+      const checked = this.$event.target.checked
+      if (checked){
+        this.selectedUserIDs.unshift(this.user.id);
+      }
+     
+    },
+//new code
+    flipStatus(id) {
+      return this.users.filter(user =>{
+        if (user.id == id && user.status === "Disabled") {
+          user.status = "Active";
+          this.enableOrDisabled = "Disable"
+        }
+        else if (user.id == id && user.status === "Active"){
+          user.status = "Disabled";
+          this.enableOrDisabled = "Enable"
+        }
+      })
+  }
+},
   computed: {
+
+
+ 
+
     filteredList() {
       let filteredUsers = this.users;
       if (this.filter.firstName != "") {
