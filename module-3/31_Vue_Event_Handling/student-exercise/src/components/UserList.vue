@@ -46,9 +46,7 @@
           <td>
             <input type="checkbox" 
              v-bind:id="user.id" v-bind:value="user.id" 
-             v-on:change="addUserIdToSelectedUserId($event)"/>
-
-
+             v-on:change="addUserIdToSelectedUserId()"/>
           </td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
@@ -202,11 +200,7 @@ export default {
       else return false;
     },
     addUserIdToSelectedUserId(){
-      const checked = this.$event.target.checked
-      if (checked){
-        this.selectedUserIDs.unshift(this.user.id);
-      }
-     
+     this.selectedUserIDs.unshift(this.user.id);
     },
 //new code
     flipStatus(id) {
