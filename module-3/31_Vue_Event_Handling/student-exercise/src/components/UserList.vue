@@ -46,7 +46,10 @@
           <td>
             <input type="checkbox" 
              v-bind:id="user.id" v-bind:value="user.id" 
-             v-on:change="addUserIdToSelectedUserId()"/>
+             v-bind:selectedUserIDs="checkedAddUser"
+             v-model="user.checkmark" 
+        
+             />
           </td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
@@ -54,25 +57,42 @@
           <td>{{ user.emailAddress }}</td>
           <td>{{ user.status }}</td>
           <td>
-            <button v-bind:id="user.id" v-on:click="flipStatus(user.id) " 
-            class="btnEnableDisable">{{ enableOrDisabled }}</button>
+            <button v-bind:disabled="isSelectedUserIDsEmpty" v-bind:id="user.id" 
+            v-bind:status="user.status" 
+          
+            v-bind:showStatus="user.showStatus" v-on:click="flipStatus(user.id)" 
+            class="btnEnableDisable">{{ user.status === 'Active' ? 'Disable' : 'Enable' }}</button>
           </td>
         </tr>
       </tbody>
     </table>
 
 
-<!----- If the user status = 'Active', the button text displays 'Disable.'
-- If the user status = 'Disabled', the button text displays 'Enable.'
-- When you click the button, it calls a method `flipStatus()` and change the user's status from 'Active' to 'Disabled', or 'Disabled' to 'Active.'
-  - The `flipStatus(id)` method takes the user ID as an argument.
-  - You can use the user ID to find the user in the users array and change their status.
+<!----- - Add a `selectedUserIDs` property that defaults to an empty array.
+- When the `selectedUserIDs` array is empty, the buttons should be disabled.
+  - Note: use a computed property named `actionButtonDisabled` for this.
+- When the checkbox for a row is checked, add the user's ID to the `selectedUserIDs` array.
+
+
+ - Bind the checked value to if the user's ID is in the `selectedUserIDs` array.
+- Enable Users
+  - Sets the status of each selected user to `Active`.
+  - Clears all checkboxes when action is completed.
+  - Method name: `enableSelectedUsers()`
+- Disable Users
+  - Sets the status of each selected user to `Disabled`.
+  - Clears all checkboxes when action is completed.
+  - Method name: `disableSelectedUsers()`
+- Delete Users
+  - Deletes the user from the `users` array.
+  - Clears all checkboxes when action is completed.
+  - Method name: `deleteSelectedUsers()`
 --->
 
     <div class="all-actions">
-      <button v-show="!isSelectedUserIDsEmpty()">Enable Users</button>
-      <button v-show="!isSelectedUserIDsEmpty()">Disable Users</button>
-      <button v-show="!isSelectedUserIDsEmpty()">Delete Users</button>
+      <button v-bind:disabled="isSelectedUserIDsEmpty">Enable Users</button>
+      <button v-bind:disabled="isSelectedUserIDsEmpty">Disable Users</button>
+      <button v-bind:disabled="isSelectedUserIDsEmpty">Delete Users</button>
     </div>
 
 
@@ -112,7 +132,7 @@ export default {
       selectedUserIDs: {},
       enabledButton: false,
       showForm: false,
-      enableOrDisabled: "Disable",
+      enableOrDisabled: "",
       filter: {
         firstName: "",
         lastName: "",
@@ -181,6 +201,14 @@ export default {
     };
   },
   methods: {
+    statusDisplay() {
+      if (this.user.status === "Disabled"){
+        this.user.showStatus === "Enable";
+      }
+      if (this.user.status === "Active") {
+        this.user.showStatus === "Disable";
+      }
+    },
     
     toggle() {
       this.showForm = this.showForm ? false : true;
@@ -199,8 +227,11 @@ export default {
       }
       else return false;
     },
-    addUserIdToSelectedUserId(){
-     this.selectedUserIDs.unshift(this.user.id);
+    checkedAddUser(){
+      if (this.user.checkmark == true){
+        this.selectedUserIDs.push(this.user.id);
+      } 
+      
     },
 //new code
     flipStatus(id) {
@@ -217,9 +248,6 @@ export default {
   }
 },
   computed: {
-
-
- 
 
     filteredList() {
       let filteredUsers = this.users;
