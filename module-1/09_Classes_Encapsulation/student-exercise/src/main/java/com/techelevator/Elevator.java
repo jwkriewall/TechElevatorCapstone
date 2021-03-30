@@ -32,7 +32,7 @@ public class Elevator {
 	public void closeDoor() {
 		this.doorOpen = false;
 	}
-	public void goUP(int desiredFloor) {
+	public void goUp(int desiredFloor) {
 		if (desiredFloor <= numberOfFloors && doorOpen == false) {
 			currentFloor = desiredFloor;
 		}
