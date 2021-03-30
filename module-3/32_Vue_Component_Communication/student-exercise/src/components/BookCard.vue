@@ -3,7 +3,9 @@
     <h2 v-bind:class="book.title"> {{book.title}} </h2>
     <img v-if="book.isbn" v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'" />
     <h3 v-bind:class="book.author"> {{book.author}} </h3>
-    <button v-on:click="iReadThisBook(book)" >{{ book.read == true ? 'Read' : 'To Read' }}</button>
+    <button v-bind:class="{ read : !book.read }"
+    
+    v-on:click="iReadThisBook(book)" >{{ book.read == true ? 'Read' : 'To Read' }}</button>
   </div>
 
   
@@ -20,9 +22,9 @@ export default {
             this.$store.commit('READ_BOOK', book)
         }
     }
-
- 
 }
+ 
+
 </script>
 
 <style>

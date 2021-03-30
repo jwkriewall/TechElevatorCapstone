@@ -36,6 +36,9 @@ export default new Vuex.Store({
     READ_BOOK(state, book) {
       return book.read = !book.read;
     },
+    ADD_BOOK(state, newBook) {
+      state.books.push(newBook);
+    }
   },
   actions: {},
   modules: {},
