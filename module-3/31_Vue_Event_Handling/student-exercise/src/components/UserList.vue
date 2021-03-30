@@ -46,9 +46,8 @@
           <td>
             <input type="checkbox" 
              v-bind:id="user.id" v-bind:value="user.id" 
-             v-bind:selectedUserIDs="checkedAddUser"
-             v-model="user.checkmark" 
-        
+             v-on:change="checkedAddUser($event)"
+             v-bind:checked="selectedUserIDs.includes(user.id)"
              />
           </td>
           <td>{{ user.firstName }}</td>
@@ -57,10 +56,10 @@
           <td>{{ user.emailAddress }}</td>
           <td>{{ user.status }}</td>
           <td>
-            <button v-bind:disabled="isSelectedUserIDsEmpty" v-bind:id="user.id" 
+            <button v-bind:disabled="actionButtonDisabled" v-bind:id="user.id" 
             v-bind:status="user.status" 
           
-            v-bind:showStatus="user.showStatus" v-on:click="flipStatus(user.id)" 
+            v-bind:showStatus="user.showStatus" v-on:click.prevent="flipStatus(user.id)" 
             class="btnEnableDisable">{{ user.status === 'Active' ? 'Disable' : 'Enable' }}</button>
           </td>
         </tr>
@@ -90,17 +89,20 @@
 --->
 
     <div class="all-actions">
-      <button v-bind:disabled="isSelectedUserIDsEmpty">Enable Users</button>
-      <button v-bind:disabled="isSelectedUserIDsEmpty">Disable Users</button>
-      <button v-bind:disabled="isSelectedUserIDsEmpty">Delete Users</button>
+      <button v-bind:disabled="actionButtonDisabled"
+      v-on:click.prevent="enableSelectedUsers">Enable Users</button>
+      <button v-bind:disabled="actionButtonDisabled"
+      v-on:click.prevent="disableSelectedUsers">Disable Users</button>
+      <button v-bind:disabled="actionButtonDisabled"
+      v-on:click.prevent="deleteSelectedUsers">Delete Users</button>
     </div>
 
 
 
   
-    <button v-on:click.prevent="toggle()">Add New User</button>
+    <button v-on:click.prevent="showForm = true">Add New User</button>
     
-    <form id="frmAddNewUser" v-if="showForm" v-on:submit.prevent="saveUser()">
+    <form id="frmAddNewUser" v-show="showForm" v-on:submit.prevent="saveUser()">
       <div class="field">
         <label for="firstName">First Name:</label>
         <input type="text" name="firstName" v-model="newUser.firstName"/>
@@ -129,7 +131,7 @@ export default {
   
   data() {
     return {
-      selectedUserIDs: {},
+      selectedUserIDs: [],
       enabledButton: false,
       showForm: false,
       enableOrDisabled: "",
@@ -209,28 +211,50 @@ export default {
         this.user.showStatus === "Disable";
       }
     },
-    
-    toggle() {
-      this.showForm = this.showForm ? false : true;
+    enableSelectedUsers() {
+      this.selectedUserIDs.forEach(id =>{
+        const i = this.users.findIndex(user => user.id == id);
+        this.users[i].status = 'Active';
+      });
+      this.selectedUserIDs = [];
     },
+    disableSelectedUsers() {
+        this.selectedUserIDs.forEach(id =>{
+        const i = this.users.findIndex(user => user.id == id);
+        this.users[i].status = 'Disabled';
+      });
+      this.selectedUserIDs = [];
+    },
+    deleteSelectedUsers() {
+      this.users = this.users.filter(user => {
+        return !(this.selectedUserIDs.includes(user.id));
+      })
+    },
+    
+    
     saveUser() {
       this.users.push(this.newUser);
       this.resetForm();
+      this.showForm == false;
     },
     resetForm() {
-      this.newUser = {};
+      this.newUser = {
+        id: null,
+        status: "Active"
+      };
       this.toggle();
     },
-    isSelectedUserIDsEmpty() {
-      if (this.selectedUserIDs == {}) {
-        return true;
+
+    
+    checkedAddUser(event){
+      if (event.target.checked){
+        this.selectedUserIDs.push(parseInt(event.target.id));
+      } else {
+        this.selectedUserIDs = 
+        this.selectedUserIDs.filter(id =>{
+          return id != parseInt(event.target.id);
+        })
       }
-      else return false;
-    },
-    checkedAddUser(){
-      if (this.user.checkmark == true){
-        this.selectedUserIDs.push(this.user.id);
-      } 
       
     },
 //new code
@@ -248,6 +272,15 @@ export default {
   }
 },
   computed: {
+
+      actionButtonDisabled() {
+      if (this.selectedUserIDs == {}) {
+        return true;
+      }
+      else return false;
+      },
+
+   
 
     filteredList() {
       let filteredUsers = this.users;

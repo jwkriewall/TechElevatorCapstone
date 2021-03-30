@@ -3,7 +3,7 @@
         <h1>My Daily Routine</h1>
         <ul>
             <li v-for="todo in todos" v-bind:key="todo.name"  v-bind:class="{ 'todo-completed': todo.done }">
-                <input type="checkbox" v-model="todo.done"/>
+                <input type="checkbox" v-bind:checked="todo.done" v-on:click="checkTodoBox(todo)"/>
                 <span v-bind:class="{ completed: todo.done }">{{todo.name}}</span>
             </li>
         </ul>
@@ -12,20 +12,9 @@
 
 <script>
 export default {
-  data() {
-    return {
-        todos: [
-          { name: 'Wake up', done: false, category: 'Home' },
-          { name: '5 Minute Morning Movement', done: false, category: 'Home' },
-          { name: 'Meditate', done: false, category: 'Home' },
-          { name: 'Brush teeth', done: false, category: 'Home' },
-          { name: 'Shower', done: false, category: 'Home' },
-          { name: 'Answer email', done: false, category: 'Work' },
-          { name: 'Stand up meeting', done: false, category: 'Work' },
-          { name: 'Fix a bug', done: false, category: 'Work' },
-        ]
-    }
-  }
+
+ 
+
 }
 </script>
 

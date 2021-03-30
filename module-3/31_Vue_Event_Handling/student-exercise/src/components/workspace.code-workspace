@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "../../../../30_Introduction_to_Vue_and_Data_Binding/student-lecture/vue-product-reviews"
+		},
+		{
+			"path": "../../../../30_Introduction_to_Vue_and_Data_Binding/student-exercise"
+		},
+		{
+			"path": "../../../../30_Introduction_to_Vue_and_Data_Binding/lecture-final"
+		},
+		{
+			"path": "../../../student-tutorial"
+		},
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../32_Vue_Component_Communication/student-exercise"
+		},
+		{
+			"path": "../../../../32_Vue_Component_Communication"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "31_Vue_Event_Handling"
+	}
+}
