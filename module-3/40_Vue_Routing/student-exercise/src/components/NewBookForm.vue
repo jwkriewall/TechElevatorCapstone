@@ -29,6 +29,8 @@ export default {
                 read: false,
                 isbn: ''
             };
+            this.$router.push({ path: '/' });
+            // NOTE: name: 'Home' doesn't work here but path: '/' does. Why?
         }
     }
 }

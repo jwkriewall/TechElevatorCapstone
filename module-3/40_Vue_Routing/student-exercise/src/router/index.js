@@ -1,9 +1,38 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+//import ReadingList from '@/components/ReadingList.vue'
+import Home from '@/views/Home.vue'
+import MyBooks from '@/views/MyBooks.vue'
+import NewBook from '@/views/NewBook.vue'
+import BookDetails from '@/components/BookDetails'
 
 Vue.use(VueRouter);
 
 const routes = [
+
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+    
+  },
+  {
+    path: '/myBooks',
+    name: 'my-books',
+    component: MyBooks
+  },
+  {
+    path: '/addBook',
+    name: 'new-book',
+    component: NewBook
+  },
+  {
+    path: `/book/{$isbn}`,
+    name: 'book-details',
+    component: BookDetails
+  }
+  
+
 
 ];
 
