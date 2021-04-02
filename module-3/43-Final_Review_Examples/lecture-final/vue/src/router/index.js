@@ -5,7 +5,9 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Cart from '../views/Cart.vue'
+import UserExample from '../views/UserExample'
+import ExternalApiJs from '../views/ExternalApiJs'
+import ExternalApiWithProxy from '../views/ExternalApiWithProxy'
 
 Vue.use(Router)
 
@@ -55,13 +57,29 @@ const router = new Router({
       }
     },
     {
-      path: '/cart',
-      name: 'cart',
-      component: Cart,
+      path: "/userexample",
+      name: "userexample",
+      component: UserExample,
       meta: {
         requiresAuth: true
       }
-    }
+    },
+    {
+      path: "/apiwithjs",
+      name: "apiwithjs",
+      component: ExternalApiJs,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/apiwithproxy",
+      name: "apiwithproxy",
+      component: ExternalApiWithProxy,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
 })
 

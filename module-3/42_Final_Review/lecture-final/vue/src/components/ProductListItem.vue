@@ -18,6 +18,9 @@
           <span v-if="product.quantity < 3 && product.quantity > 0" class="limitedstock">
               Only {{product.quantity}} Remain</span>
       </div>
+      <div>
+          <button v-on:click.prevent="addItemToCart">Add to Cart</button>
+      </div>
   </div>
 </template>
 
@@ -34,6 +37,11 @@ export default {
         },
         formattedPrice() {
             return '$' + Number(this.product.price).toFixed(2);
+        }
+    },
+    methods: {
+        addItemToCart() {
+            this.$store.commit("ADD_ITEM_TO_CART", this.product);
         }
     }
 

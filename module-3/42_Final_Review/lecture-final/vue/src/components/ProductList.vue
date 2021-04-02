@@ -10,7 +10,7 @@
 
 <script>
 import ProductListItem from './ProductListItem.vue';
-
+import productService from '@/services/ProductService';
 
 export default {
     name: 'product-list',
@@ -25,6 +25,15 @@ export default {
                 return category === 'All'? true : product.category === category;
             })
         }
+    },
+    created() {
+        productService.getAllProducts()
+            .then( response => {
+                this.$store.commit("SET_PRODUCTS", response.data);
+            })
+            .catch( error => {
+                console.error( error );
+            });
     }
     
 }
