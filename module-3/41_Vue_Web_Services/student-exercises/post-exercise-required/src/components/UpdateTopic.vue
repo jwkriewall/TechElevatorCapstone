@@ -25,7 +25,20 @@ export default {
     updateTopic() {
       const topic = { id: this.topicID, title: this.title };
       // call topic service update method
-    }
+
+      topicService
+      .updateTopic(topic)
+      .then(response => {
+        if (response.status === 200) {
+          this.$router.push(`/`);
+        }
+      })
+      .catch(error => {
+         if (error.response.status == 404) {
+          this.$router.push("/not-found");
+        }
+      })
+      }
   },
   created() {
     topicService
@@ -41,6 +54,17 @@ export default {
       });
   }
 };
+
+
+
+// Open `/src/components/UpdateTopic.vue`. You'll see that the `updateTopic()` 
+// is missing a call to the service. You'll need to call 
+// the method you just created in `TopicService`. 
+
+// When the promise is returned, check the status code 
+// to make sure everything was successful (200) and 
+// then use the router to forward the user to `/`.
+
 </script>
 
 <style>

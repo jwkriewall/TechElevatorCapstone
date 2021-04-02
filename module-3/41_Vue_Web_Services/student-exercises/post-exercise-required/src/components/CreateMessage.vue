@@ -9,7 +9,7 @@
       <input type="text" name="messageText" v-model="message.messageText" />
     </div>
     <div class="actions">
-      <button type="submit" v-on:click="saveMessage()">Save Message</button>
+      <button type="submit" v-on:click="saveMessage(message)">Save Message</button>
     </div>
   </form>
 </template>
@@ -31,8 +31,18 @@ export default {
     };
   },
   methods: {
-    saveMessage() {
-
+    saveMessage(message) {
+      messageService.addMessage(this.message)
+      .then(response => {
+        if (response.status === 201) {
+          this.$router.push(`/${message.topicId}`);
+          
+        }
+      })
+      .catch(error => {
+          this.handleErrorResponse("Working on it!");
+        
+      });
     }
   }
 };
@@ -40,3 +50,11 @@ export default {
 
 <style>
 </style>
+
+<!--Open `/src/components/CreateMessage.vue`. You'll see that the 
+`saveMessage()` method is empty. 
+You'll need to call the method you created in `MessageService`. 
+
+When the promise is returned, check the status code 
+to make sure the new topic was created (201), 
+and then use the router to forward the user to `/${message.topicId}`. -->
