@@ -2,6 +2,8 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS seq_user_id;
+DROP TABLE IF EXISTS tournament;
+DROP TABLE IF EXISTS organizer;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -20,6 +22,30 @@ CREATE TABLE users (
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+
+
+
+
+
+CREATE TABLE organizer (
+        organizer_id serial primary key NOT NULL,
+        organizer_first_name varchar(50) NOT NULL,
+        organizer_last_name varchar(50) NOT NULL,
+        organizer_phone varchar(150),
+        organizer_email varchar(100) NOT NULL
+);
+
+CREATE TABLE tournament (
+        id serial primary key NOT NULL,
+        tournament_name varchar(300) NOT NULL,
+        organizer_id int NOT NULL, 
+        max_participants int,
+        is_team boolean,
+        is_double boolean,  
+        constraint fk_organizer_id_tournament foreign key (organizer_id) references organizer (organizer_id)
+
+);
+
 
 
 COMMIT TRANSACTION;
