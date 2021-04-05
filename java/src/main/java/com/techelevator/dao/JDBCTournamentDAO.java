@@ -49,7 +49,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		Tournament tournament = new Tournament();
 		
 		tournament.setName(rows.getString("tournament_name"));
-		tournament.setOrganizerId(rows.getInt("organizer_id"));
+		//tournament.setOrganizerId(rows.getInt("organizer_id"));
 		tournament.setMaxParticipants(rows.getInt("max_participants"));
 		tournament.setTeam(rows.getBoolean("is_team"));
 		tournament.setDouble(rows.getBoolean("is_double"));

@@ -7,5 +7,9 @@ export default{
 
     getOrganizer(userID){
         return axios.get('/organizers', userID);
+    },
+
+    getOrganizerInfo(organizerId){
+        return axios.get('/organizers/:id', organizerId);
     }
 }
