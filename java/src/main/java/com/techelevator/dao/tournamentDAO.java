@@ -2,8 +2,11 @@ package com.techelevator.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techelevator.model.Tournament;
 
+@Component
 public interface tournamentDAO {
 	// find tournament by name - future
 	// find tournament by ID
