@@ -22,8 +22,7 @@
                 <input type="checkbox" id="flip" /><label class="toggle" for="flip">Toggle</label>
                 <p>Double Elimination</p> 
            </div>
-           <div class="organizerInfo" v-if="this.$store.state.organizer == '' "
-                >
+           <div class="organizerInfo" v-if="!getOrganizer">
                <label for="firstName">First name </label>
                <input type="text" name="firstName" id="firstName">
 
@@ -48,11 +47,22 @@ import tournamentService from "../services/TournamentService.js";
 export default {
     computed:{
         getOrganizer(){
-            organizerService.getOrganizer(this.user.id).then(Response => {
-                if(Response.status === 201){
-                    this.$store.commit('SET_ORGANIZER', Response.data)
-                }
-            });
+            const userId = this.$store.state.user.id
+            organizerService.getOrganizer(userId).then(response => {
+                if(response.status === 201){
+                    this.$store.commit('SET_ORGANIZER', response.data);
+                    return this.$store.state.organizer;
+                } 
+            })
+            .catch(error => {
+            if (error.response) {
+              alert(error.response.statusText);
+            } else if (error.request) {
+              alert("Server could not be reached.");
+            } else {
+              alert("Request could not be created.");
+            }
+          });
         }
     },
     name: 'create-tournament'
