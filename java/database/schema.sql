@@ -1,9 +1,11 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users;
-DROP SEQUENCE IF EXISTS seq_user_id;
 DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS organizer;
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS seq_user_id;
+
+
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -29,10 +31,13 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 
 CREATE TABLE organizer (
         organizer_id serial primary key NOT NULL,
+        user_id int NOT NULL,
         organizer_first_name varchar(50) NOT NULL,
         organizer_last_name varchar(50) NOT NULL,
         organizer_phone varchar(150),
-        organizer_email varchar(100) NOT NULL
+        organizer_email varchar(100) NOT NULL,
+        
+        constraint fk_user_id_organizer foreign key (user_id) references users (user_id)
 );
 
 CREATE TABLE tournament (
@@ -41,7 +46,9 @@ CREATE TABLE tournament (
         organizer_id int NOT NULL, 
         max_participants int,
         is_team boolean,
-        is_double boolean,  
+        is_double boolean,
+        start_date date,
+        end_date date,  
         constraint fk_organizer_id_tournament foreign key (organizer_id) references organizer (organizer_id)
 
 );
