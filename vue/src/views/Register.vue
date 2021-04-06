@@ -90,4 +90,55 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+div#register {
+  font-family: 'Poppins';
+  text-align: center;
+  background: url("../assets/createAccount.jpg");
+  background-size: cover;
+  padding-bottom: 40vh;
+  color: white;
+}
+
+#register h1{ 
+  font-weight: 800;
+}
+
+form.form-register{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form.form-register input{
+  width: 15vw;
+  border-radius: 10px;
+  height: 2em;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+form.form-register label{
+  font-size: 1.5rem;
+}
+input#confirmPassword {
+  margin-top: 5px;
+}
+
+form.form-register button.btn{
+  height: 3em;
+  width: 10vw;
+  min-width: 50px;
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 1.1rem;
+}
+
+#register a{
+  color: white;
+}
+
+</style>

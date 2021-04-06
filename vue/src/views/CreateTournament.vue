@@ -1,43 +1,45 @@
 <template>
    <div class="createTournament">
+       
        <form v-on:submit.prevent="createTournament" class="tournamentForm">
+           <h1>Generate Tournament</h1>
            <div>
-                <label for="tName">Tournament Name</label>
+                <label for="tName">Tournament Name: </label>
                 <input type="text" id="tName" name="tName" v-model="newTournament.name" />
            </div>
            <div>
-                <label for="maxParticipants">Max. Participants</label>
+                <label for="maxParticipants">Max. Participants: </label>
                 <input type="number" id="maxParticipants" name="maxParticipants" v-model="newTournament.maxParticipants" />
            </div>
            <div>
-               <label for="startDate">Start Date</label>
+               <label for="startDate">Start Date: </label>
                <input type="date" id="startDate" name="startDate" v-model="newTournament.startDate" />
            </div>
            <div>
-               <label for="endDate">End Date</label>
+               <label for="endDate">End Date: </label>
                <input type="date" id="endDate" name="endDate" v-model="newTournament.endDate" />
            </div>
-           <div>
-                <p>Individual</p> 
+           <div class="toggleSwitch">
+                <p>Individual </p> 
                 <input type="checkbox" id="switch"  v-model="newTournament.team" /><label class="toggle" for="switch">Toggle</label>
-                <p>Team</p> 
+                <p> Team</p> 
            </div>  
-           <div>
-                <p>Single Elimination</p> 
+           <div class="toggleSwitch">
+                <p>Single Elimination </p> 
                 <input type="checkbox" id="flip" v-model="newTournament.double" /><label class="toggle" for="flip">Toggle</label>
-                <p>Double Elimination</p> 
+                <p> Double Elimination</p> 
            </div>
            <div class="organizerInfo" v-if="!isOrganizer">
-               <label for="firstName">First name </label>
+               <label for="firstName">First name: </label>
                <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
-               <label for="lastName">Last Name </label>
+               <label for="lastName">Last Name: </label>
                <input type="text" name="lastName" id="lastName" v-model="organizer.lastName" />
-               <label for="oPhone">Phone Number </label>
+               <label for="oPhone">Phone Number: </label>
                <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"  id="oPhone" v-model="organizer.phone" />
-               <label for="oEmail">Email Address </label>
+               <label for="oEmail">Email Address: </label>
                <input type="email" id="oEmail" v-model="organizer.email" />
            </div>
-            <input type="submit" value="Create Tournament" v-bind:disabled="!isFormValid" />
+            <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
    </div>
 </template>
@@ -131,6 +133,10 @@ export default {
 }
 </script>
 <style scoped>
+h1{
+    border-bottom: 2px solid #e74c3c;
+    display: inline-block;
+}
 input[type=checkbox]{
     height: 0;
     width: 0;
@@ -140,8 +146,8 @@ label.toggle {
     cursor: pointer;
     text-indent: -9999px;
     width: 50px;
-    height: 30px;
-    background: grey;
+    height: 20px;
+    background: #BADA55;
     display: block;
     border-radius: 100px;
     position: relative;
@@ -151,14 +157,14 @@ label.toggle:after {
     position: absolute;
     top: 5px;
     left: 5px;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     background: #fff;
     border-radius: 90px;
     transition: 0.3s;
 }
 input:checked + label {
-    background: #BADA55;
+    background: #e74c3c;
 }
 input:checked + label:after {
     left: calc(100% - 5px);
@@ -167,4 +173,63 @@ input:checked + label:after {
 label.toggle:active:after {
     width: 20px;
 } 
+.createTournament {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 1.2rem;
+
+}
+.tournamentForm{
+    background-color: #2c3e50;
+    padding: 50px;
+    
+}
+input:not(div.toggleSwitch > input){
+    border-radius: 15px;
+    height: 2.2rem;
+    width: 20vw;
+    min-width: 300px;
+    padding-left: 20px;
+    font-size: 1rem;
+    background-color: #44617e;
+    border-color: 1px solid white;
+    
+}
+
+label:not(.toggle){
+    margin: 10px 10px 10px 0;
+    width: 15vw;
+    min-width: 100px;
+}
+.tournamentForm > div {
+    display: flex;
+    align-items: center;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.toggleSwitch > p:last-child{
+    margin-left: 10px;
+}
+/* Decrease the space between two toggles */
+
+.tournamentForm div.toggleSwitch:last-child {
+    align-items: flex-start;
+    
+}
+
+.tournamentForm input[type="submit"], textarea {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 1.3rem;
+    height: 3em;
+    font-weight: 900;
+    margin-top: 20px;
+}
 </style>
