@@ -2,7 +2,7 @@ START TRANSACTION;
 ROLLBACK;
 
 INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email)
-        VALUES (?, 'Nick', 'Stewart', 7777777777, 'nickstewart@gmail.com');
+        VALUES (2, 'Nick', 'Stewart', 7777777777, 'nickstewart@gmail.com');
         
 UPDATE tournament
 SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ?
@@ -61,3 +61,10 @@ SELECT * from organizer;
 
 
 ROLLBACK TRANSACTION;
+
+INSERT INTO organizer (organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email)
+VALUES (DEFAULT, ?, ?, ?, ?, ?);
+RETURNING organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email;
+
+SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email
+FROM organizer WHERE (users.user_id = ? AND organizer_id IS NOT NULL);

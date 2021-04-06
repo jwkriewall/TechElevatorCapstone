@@ -20,17 +20,14 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 	public Organizer getOrganizerInfoByUserId(int userId) {
 		Organizer organizer = new Organizer();
 		
-		String sql = "SELECT organizer_id, users.user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email " + 
-				"FROM organizer " + 
-				"JOIN users ON organizer.user_id = users.user_id " + 
-				"WHERE (users.user_id = ? AND organizer_id IS NOT NULL)";
+		String sql = "SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email "
+				      + "FROM organizer WHERE (user_id = ? AND organizer_id IS NOT NULL)";
+
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
 		
-	
 		while(rows.next()) {
 			organizer = mapRowToOrganizer(rows);
 		}
-		
 		
 		return organizer;
 	}
@@ -61,8 +58,20 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		return new Organizer();
 	}
 	
-	
-	
+	//will this work? Trying to use principal to verify that specific organizer is updating their information
+	@Override
+	public void updateOrganizerInfo(String username, int organizerId) {
+		String sql = "UPDATE organizer SET organizer_first_name = ?, organizer_last_name = ?, organizer_phone = ?, organizer_email = ? " + 
+				"WHERE organizer_id = ?";
+		jdbcTemplate.update(sql, organizerId);
+	}
+
+	@Override
+	public void deleteOrganizer(String username, int organizerId) {
+		String sql = "DELETE FROM organizer WHERE organizer_id = ?";
+		jdbcTemplate.update(sql, organizerId);
+	}
+
 	private Organizer mapRowToOrganizer (SqlRowSet rows) {
 		Organizer organizer = new Organizer();
 		
@@ -72,10 +81,9 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		organizer.setLastName(rows.getString("organizer_last_name"));
 		organizer.setPhone(rows.getString("organizer_phone"));
 		organizer.setEmail(rows.getString("organizer_email"));
-		
-		
 		return organizer;
 	}
+
 
 	
 
