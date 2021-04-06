@@ -17,7 +17,7 @@
            </div>
 
            <div>
-               <label for="endDate">Start Date</label>
+               <label for="endDate">End Date</label>
                <input type="date" id="endDate" name="endDate" v-model="newTournament.endDate" />
            </div>
          
