@@ -56,6 +56,13 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		return null;
 	}
 	
+
+	@Override
+	public Tournament updateTournament(Tournament tournament) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	private Tournament mapRowToTournament (SqlRowSet rows) {
 		Tournament tournament = new Tournament();
 		tournament.setId(rows.getInt("id"));
@@ -66,6 +73,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		tournament.setDouble(rows.getBoolean("is_double"));
 		return tournament;
 	}
+
 
 	
 	
