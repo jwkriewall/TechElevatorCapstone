@@ -22,7 +22,7 @@
                 <input type="checkbox" id="flip" v-model="newTournament.double" /><label class="toggle" for="flip">Toggle</label>
                 <p>Double Elimination</p> 
            </div>
-           <div class="organizerInfo" v-if="getOrganizer">
+           <div class="organizerInfo" v-if="!isOrganizer">
                <label for="firstName">First name </label>
                <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
 
@@ -61,23 +61,22 @@ export default {
     },
     computed:{
 
-        isFormValid(){
-            
+        isFormValid(){ 
             return this.newTournament.name &&
                    this.newTournament.maxParticipants &&
                    this.organizer.firstName &&
                    this.organizer.lastName &&
                    this.organizer.phone &&
                    this.organizer.email;
-
         }
 
     },
-    methods:{
-            getOrganizer() {
+    created(){
             const userId = this.$store.state.user.id;
             organizerService.getOrganizer(userId).then(response => {
+                alert(response.status)
                 if(response.status === 201){
+                    alert(response.status);
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
                     return this.$store.state.organizer;
@@ -95,6 +94,12 @@ export default {
             }
             return false;
           });
+        
+    },
+    methods:{
+            
+        isOrganizer(){
+            return this.organizer.firstName;
         },
         addTournament(){
             if(this.organizer != this.$store.state.organizer){
