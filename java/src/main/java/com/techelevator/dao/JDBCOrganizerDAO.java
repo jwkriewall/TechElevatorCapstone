@@ -20,16 +20,14 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 	public Organizer getOrganizerInfoByUserId(int userId) {
 		Organizer organizer = new Organizer();
 		
-		String sql = "SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email " + 
-				"FROM organizer " + 
-				"WHERE (users.user_id = ? AND organizer_id IS NOT NULL)";
+		String sql = "SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email "
+				      + "FROM organizer WHERE (user_id = ? AND organizer_id IS NOT NULL)";
+
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
 		
-	
 		while(rows.next()) {
 			organizer = mapRowToOrganizer(rows);
 		}
-		
 		
 		return organizer;
 	}
@@ -74,9 +72,6 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		jdbcTemplate.update(sql, organizerId);
 	}
 
-	
-	
-	
 	private Organizer mapRowToOrganizer (SqlRowSet rows) {
 		Organizer organizer = new Organizer();
 		
@@ -86,8 +81,6 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		organizer.setLastName(rows.getString("organizer_last_name"));
 		organizer.setPhone(rows.getString("organizer_phone"));
 		organizer.setEmail(rows.getString("organizer_email"));
-		
-		
 		return organizer;
 	}
 
