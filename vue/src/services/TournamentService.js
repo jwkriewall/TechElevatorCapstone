@@ -8,6 +8,6 @@ export default{
         return axios.get('/tournaments/' + tournamentId);
     },
     updateTournament(tournament){
-        return axios.put('/tournaments', tournament);
+        return axios.put('/tournaments/' + tournament.id, tournament);
     }
 }

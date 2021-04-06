@@ -22,9 +22,9 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	public Tournament createTournament(Tournament tournament) {
 		// updated query to return all items needed for tournament including tournament id
 		// String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double) VALUES (?, ?, ?, ?, ?)";
-		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double) VALUES (?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double";
+		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date";
 		
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble());
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate());
 		while (rows.next()) {
 			tournament = mapRowToTournament(rows);
 		}
@@ -35,7 +35,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	public List<Tournament> listAllTournaments() {
 		List<Tournament> tournaments = new ArrayList();
 		
-		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
+		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email, start_date, end_date FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 		
 		while (rows.next()) {
@@ -47,7 +47,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
-		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double FROM tournament WHERE id = ?";
+		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament WHERE id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		
 		if(rows.next()) {
