@@ -60,27 +60,47 @@ export default {
         }
     },
     computed:{
-
         isFormValid(){
-            
             return this.newTournament.name &&
                    this.newTournament.maxParticipants &&
                    this.organizer.firstName &&
                    this.organizer.lastName &&
                    this.organizer.phone &&
                    this.organizer.email;
-
         }
-
     },
     methods:{
-            getOrganizer() {
-            const userId = this.$store.state.user.id;
-            organizerService.getOrganizer(userId).then(response => {
-                if(response.status === 201){
+        addTournament(){
+            if(this.organizer != this.$store.state.organizer){
+                organizerService.newOrganizer(this.organizer)
+                .then(response => {
+                    if(response.status === 200){
+                        alert("Organizer Added");
+                        this.organizer = response.data;
+                        this.newTournament.organizerId = this.organizer.organizerId;
+                        tournamentService.newTournament(this.newTournament)
+                        .then(response => {
+                        if(response.status === 200){
+                //          const tournamentID = response.data.id; 
+                //          this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
+                            alert("Tournament Created");
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert(error);
+                });
+            }
+        },
+        getOrganizer() {
+            const user = this.$store.state.user;
+            organizerService.getOrganizer(user).then(response => {
+                alert(response.statusText);
+                if(response.status === 200){
+                    alert("Done" + response.status);
                     this.$store.commit('SET_ORGANIZER', response.data);
-                    this.organizer = response.data;
-                    return this.$store.state.organizer;
+                    this.organizer = this.$store.state.organizer;
                 } else {
                     return false;
                 }
@@ -93,35 +113,8 @@ export default {
             } else {
               alert("Request could not be created.");
             }
-            return false;
           });
-        },
-        addTournament(){
-            if(this.organizer != this.$store.state.organizer){
-                  organizerService.newOrganizer(this.organizer)
-                  .then(response => {
-                      if(response.status === 200){
-                          alert("Organizer Added");
-                          this.organizer = response.data;
-                          this.newTournament.organizerId = this.organizer.organizerId;
-                          tournamentService.newTournament(this.newTournament)
-                            .then(response => {
-                            if(response.status === 200){
-                //          const tournamentID = response.data.id; 
-                //          this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
-                            alert("Tournament Created");
-                                }
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        alert(error);
-                    });
-            }
-            
-            
-          
-        }
+        },    
     }
     
 }
