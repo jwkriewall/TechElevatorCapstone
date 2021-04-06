@@ -31,7 +31,7 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 
 CREATE TABLE organizer (
         organizer_id serial primary key NOT NULL,
-        user_id int NOT NULL,
+        user_id int NOT NULL UNIQUE,
         organizer_first_name varchar(50) NOT NULL,
         organizer_last_name varchar(50) NOT NULL,
         organizer_phone varchar(150),
