@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.OrganizerDAO;
 import com.techelevator.model.Organizer;
+import com.techelevator.model.User;
 
 
 @CrossOrigin
@@ -39,12 +40,12 @@ public class OrganizerController {
 		return organizerDAO.getOrganizerInfoByOrganizerId(organizerId);
 	}
 	
-	@RequestMapping(path="/organizers{organizerId}", method = RequestMethod.PUT)
+	@RequestMapping(path="/organizers/{organizerId}", method = RequestMethod.PUT)
 	public void updateOrganizerInfo(@PathVariable Integer organizerId, Principal principal) {
 		organizerDAO.updateOrganizerInfo(principal.getName(), organizerId);
 	}
 	
-	@RequestMapping(path="/organizers{organizerId}", method = RequestMethod.DELETE)
+	@RequestMapping(path="/organizers/{organizerId}", method = RequestMethod.DELETE)
 	public void deleteOrganizer(@PathVariable Integer organizerId, Principal principal) {
 		organizerDAO.deleteOrganizer(principal.getName(), organizerId);
 	}
