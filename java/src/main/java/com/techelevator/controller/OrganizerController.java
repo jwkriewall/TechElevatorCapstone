@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.OrganizerDAO;
 import com.techelevator.model.Organizer;
-import com.techelevator.model.User;
 
 
 @CrossOrigin
@@ -23,8 +22,8 @@ public class OrganizerController {
 	};
 	
 	@RequestMapping(path="/organizers", method = RequestMethod.GET)
-	public Organizer getOrganizerInfoByUserId(@RequestBody User userId) {
-		return organizerDAO.getOrganizerInfoByUserId(Math.toIntExact(userId.getId()));
+	public Organizer getOrganizerInfoByUserId(@RequestBody Integer userId) {
+		return organizerDAO.getOrganizerInfoByUserId(userId);
 	}
 	
 	@RequestMapping(path="/organizers", method=RequestMethod.POST)

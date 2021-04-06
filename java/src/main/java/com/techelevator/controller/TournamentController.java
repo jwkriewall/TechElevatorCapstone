@@ -39,6 +39,11 @@ public class TournamentController {
 		return tournamentDAO.listAllTournaments();
 	}
 	
+	@RequestMapping(path="/tournaments", method = RequestMethod.PUT)
+	public Tournament updateTournament(Tournament tournament, int id) {
+		return tournamentDAO.updateTournament(tournament, id);
+	}
+	
 	@RequestMapping(path="/tournaments/{tournamentId}", method = RequestMethod.GET)
 	public Tournament getTournamentById(@PathVariable int tournamentId) {
 		return tournamentDAO.getTournamentById(tournamentId);

@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
+
 public class Tournament {
 	
 	private int id;
@@ -8,6 +10,8 @@ public class Tournament {
 	private int maxParticipants;
 	private boolean isTeam;
 	private boolean isDouble;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	
 	public int getId() {
 		return id;
@@ -45,5 +49,19 @@ public class Tournament {
 	public void setDouble(boolean isDouble) {
 		this.isDouble = isDouble;
 	}
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+	
+	
 
 }
