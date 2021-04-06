@@ -21,8 +21,8 @@ public class OrganizerController {
 		this.organizerDAO = organizerDAO;
 	};
 	
-	@RequestMapping(path="/organizers", method = RequestMethod.GET)
-	public Organizer getOrganizerInfoByUserId(@RequestBody Integer userId) {
+	@RequestMapping(path="/organizers/info/{userId}", method = RequestMethod.GET)
+	public Organizer getOrganizerInfoByUserId(@PathVariable Integer userId) {
 		return organizerDAO.getOrganizerInfoByUserId(userId);
 	}
 	
@@ -30,6 +30,7 @@ public class OrganizerController {
 	public Organizer createNewOrganizer(@RequestBody Organizer organizer) {
 		return organizerDAO.createNewOrganizer(organizer);
 	}
+	
 	@RequestMapping(path="/organizers/{organizerId}", method = RequestMethod.GET)
 	public Organizer getOrganizerInfoByOrganizerId(@PathVariable Integer organizerId) {
 		return organizerDAO.getOrganizerInfoByOrganizerId(organizerId);
