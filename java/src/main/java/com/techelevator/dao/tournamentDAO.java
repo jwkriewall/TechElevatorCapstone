@@ -14,6 +14,7 @@ public interface tournamentDAO {
 	
 	public Tournament createTournament(Tournament tournament);
 	public List<Tournament> listAllTournaments();
+	public Tournament getTournamentById(int tournamentId);
 	
 
 }

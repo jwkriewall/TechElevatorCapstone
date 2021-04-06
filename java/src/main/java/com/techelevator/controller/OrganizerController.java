@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.techelevator.dao.OrganizerDAO;
 import com.techelevator.model.Organizer;
 
 
+@CrossOrigin
 @RestController
 public class OrganizerController {
 	
@@ -19,14 +21,16 @@ public class OrganizerController {
 		this.organizerDAO = organizerDAO;
 	};
 	
-	@RequestMapping(path="organizers", method = RequestMethod.GET)
-	public Organizer getOrganizerInfoByUserId(Integer userId) {
+	@RequestMapping(path="/organizers", method = RequestMethod.GET)
+	public Organizer getOrganizerInfoByUserId(@RequestBody Integer userId) {
 		return organizerDAO.getOrganizerInfoByUserId(userId);
-		
 	}
 	
-	
-	@RequestMapping(path="organizers/{organizerId}", method = RequestMethod.GET)
+	@RequestMapping(path="/organizers", method=RequestMethod.POST)
+	public Organizer createNewOrganizer(@RequestBody Organizer organizer) {
+		return organizerDAO.createNewOrganizer(organizer);
+	}
+	@RequestMapping(path="/organizers/{organizerId}", method = RequestMethod.GET)
 	public Organizer getOrganizerInfoByOrganizerId(@PathVariable Integer organizerId) {
 		return organizerDAO.getOrganizerInfoByOrganizerId(organizerId);
 		

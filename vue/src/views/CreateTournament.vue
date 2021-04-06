@@ -50,13 +50,19 @@ export default {
     name: 'create-tournament',
     data(){
         return {
-            newTournament: {},
-            organizer: {}
+            newTournament: {
+                team: false,
+                double: false
+            },
+            organizer: {
+                userId: this.$store.state.user.id
+            }
         }
     },
     computed:{
 
         isFormValid(){
+            
             return this.newTournament.name &&
                    this.newTournament.maxParticipants &&
                    this.organizer.firstName &&
@@ -91,20 +97,29 @@ export default {
           });
         },
         addTournament(){
-            tournamentService.newTournament(this.newTournament).then(response => {
-                if(response.status === 200){
-                    const tournamentID = response.data.id; 
-                    this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
-                    //alert("Tournament Created");
-                }
-            });
             if(this.organizer != this.$store.state.organizer){
-                  organizerService.newOrganizer(this.organizer).then(response => {
+                  organizerService.newOrganizer(this.organizer)
+                  .then(response => {
                       if(response.status === 200){
                           alert("Organizer Added");
-                      }
-                  });
+                          this.organizer = response.data;
+                          this.newTournament.organizerId = this.organizer.organizerId;
+                          tournamentService.newTournament(this.newTournament)
+                            .then(response => {
+                            if(response.status === 200){
+                //          const tournamentID = response.data.id; 
+                //          this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
+                            alert("Tournament Created");
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        alert(error);
+                    });
             }
+            
+            
           
         }
     }

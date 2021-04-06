@@ -6,4 +6,5 @@ public interface OrganizerDAO {
 	
 	public Organizer getOrganizerInfoByUserId (int userId);
 	public Organizer getOrganizerInfoByOrganizerId (int organizerId);
+	public Organizer createNewOrganizer(Organizer organizer);
 }

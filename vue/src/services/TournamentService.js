@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default{
-    newTournament(tournaments){
-        return axios.post('/tournaments', tournaments);
+    newTournament(tournament){
+        return axios.post('/tournaments', tournament);
     }
 }

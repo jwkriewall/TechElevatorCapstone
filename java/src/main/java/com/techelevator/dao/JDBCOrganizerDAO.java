@@ -35,21 +35,30 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		return organizer;
 	}
 	
-	
+	@Override
+	public Organizer createNewOrganizer(Organizer organizer) {
+		String sql = "INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) " +
+					 "VALUES (?, ?, ?, ?, ?) " +
+					 "RETURNING organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizer.getUserId(), organizer.getFirstName(), organizer.getLastName(), organizer.getPhone(), organizer.getEmail());
+		if(rows.next()) {
+			return mapRowToOrganizer(rows);
+		}
+		
+		return new Organizer();
+	}
 	@Override
 	public Organizer getOrganizerInfoByOrganizerId(int organizerId) {
-		Organizer organizer = new Organizer();
-		
 		String sql = "SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email " + 
 				"FROM organizer WHERE organizer_id = ?";
 		
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
 		
-		while(rows.next()) {
-			organizer = mapRowToOrganizer(rows);
+		if(rows.next()) {
+			return mapRowToOrganizer(rows);
 		}
 		
-		return organizer;
+		return new Organizer();
 	}
 	
 	
