@@ -54,7 +54,26 @@ public class JDBCTournamentDAO implements tournamentDAO{
 			return mapRowToTournament(rows);
 		}
 		return null;
+	}	
+
+	@Override
+	public void updateTournament(Tournament tournament, int id) {
+		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ? " + 
+				"WHERE id = ?";
+		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), id);
+		
 	}
+	
+	@Override
+	public void deleteTournament(int id) {
+		String sql = "DELETE FROM tournament WHERE id = ?";
+		jdbcTemplate.update(sql, id);
+	}
+	
+	
+
+	
+	
 	
 	private Tournament mapRowToTournament (SqlRowSet rows) {
 		Tournament tournament = new Tournament();
@@ -64,8 +83,12 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		tournament.setMaxParticipants(rows.getInt("max_participants"));
 		tournament.setTeam(rows.getBoolean("is_team"));
 		tournament.setDouble(rows.getBoolean("is_double"));
+		tournament.setStartDate(rows.getDate("start_date").toLocalDate());
+		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
 		return tournament;
 	}
+
+	
 
 	
 	

@@ -29,19 +29,30 @@ public class TournamentController {
 	// It is modifying the database but returning a 500 error: 
 	// No results were returned by the query.; nested exception is org.postgresql.util.PSQLException: No results were returned by the query.
 	
-	@RequestMapping(path="/tournaments", method = RequestMethod.POST)
-	public Tournament createTournament(@RequestBody Tournament tournament) {
-		return tournamentDAO.createTournament(tournament);
-	}
 	
 	@RequestMapping(path="/tournaments", method = RequestMethod.GET)
 	public List<Tournament> getAllTournaments() {
 		return tournamentDAO.listAllTournaments();
 	}
 	
-	@RequestMapping(path="/tournaments/{tournamentId}", method = RequestMethod.GET)
-	public Tournament getTournamentById(@PathVariable int tournamentId) {
-		return tournamentDAO.getTournamentById(tournamentId);
+	@RequestMapping(path="/tournaments/{id}", method = RequestMethod.GET)
+	public Tournament getTournamentById(@PathVariable int id) {
+		return tournamentDAO.getTournamentById(id);
+	}
+	
+	@RequestMapping(path="/tournaments", method = RequestMethod.POST)
+	public Tournament createTournament(@RequestBody Tournament tournament) {
+		return tournamentDAO.createTournament(tournament);
+	}
+	
+	@RequestMapping(path="/tournaments/{id}", method = RequestMethod.PUT)
+	public void updateTournament(Tournament tournament, @PathVariable int id) {
+		tournamentDAO.updateTournament(tournament, id);
+	}
+	
+	@RequestMapping(path="/tournaments/{id}", method = RequestMethod.DELETE)
+	public void deleteTournament(@PathVariable int id) {
+		tournamentDAO.deleteTournament(id);
 	}
 
 }
