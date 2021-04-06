@@ -1,6 +1,6 @@
 <template>
    <div class="createTournament">
-       <form v-on:submit.prevent="addTournament">
+       <form v-on:submit.prevent="addTournament" class="tournamentForm">
            <div>
                 <label for="tName">Tournament Name</label>
                 <input type="text" id="tName" name="tName" v-model="newTournament.name" />
@@ -9,6 +9,16 @@
            <div>
                 <label for="maxParticipants">Max. Participants</label>
                 <input type="number" id="maxParticipants" name="maxParticipants" v-model="newTournament.maxParticipants" />
+           </div>
+
+           <div>
+               <label for="startDate">Start Date</label>
+               <input type="date" id="startDate" name="startDate" v-model="newTournament.startDate" />
+           </div>
+
+           <div>
+               <label for="endDate">Start Date</label>
+               <input type="date" id="endDate" name="endDate" v-model="newTournament.endDate" />
            </div>
          
            <div>
@@ -56,7 +66,8 @@ export default {
             },
             organizer: {
                 userId: this.$store.state.user.id
-            }
+            },
+            isOrganizer: false
         }
     },
     computed:{
@@ -72,13 +83,14 @@ export default {
 
     },
     created(){
-            const userId = this.$store.state.user.id;
+            const userId = this.$store.state.user;
             organizerService.getOrganizer(userId).then(response => {
                 alert(response.status)
-                if(response.status === 201){
+                if(response.status === 200){
                     alert(response.status);
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
+                    this.isOrganizer = true;
                     return this.$store.state.organizer;
                 } else {
                     return false;
@@ -97,10 +109,6 @@ export default {
         
     },
     methods:{
-            
-        isOrganizer(){
-            return this.organizer.firstName;
-        },
         addTournament(){
             if(this.organizer != this.$store.state.organizer){
                   organizerService.newOrganizer(this.organizer)
@@ -112,8 +120,8 @@ export default {
                           tournamentService.newTournament(this.newTournament)
                             .then(response => {
                             if(response.status === 200){
-                //          const tournamentID = response.data.id; 
-                //          this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
+                          const tournamentID = response.data.id; 
+                          this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
                             alert("Tournament Created");
                                 }
                             });

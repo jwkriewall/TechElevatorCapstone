@@ -10,6 +10,6 @@ export default{
     },
 
     getOrganizerInfo(organizerId){
-        return axios.get('/organizers/:id', organizerId);
+        return axios.get('/organizers/' + organizerId);
     }
 }
