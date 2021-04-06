@@ -1,6 +1,6 @@
 <template>
    <div class="createTournament">
-       <form v-on:submit.prevent="addTournament" class="tournamentForm">
+       <form v-on:submit.prevent="createTournament" class="tournamentForm">
            <div>
                 <label for="tName">Tournament Name</label>
                 <input type="text" id="tName" name="tName" v-model="newTournament.name" />
@@ -17,13 +17,11 @@
                <label for="endDate">End Date</label>
                <input type="date" id="endDate" name="endDate" v-model="newTournament.endDate" />
            </div>
-         
            <div>
                 <p>Individual</p> 
                 <input type="checkbox" id="switch"  v-model="newTournament.team" /><label class="toggle" for="switch">Toggle</label>
                 <p>Team</p> 
            </div>  
-           
            <div>
                 <p>Single Elimination</p> 
                 <input type="checkbox" id="flip" v-model="newTournament.double" /><label class="toggle" for="flip">Toggle</label>
@@ -40,10 +38,10 @@
                <input type="email" id="oEmail" v-model="organizer.email" />
            </div>
             <input type="submit" value="Create Tournament" v-bind:disabled="!isFormValid" />
-           <!-- <button type="submit" v-bind:disabled="!isFormValid">Create Tournament</button> -->
        </form>
    </div>
 </template>
+
 <script>
 import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
@@ -65,6 +63,8 @@ export default {
         isFormValid(){ 
             return this.newTournament.name &&
                    this.newTournament.maxParticipants &&
+                   this.newTournament.startDate &&
+                   this.newTournament.endDate &&
                    this.organizer.firstName &&
                    this.organizer.lastName &&
                    this.organizer.phone &&
@@ -72,11 +72,9 @@ export default {
         }
     },
     created(){
-            const userId = this.$store.state.user;
+            const userId = this.$store.state.user.id;
             organizerService.getOrganizer(userId).then(response => {
-                alert(response.status)
                 if(response.status === 200){
-                    alert(response.status);
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
                     this.isOrganizer = true;
@@ -98,7 +96,7 @@ export default {
         
     },
     methods:{
-        addTournament(){
+        createTournament(){
             if(this.organizer != this.$store.state.organizer){
                   organizerService.newOrganizer(this.organizer)
                   .then(response => {
@@ -106,23 +104,27 @@ export default {
                           alert("Organizer Added");
                           this.organizer = response.data;
                           this.newTournament.organizerId = this.organizer.organizerId;
-                          tournamentService.newTournament(this.newTournament)
-                            .then(response => {
-                            if(response.status === 200){
-                          const tournamentID = response.data.id; 
-                          this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
-                            alert("Tournament Created");
-                                }
-                            });
+                          this.addTournament();
                         }
                     })
                     .catch(error => {
                         alert(error);
                     });
-            }
-            
-            
-          
+            } else { 
+                this.newTournament.organizerId = this.organizer.organizerId;
+                this.addTournament(); 
+                }
+        },
+        addTournament() {
+            tournamentService.newTournament(this.newTournament)
+            .then(response => {
+                if(response.status === 200){
+                const tournamentID = response.data.id; 
+                this.$router.push({name: 'tournament-details', params: {id: tournamentID}});
+                alert("Tournament Created");
+                }
+            });
+
         }
     }
     

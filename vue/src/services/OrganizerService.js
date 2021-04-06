@@ -5,8 +5,8 @@ export default{
         return axios.post('/organizers', organizers);
     },
 
-    getOrganizer(user){
-        return axios.get('/organizers', user);
+    getOrganizer(userId){
+        return axios.get('/organizers/info/' + userId);
     },
 
     getOrganizerInfo(organizerId){
