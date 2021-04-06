@@ -59,6 +59,21 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		return new Organizer();
 	}
 	
+	//will this work? Trying to use principal to verify that specific organizer is updating their information
+	@Override
+	public void updateOrganizerInfo(String username, int organizerId) {
+		String sql = "UPDATE organizer SET organizer_first_name = ?, organizer_last_name = ?, organizer_phone = ?, organizer_email = ? " + 
+				"WHERE organizer_id = ?";
+		jdbcTemplate.update(sql, organizerId);
+	}
+
+	@Override
+	public void deleteOrganizer(String username, int organizerId) {
+		String sql = "DELETE FROM organizer WHERE organizer_id = ?";
+		jdbcTemplate.update(sql, organizerId);
+	}
+
+	
 	
 	
 	private Organizer mapRowToOrganizer (SqlRowSet rows) {
@@ -74,6 +89,7 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		
 		return organizer;
 	}
+
 
 	
 
