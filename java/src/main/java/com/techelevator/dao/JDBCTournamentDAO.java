@@ -71,6 +71,31 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	}
 	
 	
+//	@Override
+//	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
+//		List<Tournament> organizerTournaments = new ArrayList();
+//		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+//				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
+//				"WHERE organizer.organizer_id = ?";
+//		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
+//		while(rows.next()) {
+//			Tournament tournament = mapRowToTournament(rows);
+//			organizerTournaments.add(tournament);
+//		}
+//		return organizerTournaments;
+//	}
+
+//	@Override
+//	public List<Tournament> listAllTournamentsByUserId(int userId) {
+//		List<Tournament> userTournaments = new ArrayList();
+//		String sql = "???????????????";
+//		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
+//		while(rows.next()) {
+//			Tournament tournament = mapRowToTournament(rows);
+//			userTournaments.add(tournament);
+//		}
+//		return userTournaments;
+//	}
 
 	
 	
@@ -87,9 +112,6 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
 		return tournament;
 	}
-
-	
-
 	
 	
 }

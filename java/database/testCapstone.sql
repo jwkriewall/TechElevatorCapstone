@@ -17,7 +17,7 @@ WHERE organizer_id = ?;
 
 DELETE FROM organizer WHERE organizer_id = ?;
 
-SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament
+SELECT tournament_name, max_participants, is_team, is_double, first_name, last_name, organizer_phone, organizer_email FROM tournament
 WHERE organizer_id = ?;
 
 
