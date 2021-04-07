@@ -1,5 +1,6 @@
 BEGIN TRANSACTION;
 
+DROP TABLE IF EXISTS tournament_user;
 DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS organizer;
 DROP TABLE IF EXISTS users;
@@ -53,6 +54,16 @@ CREATE TABLE tournament (
 
 );
 
+
+CREATE TABLE tournament_user (
+        tournament_id int, 
+        user_id int,
+        user_seeding int,
+        user_nickname varchar(150),
+        
+        constraint fk_tournament_id_tournament_user foreign key (tournament_id) references tournament (id),
+        constraint fk_user_id_tournament_user foreign key (user_id) references users (user_id)
+        );
 
 
 COMMIT TRANSACTION;
