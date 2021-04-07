@@ -57,7 +57,8 @@ export default {
             organizer: {
                 userId: this.$store.state.user.id
             },
-            isOrganizer: false
+            isOrganizer: false,
+            userId: this.$store.state.user.id
         }
     },
     computed:{
@@ -73,15 +74,16 @@ export default {
         }
     },
     created(){
-            const userId = this.$store.state.user.id;
-            organizerService.getOrganizer(userId).then(response => {
+            organizerService.getOrganizer(this.userId).then(response => {
                 if(response.status === 200){
+                    alert("Organizer Found");
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
                     this.isOrganizer = true;
-                    return this.$store.state.organizer;
-                } else {
-                    return false;
+                }
+                if(response.status === 404) {
+                    this.isOrganizer = false;
+                    alert("New Organizer");
                 }
             })
             .catch(error => {
@@ -92,7 +94,6 @@ export default {
             } else {
               alert("Request could not be created.");
             }
-            return false;
           });
         
     },

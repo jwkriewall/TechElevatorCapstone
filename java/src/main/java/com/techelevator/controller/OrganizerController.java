@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import java.security.Principal;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,12 @@ public class OrganizerController {
 	
 	@RequestMapping(path="/organizers/info/{userId}", method = RequestMethod.GET)
 	public Organizer getOrganizerInfoByUserId(@PathVariable Integer userId) {
-		return organizerDAO.getOrganizerInfoByUserId(userId);
+		Organizer organizer = organizerDAO.getOrganizerInfoByUserId(userId);
+		if(organizer.getOrganizerId() > 0) {
+			return organizer;
+		} else {
+			throw new ResourceNotFoundException("Organizer Not Found");
+		}
 	}
 	
 	@RequestMapping(path="/organizers", method=RequestMethod.POST)

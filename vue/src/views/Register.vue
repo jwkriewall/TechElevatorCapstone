@@ -110,13 +110,6 @@ form.form-register{
   align-items: center;
 }
 
-textarea:focus, form.form-register > input:focus {
-  outline: none;
-  box-shadow: 0px 0px 0px 2px #e74c3c;
-  background-color:white;
-  color: #707070;
-}
-
 form.form-register > input, textarea {
   width: 15vw;
   border-radius: 10px;
@@ -128,6 +121,14 @@ form.form-register > input, textarea {
   background-color: #44617e;
   color: #f4f4f4;
   -webkit-text-fill-color: #f4f4f4;
+}
+
+textarea:focus, form.form-register > input:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #e74c3c;
+  background-color:white;
+  color: #707070;
+  -webkit-text-fill-color: #707070;
 }
 
 form.form-register label{
