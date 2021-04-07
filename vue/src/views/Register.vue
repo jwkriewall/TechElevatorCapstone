@@ -114,13 +114,12 @@ textarea:focus, form.form-register > input:focus {
   outline: none;
   box-shadow: 0px 0px 0px 2px #e74c3c;
   background-color:white;
-  color: #707070;
 }
 
 form.form-register > input, textarea {
   width: 15vw;
-  border-radius: 10px;
   height: 2em;
+  border-radius: 10px;
   margin-bottom: 10px;
   text-align: center;
   font-weight:lighter;
