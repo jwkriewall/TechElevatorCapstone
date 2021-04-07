@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-     <a class="logo" v-bind:href="{ name: 'home' }"> <img class="BRCKT" src="@/assets/BRCKT-05.png" alt="Bracket Logo" /></a>
+     <a class="logo" href="/"> <img class="BRCKT" src="@/assets/BRCKT-05.png" alt="Bracket Logo" /></a>
       <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>  -->
       <div class="applinks">
         <router-link v-bind:to="{name: 'create'}">Create</router-link>
@@ -9,6 +9,7 @@
         <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
       </div>
       <div class="userlinks">
+        <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">My Tournaments</router-link>
         <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
         <router-link class="logout" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
         <router-link class="logout" v-bind:to="{ name: 'register' }">Sign Up</router-link>

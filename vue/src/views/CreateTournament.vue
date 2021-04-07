@@ -234,13 +234,11 @@ textarea:focus, input:not(div.toggleSwitch > input):focus
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
-.toggleSwitch > p:last-child{
+.toggleSwitch > p:last-child {
     margin-left: 10px;
 }
 
-.tournamentForm > div.toggleSwitch:nth-last-child(2) {
-    margin-top:-20px;
-}
+.toggleSwitch:not(.toggleSwitch:first-of-type) { margin-top:-30px }
 
 .tournamentForm input[type="submit"], textarea {
     background-color: #e74c3c;
