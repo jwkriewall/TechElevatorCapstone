@@ -47,8 +47,9 @@ public class OrganizerController {
 	}
 	
 	@RequestMapping(path="/organizers/{organizerId}", method = RequestMethod.PUT)
-	public void updateOrganizerInfo(@PathVariable Integer organizerId, Principal principal) {
-		organizerDAO.updateOrganizerInfo(principal.getName(), organizerId);
+	public void updateOrganizerInfo(@PathVariable Integer organizerId, @RequestBody Organizer organizer, Principal principal) {
+		// if(organizer.getId == principal.getId)   THEN execute this line
+		organizerDAO.updateOrganizerInfo(organizer);
 	}
 	
 	@RequestMapping(path="/organizers/{organizerId}", method = RequestMethod.DELETE)

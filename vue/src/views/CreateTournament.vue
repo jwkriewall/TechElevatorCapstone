@@ -50,6 +50,7 @@
            </div>
             <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
+       <img src="@/assets/soccer.jpg" alt="Players on the soccer field during a match">
    </div>
 </template>
 
@@ -86,14 +87,12 @@ export default {
     created(){
             organizerService.getOrganizer(this.userId).then(response => {
                 if(response.status === 200){
-                    alert("Organizer Found");
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
                     this.isOrganizer = true;
                 }
                 if(response.status === 404) {
                     this.isOrganizer = false;
-                    alert("New Organizer");
                 }
             })
             .catch(error => {
@@ -186,14 +185,16 @@ label.toggle:active:after {
 } 
 .createTournament {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     color: #fff;
     font-family: 'Poppins';
     font-size: 1.2rem;
+    grid-template-areas: "form img";
 }
 .tournamentForm{
     background-color: #2c3e50;
     padding: 30px 50px 50px 50px;
+    grid-area: form;
 }
 input:not(div.toggleSwitch > input) {
     border-radius: 15px;
@@ -238,8 +239,9 @@ textarea:focus, input:not(div.toggleSwitch > input):focus
     margin-left: 10px;
 }
 
-.toggleSwitch:not(.toggleSwitch:first-of-type) { margin-top:-30px }
-
+.tournamentForm > div.toggleSwitch:nth-child(6) {
+    margin:20px 0 -20px;
+}
 .tournamentForm input[type="submit"], textarea {
     background-color: #e74c3c;
     -webkit-box-shadow: 0 0 0px 1000px #e74c3c inset;
@@ -272,6 +274,11 @@ textarea:focus, input:not(div.toggleSwitch > input):focus
     font-size: 0.9rem;
     font-weight:200;
     margin:0 0 20px;
+}
+img{
+    grid-area: img;
+    overflow-y: hidden;
+    width: 50vw;
 }
 
 </style>

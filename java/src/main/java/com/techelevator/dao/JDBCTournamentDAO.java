@@ -57,10 +57,10 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	}	
 
 	@Override
-	public void updateTournament(Tournament tournament, int id) {
-		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ? " + 
+	public void updateTournament(Tournament tournament) {
+		String sql = "UPDATE tournament SET tournament_name = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ? " + 
 				"WHERE id = ?";
-		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), id);
+		jdbcTemplate.update(sql, tournament.getName(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.getId());
 		
 	}
 	

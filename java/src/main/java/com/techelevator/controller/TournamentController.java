@@ -46,8 +46,8 @@ public class TournamentController {
 	}
 	
 	@RequestMapping(path="/tournaments/{id}", method = RequestMethod.PUT)
-	public void updateTournament(Tournament tournament, @PathVariable int id) {
-		tournamentDAO.updateTournament(tournament, id);
+	public void updateTournament(@RequestBody Tournament tournament) {
+		tournamentDAO.updateTournament(tournament);
 	}
 	
 	@RequestMapping(path="/tournaments/{id}", method = RequestMethod.DELETE)

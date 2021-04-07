@@ -8,11 +8,11 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
       </p>
       <div class="home-buttons">
-        <input type="button" value="Create" />
-        <input type="button" value="Login" />
+        <input type="button" value="Create" @click="$router.push('/create')" />
+        <input type="button" value="Login" @click="$router.push('/login')" v-if="$store.state.token == ''" />
       </div>
     </div>
-    <div class="placeholder">Image placeholder</div>
+    <img src="@/assets/intro-tourney.jpg" alt="People in front of computer screens playing video games">
   </div>
 </template>
 
@@ -40,8 +40,8 @@ export default {
 #home div.info {
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 20px 30px 30px;
-  background-color: #707070;
+  padding: 20px 30px 15px;
+  background-color: #2c3e50;
   color:white;
 }
 #home div.home-buttons {
@@ -62,5 +62,8 @@ input[type=button]:hover {
   background-color: #d85b4d;
   cursor:grab;
   
+}
+img{
+  width: 50vw;
 }
 </style>

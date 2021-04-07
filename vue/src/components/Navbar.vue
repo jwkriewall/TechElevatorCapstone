@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <div id="nav">
      <a class="logo" href="/"> <img class="BRCKT" src="@/assets/BRCKT-05.png" alt="Bracket Logo" /></a>
       <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>  -->
       <div class="applinks">
@@ -14,15 +13,17 @@
         <router-link class="logout" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
         <router-link class="logout" v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">Sign Up</router-link>
       </div>
-      
-   
     </div>
-    <router-view />
-  </div>
 </template>
 
-<style scoped>
-  #nav{
+<script>
+export default {
+    name: 'navigation-bar'
+}
+</script>
+
+<style>
+#nav{
     font-family: 'Poppins';
     font-weight: 700;
     display: flex;
@@ -78,6 +79,5 @@
     flex-basis: 350px;
     flex-grow: 1;
   }
+
 </style>
-
-

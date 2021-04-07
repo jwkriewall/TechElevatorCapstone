@@ -11,5 +11,9 @@ export default{
 
     getOrganizerInfo(organizerId){
         return axios.get('/organizers/' + organizerId);
+    },
+
+    updateOrganizer(organizers){
+        return axios.put('/organizers/' + organizers.organizerId, organizers);
     }
 }
