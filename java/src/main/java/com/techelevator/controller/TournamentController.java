@@ -54,6 +54,15 @@ public class TournamentController {
 	public void deleteTournament(@PathVariable int id) {
 		tournamentDAO.deleteTournament(id);
 	}
+	
+//	@RequestMapping(path="tournaments/organizers/{id}", method = RequestMethod.GET)
+//	public List<Tournament> getAllTournamentsByOrganizerId(@PathVariable int organizerId) {
+//		return tournamentDAO.listAllTournamentsByOrganizerId(organizerId);
+//	}
+	
+//	public List<Tournament> getAllTournamentsByUserId(@PathVariable int userId){
+//		return tournamentDAO.listAllTournamentsByUserId(userId)
+//	}
 
 }
  
