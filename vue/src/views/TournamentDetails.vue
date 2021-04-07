@@ -14,7 +14,7 @@
           <li>Organizer Email: {{organizer.email}}</li>
       </ul>
 
-      <button v-if="!okModify" @click='okModify = true' >Modify/Update</button>
+      <button v-if="isCurrentUserOrganizer" v-show="!okModify" @click='okModify = true' >Modify/Update</button>
 
       <div v-if="okModify">
           <form v-on:submit.prevent="updateTournament" class="tournamentForm">
@@ -80,7 +80,8 @@ export default {
         return {
             tournament: {},
             organizer: {},
-            okModify: false
+            okModify: false,
+            isCurrentUserOrganizer: false
         }
     },
     created(){
@@ -91,6 +92,9 @@ export default {
                 organizerService.getOrganizerInfo(response.data.organizerId).then(response => {
                     if(response.status === 200){
                         this.organizer = response.data;
+                        if(this.$store.state.user.id == this.organizer.userId) {
+                            this.isCurrentUserOrganizer = true;
+                        }
                     }
                 });
             }
