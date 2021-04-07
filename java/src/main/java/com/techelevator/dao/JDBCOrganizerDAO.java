@@ -18,18 +18,14 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 
 	@Override
 	public Organizer getOrganizerInfoByUserId(int userId) {
-		Organizer organizer = new Organizer();
-		
 		String sql = "SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email "
 				      + "FROM organizer WHERE (user_id = ? AND organizer_id IS NOT NULL)";
-
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
-		
-		while(rows.next()) {
-			organizer = mapRowToOrganizer(rows);
+		if(rows.next()) {
+			return mapRowToOrganizer(rows);
+		} else {
+			return new Organizer();
 		}
-		
-		return organizer;
 	}
 	
 	@Override
@@ -40,9 +36,9 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizer.getUserId(), organizer.getFirstName(), organizer.getLastName(), organizer.getPhone(), organizer.getEmail());
 		if(rows.next()) {
 			return mapRowToOrganizer(rows);
+		} else {	
+			return new Organizer();
 		}
-		
-		return new Organizer();
 	}
 	@Override
 	public Organizer getOrganizerInfoByOrganizerId(int organizerId) {
@@ -53,9 +49,9 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 		
 		if(rows.next()) {
 			return mapRowToOrganizer(rows);
+		} else {
+			return new Organizer();
 		}
-		
-		return new Organizer();
 	}
 	
 	//will this work? Trying to use principal to verify that specific organizer is updating their information

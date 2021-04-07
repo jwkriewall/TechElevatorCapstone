@@ -1,43 +1,54 @@
 <template>
    <div class="createTournament">
        <form v-on:submit.prevent="createTournament" class="tournamentForm">
+           <h1>Generate Tournament</h1>
            <div>
-                <label for="tName">Tournament Name</label>
+                <label for="tName">Tournament Name: </label>
                 <input type="text" id="tName" name="tName" v-model="newTournament.name" />
            </div>
            <div>
-                <label for="maxParticipants">Max. Participants</label>
+                <label for="maxParticipants">Max. Participants: </label>
                 <input type="number" id="maxParticipants" name="maxParticipants" v-model="newTournament.maxParticipants" />
            </div>
            <div>
-               <label for="startDate">Start Date</label>
+               <label for="startDate">Start Date: </label>
                <input type="date" id="startDate" name="startDate" v-model="newTournament.startDate" />
            </div>
            <div>
-               <label for="endDate">End Date</label>
+               <label for="endDate">End Date: </label>
                <input type="date" id="endDate" name="endDate" v-model="newTournament.endDate" />
            </div>
-           <div>
-                <p>Individual</p> 
+           <div class="toggleSwitch">
+                <p>Individual </p> 
                 <input type="checkbox" id="switch"  v-model="newTournament.team" /><label class="toggle" for="switch">Toggle</label>
-                <p>Team</p> 
+                <p> Team</p> 
            </div>  
-           <div>
-                <p>Single Elimination</p> 
+           <div class="toggleSwitch">
+                <p>Single Elimination </p> 
                 <input type="checkbox" id="flip" v-model="newTournament.double" /><label class="toggle" for="flip">Toggle</label>
-                <p>Double Elimination</p> 
+                <p> Double Elimination</p> 
            </div>
            <div class="organizerInfo" v-if="!isOrganizer">
-               <label for="firstName">First name </label>
-               <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
-               <label for="lastName">Last Name </label>
-               <input type="text" name="lastName" id="lastName" v-model="organizer.lastName" />
-               <label for="oPhone">Phone Number </label>
-               <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"  id="oPhone" v-model="organizer.phone" />
-               <label for="oEmail">Email Address </label>
-               <input type="email" id="oEmail" v-model="organizer.email" />
+               <h2>Organizer Information</h2>
+               <p>This information will be used for contact purposes only. Your phone number will remain private, but your email address will be seen by users.</p>
+                <div>   
+                    <label for="firstName">First name: </label>
+                    <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
+                </div>
+               <div>   
+                    <label for="lastName">Last Name: </label>
+                    <input type="text" name="lastName" id="lastName" v-model="organizer.lastName" />
+               </div>
+               <div>   
+                    <label for="oPhone">Phone Number: </label>
+                    <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"  id="oPhone" v-model="organizer.phone" />
+               </div>
+               <div>   
+                    <label for="oEmail">Email Address: </label>
+                    <input type="email" id="oEmail" v-model="organizer.email" />
+                </div>
            </div>
-            <input type="submit" value="Create Tournament" v-bind:disabled="!isFormValid" />
+            <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
    </div>
 </template>
@@ -56,7 +67,8 @@ export default {
             organizer: {
                 userId: this.$store.state.user.id
             },
-            isOrganizer: false
+            isOrganizer: false,
+            userId: this.$store.state.user.id
         }
     },
     computed:{
@@ -72,15 +84,16 @@ export default {
         }
     },
     created(){
-            const userId = this.$store.state.user.id;
-            organizerService.getOrganizer(userId).then(response => {
+            organizerService.getOrganizer(this.userId).then(response => {
                 if(response.status === 200){
+                    alert("Organizer Found");
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
                     this.isOrganizer = true;
-                    return this.$store.state.organizer;
-                } else {
-                    return false;
+                }
+                if(response.status === 404) {
+                    this.isOrganizer = false;
+                    alert("New Organizer");
                 }
             })
             .catch(error => {
@@ -91,7 +104,6 @@ export default {
             } else {
               alert("Request could not be created.");
             }
-            return false;
           });
         
     },
@@ -131,6 +143,11 @@ export default {
 }
 </script>
 <style scoped>
+form.tournamentForm h1 {
+    border-bottom: 2px solid #e74c3c;
+    display: inline-block;
+    font-weight:normal;
+}
 input[type=checkbox]{
     height: 0;
     width: 0;
@@ -140,8 +157,8 @@ label.toggle {
     cursor: pointer;
     text-indent: -9999px;
     width: 50px;
-    height: 30px;
-    background: grey;
+    height: 20px;
+    background: #BADA55;
     display: block;
     border-radius: 100px;
     position: relative;
@@ -151,14 +168,14 @@ label.toggle:after {
     position: absolute;
     top: 5px;
     left: 5px;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     background: #fff;
     border-radius: 90px;
     transition: 0.3s;
 }
 input:checked + label {
-    background: #BADA55;
+    background: #e74c3c;
 }
 input:checked + label:after {
     left: calc(100% - 5px);
@@ -167,4 +184,94 @@ input:checked + label:after {
 label.toggle:active:after {
     width: 20px;
 } 
+.createTournament {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 1.2rem;
+}
+.tournamentForm{
+    background-color: #2c3e50;
+    padding: 30px 50px 50px 50px;
+}
+input:not(div.toggleSwitch > input) {
+    border-radius: 15px;
+    height: 2.2rem;
+    width: 18vw;
+    min-width: 280px;
+    padding: 0 20px;
+    font-size: 1rem;
+    background-color: #44617e;
+    border: 1px solid white;
+    color: white;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px #44617e inset;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+}
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+    filter: invert(0%);
+}
+
+label:not(.toggle){
+    margin: 10px 10px 10px 0;
+    width: 15vw;
+    min-width: 125px;
+}
+.tournamentForm div:not(div.organizerInfo) {
+    display: flex;
+    align-items: center;
+}
+textarea:focus, input:not(div.toggleSwitch > input):focus
+ {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #e74c3c;
+  background-color:white;
+  color: #707070;
+  -webkit-text-fill-color: #707070;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+.toggleSwitch > p:last-child {
+    margin-left: 10px;
+}
+
+.toggleSwitch:not(.toggleSwitch:first-of-type) { margin-top:-30px }
+
+.tournamentForm input[type="submit"], textarea {
+    background-color: #e74c3c;
+    -webkit-box-shadow: 0 0 0px 1000px #e74c3c inset;
+    color: white;
+    font-size: 1.3rem;
+    height: 3em;
+    font-weight: 900;
+    margin-top: 20px;
+    border: none;
+}
+.tournamentForm input[type="submit"]:disabled {
+    color: #e4a6a6;
+    -webkit-text-fill-color: #e4a6a6;
+}
+.tournamentForm > div.organizerInfo {
+    display: flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+.tournamentForm > div.organizerInfo > div {
+    margin-bottom:10px;
+}
+.tournamentForm > div.organizerInfo h2 {
+    text-transform:uppercase;
+    font-size:1.5rem;
+    margin-bottom: 10px;
+}
+.tournamentForm > div.organizerInfo p {
+    font-size: 0.9rem;
+    font-weight:200;
+    margin:0 0 20px;
+}
+
 </style>

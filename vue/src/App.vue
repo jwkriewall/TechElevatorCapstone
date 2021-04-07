@@ -1,32 +1,82 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{name: 'create'}">Create</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-      <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
-      &nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link>
-   
+     <a class="logo" href="/"> <img class="BRCKT" src="@/assets/BRCKT-05.png" alt="Bracket Logo" /></a>
+      <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>  -->
+      <div class="applinks">
+        <router-link v-bind:to="{name: 'create'}">Create</router-link>
+        <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
+        <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
+      </div>
+      <div class="userlinks">
+        <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">My Tournaments</router-link>
+        <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+        <router-link class="logout" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
+        <router-link class="logout" v-bind:to="{ name: 'register' }">Sign Up</router-link>
+      </div>
+      
    
     </div>
     <router-view />
   </div>
 </template>
 
-<style>
-  #app #nav { 
-    border: 1px solid red;
+<style scoped>
+  #nav{
+    font-family: 'Poppins';
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-start;
+    background: #f4f4f4;
+    height: 130px;
+    align-items: center;
+    font-size: 1.5rem;
   }
+  #nav .applinks {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow:4;
+  }
+  #nav .applinks a:not(a:first-child) {
+    margin-left: 30px;
+  }
+
+  #nav .userlinks {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 2;
+  }
+  #nav .userlinks a {
+    min-width:70px;
+    text-align:center;
+  }
+  
+  #nav .logout{
+    font-weight: 300;
+    font-size: 1.0rem;
+  }
+
   #nav a {
-    font-weight: bold;
-    font-size: 1.3rem;
+    color: #2c3e50;
     text-decoration: none;
-    color: black;
+    margin-top:2px;
+    padding-bottom:2px;
   }
-  #nav a.router-link-active {
-    color: blue;
-    border: 1px solid blue;
+  
+  #nav a:hover:not(a.logo)  {
+    padding-bottom:0px;
+    border-bottom: 2px solid #e74c3c;
+  }
+
+  .BRCKT:hover{
+    border: none;
+  }
+  .BRCKT {
+    width: 300px;
+    margin-right:50px;
+    flex-basis: 350px;
+    flex-grow: 1;
   }
 </style>
 
