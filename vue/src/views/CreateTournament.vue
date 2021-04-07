@@ -29,14 +29,24 @@
                 <p> Double Elimination</p> 
            </div>
            <div class="organizerInfo" v-if="!isOrganizer">
-               <label for="firstName">First name: </label>
-               <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
-               <label for="lastName">Last Name: </label>
-               <input type="text" name="lastName" id="lastName" v-model="organizer.lastName" />
-               <label for="oPhone">Phone Number: </label>
-               <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"  id="oPhone" v-model="organizer.phone" />
-               <label for="oEmail">Email Address: </label>
-               <input type="email" id="oEmail" v-model="organizer.email" />
+               <h2>Organizer Information</h2>
+               <p>This information will be used for contact purposes only. Your phone number will remain private, but your email address will be seen by users.</p>
+                <div>   
+                    <label for="firstName">First name: </label>
+                    <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
+                </div>
+               <div>   
+                    <label for="lastName">Last Name: </label>
+                    <input type="text" name="lastName" id="lastName" v-model="organizer.lastName" />
+               </div>
+               <div>   
+                    <label for="oPhone">Phone Number: </label>
+                    <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"  id="oPhone" v-model="organizer.phone" />
+               </div>
+               <div>   
+                    <label for="oEmail">Email Address: </label>
+                    <input type="email" id="oEmail" v-model="organizer.email" />
+                </div>
            </div>
             <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
@@ -210,7 +220,7 @@ label:not(.toggle){
     width: 15vw;
     min-width: 125px;
 }
-.tournamentForm > div {
+.tournamentForm div:not(div.organizerInfo) {
     display: flex;
     align-items: center;
 }
@@ -245,6 +255,25 @@ textarea:focus, input:not(div.toggleSwitch > input):focus
 .tournamentForm input[type="submit"]:disabled {
     color: #e4a6a6;
     -webkit-text-fill-color: #e4a6a6;
+}
+.tournamentForm > div.organizerInfo {
+    display: flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+.tournamentForm > div.organizerInfo > div {
+    margin-bottom:10px;
+}
+.tournamentForm > div.organizerInfo h2 {
+    text-transform:uppercase;
+    font-size:1.5rem;
+    margin-bottom: 10px;
+}
+.tournamentForm > div.organizerInfo p {
+    font-size: 0.9rem;
+    font-weight:200;
+    margin:0 0 20px;
 }
 
 </style>
