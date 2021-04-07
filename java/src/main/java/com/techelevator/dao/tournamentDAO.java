@@ -15,7 +15,7 @@ public interface tournamentDAO {
 	public Tournament createTournament(Tournament tournament);
 	public List<Tournament> listAllTournaments();
 	public Tournament getTournamentById(int tournamentId);
-	public void updateTournament(Tournament tournament, int id);
+	public void updateTournament(Tournament tournament);
 	public void deleteTournament(int id);
 	
 

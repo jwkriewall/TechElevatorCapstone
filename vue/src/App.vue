@@ -9,10 +9,10 @@
         <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
       </div>
       <div class="userlinks">
-        <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">My Tournaments</router-link>
+        <!-- <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">My Tournaments</router-link> -->
         <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
         <router-link class="logout" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
-        <router-link class="logout" v-bind:to="{ name: 'register' }">Sign Up</router-link>
+        <router-link class="logout" v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">Sign Up</router-link>
       </div>
       
    

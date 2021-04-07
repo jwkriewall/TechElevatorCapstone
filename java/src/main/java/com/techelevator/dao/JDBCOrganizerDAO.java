@@ -56,10 +56,10 @@ public class JDBCOrganizerDAO implements OrganizerDAO {
 	
 	//will this work? Trying to use principal to verify that specific organizer is updating their information
 	@Override
-	public void updateOrganizerInfo(String username, int organizerId) {
+	public void updateOrganizerInfo(Organizer organizer) {
 		String sql = "UPDATE organizer SET organizer_first_name = ?, organizer_last_name = ?, organizer_phone = ?, organizer_email = ? " + 
 				"WHERE organizer_id = ?";
-		jdbcTemplate.update(sql, organizerId);
+		jdbcTemplate.update(sql, organizer.getFirstName(), organizer.getLastName(), organizer.getPhone(), organizer.getEmail(), organizer.getOrganizerId());
 	}
 
 	@Override
