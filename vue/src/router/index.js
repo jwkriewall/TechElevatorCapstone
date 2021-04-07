@@ -7,6 +7,8 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import CreateTournament from '../views/CreateTournament.vue'
 import TournamentDetails from '../views/TournamentDetails.vue'
+import MyAccount from '../views/MyAccount.vue'
+import MyTournaments from '../views/MyTournaments.vue'
 
 Vue.use(Router)
 
@@ -67,6 +69,22 @@ const router = new Router({
       path: "/tournaments/:id",
       name: "tournament-details",
       component: TournamentDetails,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/users/tournaments/",
+      name: "my-tournaments",
+      component: MyTournaments.vue,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/users/:id",
+      name: "account",
+      component: MyAccount.vue,
       meta: {
         requiresAuth: true
       }
