@@ -1,6 +1,5 @@
 <template>
    <div class="createTournament">
-       
        <form v-on:submit.prevent="createTournament" class="tournamentForm">
            <h1>Generate Tournament</h1>
            <div>
@@ -133,9 +132,10 @@ export default {
 }
 </script>
 <style scoped>
-h1{
+form.tournamentForm h1 {
     border-bottom: 2px solid #e74c3c;
     display: inline-block;
+    font-weight:normal;
 }
 input[type=checkbox]{
     height: 0;
@@ -175,61 +175,75 @@ label.toggle:active:after {
 } 
 .createTournament {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     color: #fff;
     font-family: 'Poppins';
     font-size: 1.2rem;
-
 }
 .tournamentForm{
     background-color: #2c3e50;
-    padding: 50px;
-    
+    padding: 30px 50px 50px 50px;
 }
-input:not(div.toggleSwitch > input){
+input:not(div.toggleSwitch > input) {
     border-radius: 15px;
     height: 2.2rem;
-    width: 20vw;
-    min-width: 300px;
-    padding-left: 20px;
+    width: 18vw;
+    min-width: 280px;
+    padding: 0 20px;
     font-size: 1rem;
     background-color: #44617e;
-    border-color: 1px solid white;
-    
+    border: 1px solid white;
+    color: white;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px #44617e inset;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+}
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+    filter: invert(0%);
 }
 
 label:not(.toggle){
     margin: 10px 10px 10px 0;
     width: 15vw;
-    min-width: 100px;
+    min-width: 125px;
 }
 .tournamentForm > div {
     display: flex;
     align-items: center;
 }
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
+textarea:focus, input:not(div.toggleSwitch > input):focus
+ {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #e74c3c;
+  background-color:white;
+  color: #707070;
+  -webkit-text-fill-color: #707070;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
 .toggleSwitch > p:last-child{
     margin-left: 10px;
 }
-/* Decrease the space between two toggles */
 
-.tournamentForm div.toggleSwitch:last-child {
-    align-items: flex-start;
-    
+.tournamentForm > div.toggleSwitch:nth-last-child(2) {
+    margin-top:-20px;
 }
 
 .tournamentForm input[type="submit"], textarea {
     background-color: #e74c3c;
+    -webkit-box-shadow: 0 0 0px 1000px #e74c3c inset;
     color: white;
     font-size: 1.3rem;
     height: 3em;
     font-weight: 900;
     margin-top: 20px;
+    border: none;
 }
+.tournamentForm input[type="submit"]:disabled {
+    color: #e4a6a6;
+    -webkit-text-fill-color: #e4a6a6;
+}
+
 </style>

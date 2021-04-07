@@ -94,7 +94,7 @@ export default {
 div#register {
   font-family: 'Poppins';
   text-align: center;
-  background: url("../assets/createAccount.jpg");
+  background: url('../assets/createAccount.jpg') fixed center top;
   background-size: cover;
   padding-bottom: 40vh;
   color: white;
@@ -110,18 +110,34 @@ form.form-register{
   align-items: center;
 }
 
-form.form-register input{
+textarea:focus, form.form-register > input:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #e74c3c;
+  background-color:white;
+  color: #707070;
+}
+
+form.form-register > input, textarea {
   width: 15vw;
   border-radius: 10px;
   height: 2em;
-  padding-left: 10px;
   margin-bottom: 10px;
   text-align: center;
+  font-weight:lighter;
+  border: 1px solid white;
+  background-color: #44617e;
+  color: #f4f4f4;
+  -webkit-text-fill-color: #f4f4f4;
 }
 
 form.form-register label{
   font-size: 1.5rem;
+  padding: 5px 0;
 }
+form.form-register label:not(label:nth-child(2)) {
+  margin-top:40px;
+}
+
 input#confirmPassword {
   margin-top: 5px;
 }
@@ -131,14 +147,21 @@ form.form-register button.btn{
   width: 10vw;
   min-width: 50px;
   margin-top: 20px;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: #e74c3c;
   color: white;
   font-size: 1.1rem;
+  border: none;
 }
 
 #register a{
   color: white;
+  margin-top:30px;
+}
+
+#register a:hover {
+  color: #e74c3c;
+  text-decoration: none;
 }
 
 </style>
