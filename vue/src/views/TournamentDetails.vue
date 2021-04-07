@@ -14,7 +14,7 @@
           <li>Organizer Email: {{organizer.email}}</li>
       </ul>
 
-      <input type="submit" value="Modify/Update" v-if="isCurrentUserOrganizer" v-show="!okModify" @click='okModify = true' />
+      <input type="submit" value="Modify" v-if="isCurrentUserOrganizer" v-show="!okModify" @click='okModify = true' />
 
       <div v-if="okModify">
           <form v-on:submit.prevent="updateTournament" class="tournamentForm">
