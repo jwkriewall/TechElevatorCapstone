@@ -50,6 +50,7 @@
            </div>
             <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
+       <img src="@/assets/soccer.jpg" alt="Players on the soccer field during a match">
    </div>
 </template>
 
@@ -186,14 +187,16 @@ label.toggle:active:after {
 } 
 .createTournament {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     color: #fff;
     font-family: 'Poppins';
     font-size: 1.2rem;
+    grid-template-areas: "form img";
 }
 .tournamentForm{
     background-color: #2c3e50;
     padding: 30px 50px 50px 50px;
+    grid-area: form;
 }
 input:not(div.toggleSwitch > input) {
     border-radius: 15px;
@@ -272,6 +275,11 @@ textarea:focus, input:not(div.toggleSwitch > input):focus
     font-size: 0.9rem;
     font-weight:200;
     margin:0 0 20px;
+}
+img{
+    grid-area: img;
+    overflow-y: hidden;
+    width: 50vw;
 }
 
 </style>
