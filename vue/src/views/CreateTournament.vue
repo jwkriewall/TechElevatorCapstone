@@ -87,14 +87,12 @@ export default {
     created(){
             organizerService.getOrganizer(this.userId).then(response => {
                 if(response.status === 200){
-                    alert("Organizer Found");
                     this.$store.commit('SET_ORGANIZER', response.data);
                     this.organizer = response.data;
                     this.isOrganizer = true;
                 }
                 if(response.status === 404) {
                     this.isOrganizer = false;
-                    alert("New Organizer");
                 }
             })
             .catch(error => {

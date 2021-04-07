@@ -73,7 +73,7 @@
                         <input type="email" id="oEmail" v-model="organizer.email" />
                     </div>
            </div>
-            <input class="update" type="submit" value="Update" @click="updateAll"/>
+            <input class="update" type="submit" value="Update" @click.prevent="updateAll"/>
            <!-- <button type="submit" v-bind:disabled="!isFormValid">Create Tournament</button> -->
        </form>
 

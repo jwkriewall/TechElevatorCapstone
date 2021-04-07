@@ -9,6 +9,6 @@ public interface OrganizerDAO {
 	public Organizer getOrganizerInfoByUserId (int userId);
 	public Organizer getOrganizerInfoByOrganizerId (int organizerId);
 	public Organizer createNewOrganizer(Organizer organizer);
-	public void updateOrganizerInfo(String username, int organizerId);
+	public void updateOrganizerInfo(Organizer organizer);
 	public void deleteOrganizer(String username, int organizerId);
 }
