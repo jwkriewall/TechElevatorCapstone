@@ -1,7 +1,6 @@
 <template>
-    <div id="my-tournaments">
+    <div class="my-tournaments">
         <h1>My Tournaments</h1>
-
     </div>
 </template>
 

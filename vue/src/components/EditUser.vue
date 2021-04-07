@@ -19,14 +19,17 @@
                 <input type="email" id="email" v-model.trim="user.email" />
             </div>
             <div>
-                <label for="email">Password: </label>
+                <label for="username">Username: </label>
+                <input type="username" id="username" v-model.trim="user.username" />
+            </div>
+            <div>
+                <label for="password">Password: </label>
                 <input :type="[showPassword ? 'text' : 'password']" id="password" v-model.trim="user.password" />
-                <label for="showPassword">Show Password?</label><input type="checkbox" id="showPassword" @change='toggleShowPass' />
+                <label for="showPassword">Show Password?</label><input type="checkbox" id="showPassword" @change="toggleShowPass" />
                 <!-- ternary operation syntax -->
             </div>
             <input type="submit" value="Update" @click.prevent='updateUser' />
         </div>
-
     </div>
 </template>
 
@@ -41,8 +44,7 @@ export default {
     },
     methods: {
         toggleShowPass() {
-            if(this.showPassword) { this.showPassword == false; }
-            else { this.showPassword == true; }
+            this.showPassword = !this.showPassword
         }
     }
 }

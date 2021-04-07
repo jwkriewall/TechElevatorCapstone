@@ -10,9 +10,9 @@
                 <li>Username: {{user.username}}</li>
             </ul>
         </div>
-        <input type="submit" value="Modify" @click.prevent="modify == true" />
-        <div class="edit-info">
-            <edit-user />
+        <input type="submit" value="Modify" @click.prevent="modify=true" />
+        <div v-if="modify" class="edit-info">
+            <edit-user v-bind:user="user" />
         </div>
 
     </div>
@@ -25,7 +25,8 @@ export default {
   components: { EditUser },
     data() {
         return {
-            user: {}
+            user: this.$store.state.user,
+            modify: false
         }
     }
 }

@@ -76,7 +76,7 @@ const router = new Router({
     {
       path: "/users/tournaments",
       name: "my-tournaments",
-      component: MyTournaments.vue,
+      component: MyTournaments,
       meta: {
         requiresAuth: true
       }
@@ -84,7 +84,7 @@ const router = new Router({
     {
       path: "/users",
       name: "account",
-      component: MyAccount.vue,
+      component: MyAccount,
       meta: {
         requiresAuth: true
       }
