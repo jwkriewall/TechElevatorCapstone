@@ -9,7 +9,7 @@
       </p>
       <div class="home-buttons">
         <input type="button" value="Create" @click="$router.push('/create')" />
-        <input type="button" value="Login" @click="$router.push('/login')" />
+        <input type="button" value="Login" @click="$router.push('/login')" v-if="$store.state.token == ''" />
       </div>
     </div>
     <img src="@/assets/intro-tourney.jpg" alt="People in front of computer screens playing video games">

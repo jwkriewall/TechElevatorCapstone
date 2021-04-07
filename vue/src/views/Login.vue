@@ -76,16 +76,17 @@ export default {
 </script>
 <style scoped>
   div h1 {
-    text-decoration: underline;
+    border-bottom: 2px solid #e74c3c;
     text-decoration-color: #e74c3c;
   }
 
   div#login {
     font-family: 'Poppins';
     text-align: center;
-    background: url('../assets/blue-dice.jpg') fixed center top;
+    background-color: gray;
+    background: url('../assets/blue-dice.jpg') fixed left top;
     background-size: cover;
-    padding-bottom: 40vh;
+    padding: 20vh 0 40vh 0;
     color: white;
   }
 
@@ -95,7 +96,7 @@ export default {
     align-items: center;
   }
 
-  input#password, input#username {
+  input {
     width: 15vw;
     height: 2em;
     border-radius: 10px;
@@ -142,12 +143,14 @@ label.sr-only {
   font-size: 1.6rem;;
 }
 
-textarea:focus, form.form-signin > input:focus {
+textarea:focus, input:focus
+ {
   outline: none;
   box-shadow: 0px 0px 0px 2px #e74c3c;
   background-color:white;
   color: #707070;
-  /*this should change the color of the box on focus?*/
+  -webkit-text-fill-color: #707070;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
 
