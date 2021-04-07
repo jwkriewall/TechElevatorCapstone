@@ -155,7 +155,7 @@ form.form-register button.btn{
   border: none;
 }
 
-#register a{
+#register a {
   color: white;
   margin-top:30px;
 }

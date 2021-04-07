@@ -128,9 +128,11 @@ div button.submit:hover {
 #login a{
   color: white;
   margin-top:10px;
-  text-decoration: none;
 }
-
+#login a:hover {
+  color:#e74c3c;
+  text-decoration:none;
+}
 label {
   text-shadow: #44617e;
   font-size: 1.35rem;
