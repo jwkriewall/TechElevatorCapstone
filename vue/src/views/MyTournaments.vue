@@ -1,6 +1,6 @@
 <template>
     <div id="my-tournaments">
-        
+        <h1>My Tournaments</h1>
 
     </div>
 </template>

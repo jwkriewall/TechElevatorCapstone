@@ -12,14 +12,17 @@
         </div>
         <input type="submit" value="Modify" @click.prevent="modify == true" />
         <div class="edit-info">
+            <edit-user />
         </div>
 
     </div>
 </template>
 
 <script>
-import editUser from '@components'
+import EditUser from '../components/EditUser.vue';
+
 export default {
+  components: { EditUser },
     data() {
         return {
             user: {}

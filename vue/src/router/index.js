@@ -74,7 +74,7 @@ const router = new Router({
       }
     },
     {
-      path: "/users/tournaments/",
+      path: "/users/tournaments",
       name: "my-tournaments",
       component: MyTournaments.vue,
       meta: {
@@ -82,13 +82,13 @@ const router = new Router({
       }
     },
     {
-      path: "/users/:id",
+      path: "/users",
       name: "account",
       component: MyAccount.vue,
       meta: {
         requiresAuth: true
       }
-    },
+    }
     
   ]
 })

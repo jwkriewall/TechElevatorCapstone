@@ -57,6 +57,7 @@
 <script>
 import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
+
 export default {
     name: 'create-tournament',
     data(){

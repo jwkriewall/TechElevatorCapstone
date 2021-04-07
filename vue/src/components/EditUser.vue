@@ -20,7 +20,7 @@
             </div>
             <div>
                 <label for="email">Password: </label>
-                <input :type="{ showPassword ? 'text' : 'password'}" id="password" v-model.trim="user.password" />
+                <input :type="[showPassword ? 'text' : 'password']" id="password" v-model.trim="user.password" />
                 <label for="showPassword">Show Password?</label><input type="checkbox" id="showPassword" @change='toggleShowPass' />
                 <!-- ternary operation syntax -->
             </div>
@@ -41,8 +41,8 @@ export default {
     },
     methods: {
         toggleShowPass() {
-            if(showPassword) { showPassword == false; }
-            else { showPassword == true; }
+            if(this.showPassword) { this.showPassword == false; }
+            else { this.showPassword == true; }
         }
     }
 }
