@@ -1,27 +1,24 @@
 <template>
     <div id="my-account">
-        <div class="user-info">
-            <h1>Account Information</h1>
-            <ul>
-                <li>Name: {{ user.firstName}} {{user.lastName}}</li>
-                <li>Email: {{ user.email}}</li>
-                <li>Phone: {{user.phone}}</li>
-                <li>Username: {{user.username}}</li>
-            </ul>
-        
-            <input type="submit" value="Modify" @click.prevent="toggleModify" />
-            <div v-if="modify" class="edit-info">
-                <edit-user v-bind:user="user" />
+        <div class="content">
+            <user-info v-show="!modify" />
+            <input v-if="!modify" type="submit" value="Modify" @click.prevent="toggleModify" />
+            <div v-show="modify" class="edit-info">
+                <h1>Update User Information</h1>
+                <edit-user />
             </div>
+        </div>
+        <div class="image">
         </div>
     </div>
 </template>
 
 <script>
 import EditUser from '../components/EditUser.vue';
+import UserInfo from '../components/UserInfo.vue';
 
 export default {
-  components: { EditUser },
+  components: { EditUser, UserInfo },
     data() {
         return {
             user: this.$store.state.user,
@@ -37,7 +34,7 @@ export default {
 </script>
 
 <style>
-.user-info {
+.content {
     width: 50vw;
     background-color: #2C3E50;
     padding: 20px 20px 20px 50px;

@@ -1,7 +1,7 @@
 <template>
     <div class="edit-user">
-        <h1>Update User Information</h1>
         <div class="update-user-info">
+            <input type="checkbox" @click="stupidBoolean = true" />
             <div>   
                 <label for="firstName">First Name: </label>
                 <input class="input" type="text" name="firstName" id="firstName" v-model.trim="user.firstName" />
@@ -18,21 +18,22 @@
                 <label for="email">Email Address: </label>
                 <input class="input" type="email" id="email" v-model.trim="user.email" />
             </div>
-            <div>
+            <div v-if="showField">
                 <label for="username">Username: </label>
                 <input class="input" type="username" id="username" v-model.trim="user.username" />
             </div>
-            <div>
+            <div v-if="showField">
                 <label for="password">Password: </label>
                 <input class="input" :type="[showPassword ? 'text' : 'password']" id="password" v-model.trim="user.password" />
                 <font-awesome-icon :icon="icon" @click="toggleShowPass" />
             </div>
-            <div>
+            <div v-if="showField">
                 <label for="verify-password">Verify Password: </label>
                 <input class="input" :type="[showPassword ? 'text' : 'password']" id="verify-password" v-model.trim="verifyPassword" />
                 <font-awesome-icon :icon="icon" @click="toggleShowPass" />
             </div>
-            <input class="submit" type="submit" value="Update" @click.prevent='updateUser' />
+            <input v-if="showField" class="submit" type="submit" value="Update" @click="updateTest" />
+            
         </div>
     </div>
 </template>
@@ -42,19 +43,28 @@ import userService from '../services/AuthService.js';
 
 export default {
     name: 'edit-user',
-    props: ['user'],
     data() {
         return {
             showPassword: false,
             verifyPassword: '',
-            icon: 'eye'
+            icon: 'eye',
+            showField: true,
+            user: this.$store.state.user,
+            stupidBoolean: false
         }
+    },
+    created() {
+            if(this.$route.name === 'create') { this.showField = false; }
+            else { this.showField = true; }
     },
     methods: {
         toggleShowPass() {
             this.showPassword = !this.showPassword;
             if(this.icon == 'eye') { this.icon = 'eye-slash'; }
             else { this.icon = 'eye'; }
+        },
+        updateTest() {
+            this.stupidBoolean = !this.stupidBoolean;
         },
         updateUser() {
             userService.update(this.user).then(response => {
