@@ -67,4 +67,3 @@ CREATE TABLE tournament_user (
 
 
 COMMIT TRANSACTION;
-SELECT organizer_id, user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM organizer;

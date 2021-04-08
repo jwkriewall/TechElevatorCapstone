@@ -51,4 +51,4 @@ export default new Vuex.Store({
       state.modifyOrganizer = !state.modifyOrganizer;
     }
   }
-})
+});

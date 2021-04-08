@@ -1,26 +1,22 @@
 <template>
-    <div class="my-tournaments">
-        <h1>My Tournaments</h1>
-        <display-tournaments :tournaments="tournaments" :organizer="organizer" :userTournaments="myTournaments" />
-    </div>
+  <div class="tournaments">
+      <display-tournaments :organizer="organizer" :tournaments="tournaments" />
+  </div>
 </template>
 
 <script>
-import DisplayTournaments from '../components/DisplayTournaments.vue';
+import displayTournaments from '../components/DisplayTournaments.vue';
 import tournamentService from '../services/TournamentService.js'
 import organizerService from "../services/OrganizerService.js";
-import userService from '../services/AuthService.js';
 
 export default {
-    name: 'my-tournaments',
+    components: { displayTournaments },
     data() {
         return {
             tournaments: [],
-            organizer: {},
-            myTournaments: []
+            organizer: {}
         }
     },
-    components: { DisplayTournaments },
     created() {
         tournamentService.getAllTournaments().then(response =>{
             if(response.status === 200) {
@@ -30,11 +26,6 @@ export default {
         organizerService.getOrganizer(this.$store.state.user.id).then(response => {
             if(response.status === 200) {
                 this.organizer = response.data;
-            }
-        }),
-        userService.getUserTournaments(this.$store.state.user.id).then(response => {
-            if(response.status === 200) {
-                this.myTournaments = response.data;
             }
         })
         .catch(error => {

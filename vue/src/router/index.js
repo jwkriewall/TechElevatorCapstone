@@ -9,6 +9,7 @@ import CreateTournament from '../views/CreateTournament.vue'
 import TournamentDetails from '../views/TournamentDetails.vue'
 import MyAccount from '../views/MyAccount.vue'
 import MyTournaments from '../views/MyTournaments.vue'
+import Tournaments from '../views/Tournaments.vue'
 
 Vue.use(Router)
 
@@ -70,7 +71,7 @@ const router = new Router({
       name: "tournament-details",
       component: TournamentDetails,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -87,6 +88,14 @@ const router = new Router({
       component: MyAccount,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/tournaments/",
+      name: "search-tournaments",
+      component: Tournaments,
+      meta: {
+        requiresAuth: false
       }
     }
     

@@ -5,6 +5,7 @@
       <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>  -->
       <div class="applinks">
         <router-link v-bind:to="{name: 'create'}">Create</router-link>
+        <router-link v-bind:to="{name: 'search-tournaments'}">Search/Join</router-link>
         <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
         <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
       </div>
@@ -30,6 +31,7 @@
   h1 {
     border-bottom: 2px solid #e74c3c;
     font-weight: 800;
+    display: inline-block;
   }
   
   #nav{

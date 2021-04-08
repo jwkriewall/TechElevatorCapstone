@@ -1,11 +1,5 @@
 <template>
     <div class="display-tournaments">
-        <h1>All Tournaments</h1>
-        <div class="tournament-search">
-            <div>
-                
-            </div>
-        </div>
         <table>
             <tr>
                 <th></th>
@@ -25,28 +19,29 @@
                 <td><input type="number" placeholder="search" v-model="search.maxParticipants" /></td>
                 <td>
                     <select v-model="search.isDouble">
-                        <option value=""></option>
+                        <option selected value="All">All</option>
                         <option value="false">Single</option>
                         <option value="true">Double</option>
                     </select>
                 </td>
                 <td>
                     <select v-model="search.isTeam">
-                        <option value=""></option>
+                        <option selected value="All">All</option>
                         <option value="false">Individual</option>
                         <option value="true">Team</option>
                     </select>
                 </td>
             </tr>
-            <tr v-for="tournament in searchTournaments" v-bind:key="tournament.id" >
+            <tr v-for="tournament in searchTournaments" v-bind:key="tournament.id" :class="[organizer.organizerId == tournament.organizerId && myTournaments ? 'organizer' : '']">
                 <td></td>
                 <td>{{ tournament.name }}</td>
                 <td>{{ tournament.startDate }}</td>
                 <td>{{ tournament.endDate }}</td>
                 <td>{{ tournament.maxParticipants }}</td>
-                <td>{{ tournament.isDouble ? 'Double' : 'Single'}}</td>
-                <td>{{ tournament.isTeam ? 'Team' : 'Individual'}}</td>
-                <td><input type="submit" value="Join" /></td>
+                <td>{{ tournament.double ? 'Double' : 'Single'}}</td>
+                <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
+                <td><input type="submit" value="Details" @click="goToDetails(tournament.id)" /></td>
+                <td v-if="!myTournaments"><input type="submit" value="Join" /></td>
             </tr>
         </table>
             
@@ -57,31 +52,32 @@
 </template>
 
 <script>
-import tournamentService from '../services/TournamentService.js'
+
 
 export default {
     name: 'display-tournaments',
+    props: ['organizer', 'tournaments', 'userTournaments'],
     data() {
         return {
-            tournaments: [],
             search: {
                 name: '',
                 startDate: '',
                 endDate: '',
                 maxParticipants: '',
-                isDouble: '',
-                isTeam: ''
-            }
+                isTeam: "All",
+                isDouble: "All"
+            },
         }
     },
-    created() {
-        tournamentService.getAllTournaments().then(response =>{
-            if(response.status === 200) {
-                this.tournaments = response.data;
-            }
-        })
+    methods: {
+        goToDetails(tournamentId) {
+            this.$router.push('/tournaments/' + tournamentId);
+        }
     },
     computed: {
+        myTournaments() {
+            return this.$route.name == "my-tournaments"
+        },
         searchTournaments() {
             let filteredTournaments = this.tournaments;
 
@@ -91,29 +87,43 @@ export default {
                 );
             }
             if(this.search.maxParticipants != '') {
-                filteredTournaments = filteredTournaments.filter(tournament => {
-                    tournament.maxParticipants <= this.search.maxParticipants;
-                });
+                filteredTournaments = filteredTournaments.filter((tournament) => 
+                    tournament.maxParticipants <= this.search.maxParticipants
+                );
             }
             if(this.search.startDate != '') {
-                filteredTournaments = filteredTournaments.filter(tournament => {
-                    tournament.startDate >= this.search.startDate;
-                });
+                filteredTournaments = filteredTournaments.filter(tournament => 
+                    tournament.startDate >= this.search.startDate
+                );
             }
             if(this.search.endDate != '') {
-                filteredTournaments = filteredTournaments.filter(tournament => {
-                    tournament.endDate <= this.search.endDate;
-                });
+                filteredTournaments = filteredTournaments.filter(tournament => 
+                    tournament.endDate.valueOf() <= this.search.endDate.valueOf()
+                );
             }
-            if(this.search.isTeam != '') {
-                filteredTournaments = filteredTournaments.filter(tournament => {
-                    tournament.isTeam === this.search.isTeam;
-                });
+            if(this.search.isDouble != 'All' ) {
+                let searchDouble = this.search.isDouble == 'true'
+                filteredTournaments = filteredTournaments.filter(tournament => 
+                    tournament.double == searchDouble
+                );
             }
-            if(this.search.isDouble != '') {
-                filteredTournaments = filteredTournaments.filter(tournament => {
-                    tournament.isDouble === this.search.isDouble;
-                });
+            if(this.search.isTeam != 'All' ) {
+                let searchTeam = this.search.isTeam == 'true'
+                filteredTournaments = filteredTournaments.filter(tournament => 
+                    tournament.team == searchTeam
+                );
+            }
+            if(this.myTournaments) {
+                filteredTournaments = filteredTournaments.filter( tournament =>
+                    tournament.organizerId == this.organizer.organizerId
+                );
+            }
+            if(this.userTournaments != '') {
+                filteredTournaments = filteredTournaments.filter( tournament => 
+                    this.userTournaments.forEach( userTournament => {
+                        userTournament.id == tournament.id
+                    })
+                );
             }
             return filteredTournaments;
         }
@@ -122,5 +132,7 @@ export default {
 </script>
 
 <style>
-
+.organizer {
+    background-color: lightskyblue;
+}
 </style>

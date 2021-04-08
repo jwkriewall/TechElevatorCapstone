@@ -25,12 +25,6 @@ public class TournamentController {
 		this.tournamentDAO = tournamentDAO;
 	}
 	
-	// FIXED -----------
-	// Below is message we are getting on Postman...
-	// It is modifying the database but returning a 500 error: 
-	// No results were returned by the query.; nested exception is org.postgresql.util.PSQLException: No results were returned by the query.
-	
-	
 	@RequestMapping(path="/tournaments", method = RequestMethod.GET)
 	public List<Tournament> getAllTournaments() {
 		return tournamentDAO.listAllTournaments();
