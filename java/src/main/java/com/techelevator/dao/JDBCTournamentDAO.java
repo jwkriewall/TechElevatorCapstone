@@ -58,11 +58,22 @@ public class JDBCTournamentDAO implements tournamentDAO{
 
 	@Override
 	public void updateTournament(Tournament tournament) {
-		String sql = "UPDATE tournament SET tournament_name = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ? " + 
+		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ? " + 
 				"WHERE id = ?";
-		jdbcTemplate.update(sql, tournament.getName(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.getId());
+		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.getId());
 		
 	}
+	
+	@Override
+	public void addUserToTournament(long userId) {
+		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
+				"JOIN users ON tournament_user.user_id = users.user_id " + 
+				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
+				"WHERE users.user_id = ?";
+		jdbcTemplate.update(sql, userId);
+	}
+	
 	
 	@Override
 	public void deleteTournament(int id) {
@@ -71,32 +82,38 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	}
 	
 	
-//	@Override
-//	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
-//		List<Tournament> organizerTournaments = new ArrayList();
-//		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
-//				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
-//				"WHERE organizer.organizer_id = ?";
-//		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
-//		while(rows.next()) {
-//			Tournament tournament = mapRowToTournament(rows);
-//			organizerTournaments.add(tournament);
-//		}
-//		return organizerTournaments;
-//	}
+	@Override
+	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
+		List<Tournament> organizerTournaments = new ArrayList();
+		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
+				"WHERE organizer.organizer_id = ?";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
+		while(rows.next()) {
+			Tournament tournament = mapRowToTournament(rows);
+			organizerTournaments.add(tournament);
+		}
+		return organizerTournaments;
+	}
 
-//	@Override
-//	public List<Tournament> listAllTournamentsByUserId(int userId) {
-//		List<Tournament> userTournaments = new ArrayList();
-//		String sql = "???????????????";
-//		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
-//		while(rows.next()) {
-//			Tournament tournament = mapRowToTournament(rows);
-//			userTournaments.add(tournament);
-//		}
-//		return userTournaments;
-//	}
+	@Override
+	public List<Tournament> listAllTournamentsByUserId(long userId) {
+		List<Tournament> userTournaments = new ArrayList();
+		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
+				"JOIN users ON tournament_user.user_id = users.user_id " + 
+				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
+				"WHERE users.user_id = ?;";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
+		while(rows.next()) {
+			Tournament tournament = mapRowToTournament(rows);
+			userTournaments.add(tournament);
+		}
+		return userTournaments;
+	}
 
+	
+	
 	
 	
 	
@@ -112,6 +129,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
 		return tournament;
 	}
-	
+
+
 	
 }

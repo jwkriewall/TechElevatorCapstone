@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.tournamentDAO;
 import com.techelevator.model.Tournament;
+import com.techelevator.model.User;
 
 @CrossOrigin
 @RestController
@@ -55,14 +56,17 @@ public class TournamentController {
 		tournamentDAO.deleteTournament(id);
 	}
 	
-//	@RequestMapping(path="tournaments/organizers/{id}", method = RequestMethod.GET)
-//	public List<Tournament> getAllTournamentsByOrganizerId(@PathVariable int organizerId) {
-//		return tournamentDAO.listAllTournamentsByOrganizerId(organizerId);
-//	}
+	@RequestMapping(path="tournaments/organizers/{id}", method = RequestMethod.GET)
+	public List<Tournament> getAllTournamentsByOrganizerId(@PathVariable int organizerId) {
+		return tournamentDAO.listAllTournamentsByOrganizerId(organizerId);
+	}
 	
-//	public List<Tournament> getAllTournamentsByUserId(@PathVariable int userId){
-//		return tournamentDAO.listAllTournamentsByUserId(userId)
-//	}
+	@RequestMapping(path="users/tournaments/", method = RequestMethod.GET)
+	public List<Tournament> getAllTournamentsByUserId(@RequestBody User user){
+		return tournamentDAO.listAllTournamentsByUserId(user.getId());
+	}
+	
+	
 
 }
  

@@ -1,5 +1,6 @@
 START TRANSACTION;
 <<<<<<< HEAD
+<<<<<<< HEAD
 ROLLBACK;
 
 INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email)
@@ -22,6 +23,19 @@ INSERT INTO organizer (organizer_first_name, organizer_last_name, organizer_phon
 INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double)
         VALUES ('Nick Stewart Open', 1, 100, false, false);
 >>>>>>> 1c7a09c4523a0f63bf891ca1a8ee20d34b761393
+=======
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email)
+        VALUES (1, 'Nick', 'Stewart', 7777777777, 'nickstewart@gmail.com');
+
+
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?);
+        
+        
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname)
+        VALUES (?, ?, ?, ?);        
+        
+>>>>>>> ab1a5c22ea0e8e86909602dec44af1685aaba63c
         
 SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament
 JOIN organizer ON organizer.organizer_id = tournament.organizer_id;
@@ -76,8 +90,12 @@ WHERE organizer_id = ?;
 
 DELETE FROM organizer WHERE organizer_id = ?;
 
-SELECT tournament_name, max_participants, is_team, is_double, first_name, last_name, organizer_phone, organizer_email FROM tournament
-WHERE organizer_id = ?;
+SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament
+JOIN tournament_user ON tournament.id = tournament_user.tournament_id
+JOIN users ON tournament_user.user_id = users.user_id
+JOIN organizer ON organizer.organizer_id = tournament.organizer_id
+WHERE users.user_id = ?;
+
 
 
 ROLLBACK TRANSACTION;
