@@ -17,10 +17,11 @@ CREATE SEQUENCE seq_user_id
 
 CREATE TABLE users (
 	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
-	user_first_name,
-	user_last_name,
-	user_email,
-	user_phone,
+	user_first_name varchar(50),
+	user_last_name varchar(50),
+	user_nickname varchar(50),
+	user_email varchar(150),
+	user_phone varchar(60),
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,

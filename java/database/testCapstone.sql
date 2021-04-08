@@ -9,7 +9,13 @@ INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team
         
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname)
         VALUES (?, ?, ?, ?);        
+     
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role)
+       VALUES(?,?,?,?,?,?,?,'ROLE_USER');
         
+UPDATE users 
+SET  user_first_name = ?, user_last_name = ?, user_nickname = ?, user_email = ?, user_phone = ?, username = ?, password_hash = ?
+WHERE user_id = ?;      
         
 SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament
 JOIN organizer ON organizer.organizer_id = tournament.organizer_id;
