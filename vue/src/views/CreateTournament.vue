@@ -30,7 +30,7 @@
            </div>
            <div class="organizerInfo" v-if="!isOrganizer">
                <h2>Organizer Information</h2>
-               <!-- <p>This information will be used for contact purposes only. Your phone number will remain private, but your email address will be seen by users.</p>
+               <p>This information will be used for contact purposes only. Your phone number will remain private, but your email address will be seen by users.</p>
                 <div>   
                     <label for="firstName">First name: </label>
                     <input type="text" name="firstName" id="firstName" v-model="organizer.firstName" />
@@ -46,8 +46,8 @@
                <div>   
                     <label for="oEmail">Email Address: </label>
                     <input type="email" id="oEmail" v-model="organizer.email" />
-                </div> -->
-                <edit-user />
+                </div>
+                <!-- <edit-user /> -->
            </div>
             <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
@@ -58,12 +58,12 @@
 <script>
 import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
-import EditUser from "../components/EditUser.vue";
+//import EditUser from "../components/EditUser.vue";
 
 export default {
     name: 'create-tournament',
     components: {
-        EditUser
+        //EditUser
     },
     data(){
         return {

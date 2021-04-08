@@ -9,7 +9,7 @@ export default {
     return axios.post('/register', user)
   },
   update(user) {
-    return axios.put('/user', user)
+    return axios.put('/users', user)
   }
 
 }
