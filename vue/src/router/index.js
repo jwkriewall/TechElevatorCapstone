@@ -74,21 +74,21 @@ const router = new Router({
       }
     },
     {
-      path: "/users/tournaments/",
+      path: "/users/tournaments",
       name: "my-tournaments",
-      component: MyTournaments.vue,
+      component: MyTournaments,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: "/users/:id",
+      path: "/users",
       name: "account",
-      component: MyAccount.vue,
+      component: MyAccount,
       meta: {
         requiresAuth: true
       }
-    },
+    }
     
   ]
 })

@@ -1,33 +1,100 @@
 <template>
     <div id="my-account">
-        <h1>Account Information</h1>
-        
-        <div class="user-info">
-            <ul>
-                <li>Name: {{ user.firstName}} {{user.lastName}}</li>
-                <li>Email: {{ user.email}}</li>
-                <li>Phone: {{user.phone}}</li>
-                <li>Username: {{user.username}}</li>
-            </ul>
-        </div>
-        <input type="submit" value="Modify" @click.prevent="modify == true" />
-        <div class="edit-info">
-        </div>
+        <div class="content">
+            <user-info v-show="!modifyUser && !modifyOrganizer" />
+            <input v-show="!modifyUser && !modifyOrganizer" type="submit" value="Modify" @click.prevent="toggleModifyUser" />
+            
+            <organizer-info v-show="!modifyOrganizer && organizer.organizerId && !modifyUser" :organizer="organizer" />
+            <input v-show="!modifyOrganizer && !modifyUser" type="submit" value="Modify" @click.prevent="toggleModifyOrganizer" />
+            
+            <div v-show="modifyUser" class="edit-user-info">
+                <h1>Update User Information</h1>
+                <edit-user />
+            </div>
 
+            <div v-if="organizer.organizerId && modifyOrganizer" class="edit-organizer-info">
+                <h1>Update Organizer Information</h1>
+                <edit-organizer :organizer="organizer" />
+            </div>
+        </div>
+        <div class="image">
+        </div>
     </div>
 </template>
 
 <script>
-import editUser from '@components'
+import EditUser from '../components/EditUser.vue';
+import UserInfo from '../components/UserInfo.vue';
+import EditOrganizer from '../components/EditOrganizer.vue'
+import organizerService from '../services/OrganizerService.js'
+import OrganizerInfo from '../components/OrganizerInfo.vue'
+
 export default {
+  components: { EditUser, UserInfo, EditOrganizer, OrganizerInfo },
     data() {
         return {
-            user: {}
+            user: this.$store.state.user,
+            organizer: {}
         }
+    },
+    methods: {
+        toggleModifyUser() {
+            this.$store.commit('TOGGLE_MODIFY_USER');
+        },
+        toggleModifyOrganizer() {
+            this.$store.commit('TOGGLE_MODIFY_ORGANIZER');
+        }
+    },
+    computed: {
+        modifyUser() {
+            return this.$store.state.modifyUserInfo
+        },
+        modifyOrganizer() {
+            return this.$store.state.modifyOrganizer
+        }
+    },
+    created() {
+        organizerService.getOrganizer(this.user.id).then(response => {
+            if(response.status === 200) {
+                this.organizer = response.data;
+            }
+        })
+        .catch(error => {
+        if (error.response) {
+            //alert(error.response.statusText);
+        } else if (error.request) {
+            alert("Server could not be reached.");
+        } else {
+            alert("Request could not be created.");
+        }
+        });
     }
 }
 </script>
 
 <style>
+.content {
+    width: 50vw;
+    background-color: #2C3E50;
+    padding: 20px 20px 20px 50px;
+    color: white;
+}
+
+ul {
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    line-height: 2rem;
+    padding:0 10px;
+    border-radius:10px;
+}
+
+ul li:nth-child(odd) {
+    background-color: #f4f4f4;
+    color: black;
+}
 
 </style>

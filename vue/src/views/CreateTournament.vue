@@ -3,8 +3,8 @@
        <form v-on:submit.prevent="createTournament" class="tournamentForm">
            <h1>Generate Tournament</h1>
            <div>
-                <label for="tName">Tournament Name: </label>
-                <input type="text" id="tName" name="tName" v-model="newTournament.name" />
+                <label for="name">Tournament Name: </label>
+                <input type="text" id="name" name="name" v-model="newTournament.name" />
            </div>
            <div>
                 <label for="maxParticipants">Max. Participants: </label>
@@ -47,6 +47,7 @@
                     <label for="oEmail">Email Address: </label>
                     <input type="email" id="oEmail" v-model="organizer.email" />
                 </div>
+                <!-- <edit-user /> -->
            </div>
             <input class="button" type="submit" value="Generate Tournament" v-bind:disabled="!isFormValid" />
        </form>
@@ -57,8 +58,13 @@
 <script>
 import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
+//import EditUser from "../components/EditUser.vue";
+
 export default {
     name: 'create-tournament',
+    components: {
+        //EditUser
+    },
     data(){
         return {
             newTournament: {
@@ -85,25 +91,25 @@ export default {
         }
     },
     created(){
-            organizerService.getOrganizer(this.userId).then(response => {
-                if(response.status === 200){
-                    this.$store.commit('SET_ORGANIZER', response.data);
-                    this.organizer = response.data;
-                    this.isOrganizer = true;
-                }
-                if(response.status === 404) {
-                    this.isOrganizer = false;
-                }
-            })
-            .catch(error => {
-            if (error.response) {
-              alert(error.response.statusText);
-            } else if (error.request) {
-              alert("Server could not be reached.");
-            } else {
-              alert("Request could not be created.");
+        organizerService.getOrganizer(this.userId).then(response => {
+            if(response.status === 200){
+                this.$store.commit('SET_ORGANIZER', response.data);
+                this.organizer = response.data;
+                this.isOrganizer = true;
             }
-          });
+            if(response.status === 404) {
+                this.isOrganizer = false;
+            }
+        })
+        .catch(error => {
+        if (error.response) {
+            //alert(error.response.statusText);
+        } else if (error.request) {
+            alert("Server could not be reached.");
+        } else {
+            alert("Request could not be created.");
+        }
+        });
         
     },
     methods:{
@@ -111,15 +117,24 @@ export default {
             if(this.organizer != this.$store.state.organizer){
                   organizerService.newOrganizer(this.organizer)
                   .then(response => {
-                      if(response.status === 200){
+                        if(response.status === 200){
                           alert("Organizer Added");
                           this.organizer = response.data;
                           this.newTournament.organizerId = this.organizer.organizerId;
                           this.addTournament();
                         }
+                        if(response.status === 404){
+                            // Do Nothing
+                        }
                     })
                     .catch(error => {
-                        alert(error);
+                    if (error.response) {
+                        //alert(error.response.statusText);
+                    } else if (error.request) {
+                        alert("Server could not be reached.");
+                    } else {
+                        alert("Request could not be created.");
+                    }
                     });
             } else { 
                 this.newTournament.organizerId = this.organizer.organizerId;
@@ -156,6 +171,7 @@ label.toggle {
     cursor: pointer;
     text-indent: -9999px;
     width: 50px;
+    min-width: 50px;
     height: 20px;
     background: #BADA55;
     display: block;
@@ -216,7 +232,7 @@ input[type="date"]:focus::-webkit-calendar-picker-indicator {
     filter: invert(0%);
 }
 
-label:not(.toggle){
+label:not(label.toggle){
     margin: 10px 10px 10px 0;
     width: 15vw;
     min-width: 125px;
