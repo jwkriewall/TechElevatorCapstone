@@ -95,4 +95,10 @@ public class UserSqlDAO implements UserDAO {
         user.setActivated(true);
         return user;
     }
+
+	@Override
+	public User updateUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
