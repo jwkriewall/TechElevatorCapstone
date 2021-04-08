@@ -23,6 +23,15 @@
 </template>
 
 <style scoped>
+  #app {
+    font-family: 'Poppins';
+  }
+
+  h1 {
+    border-bottom: 2px solid #e74c3c;
+    font-weight: 800;
+  }
+  
   #nav{
     font-family: 'Poppins';
     font-weight: 700;
