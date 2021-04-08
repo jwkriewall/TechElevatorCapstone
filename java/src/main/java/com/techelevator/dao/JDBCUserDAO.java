@@ -66,7 +66,7 @@ public class JDBCUserDAO implements UserDAO {
     public boolean create(String username, String password, String role) {
         boolean userCreated = false;
 
-        String insertUser = "insert into users (username,password_hash,role) values(?,?,?)";
+        String insertUser = "insert into users (username ,password_hash, role) values(?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = "ROLE_" + role.toUpperCase();
 
@@ -90,10 +90,10 @@ public class JDBCUserDAO implements UserDAO {
 		
 		//update user.
 		String sqlUpdate = "UPDATE users SET user_id = ?, user_first_name = ?, user_last_name = ?, user_nickname = ?, "
-				+ "user_email = ?, user_phone = ?, username = ?, password_hash = ? " 
+				+ "user_email = ?, user_phone = ?, username = ? " 
 				+ "WHERE user_id = ?";
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlUpdate,user.getId(), user.getFirstName(), user.getLastName(), user.getNickname(),
-				                                      user.getEmail(), user.getPhoneNumber(), user.getUsername(), user.getPassword(),
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlUpdate, user.getId(), user.getFirstName(), user.getLastName(), user.getNickname(),
+				                                      user.getEmail(), user.getPhoneNumber(), user.getUsername(),
 				                                      user.getId());
 		if(rows.next()) {
 			return mapRowToUser(rows);
@@ -111,7 +111,7 @@ public class JDBCUserDAO implements UserDAO {
         user.setEmail(rs.getString("user_email"));
         user.setPhoneNumber(rs.getString("user_phone"));
         user.setUsername(rs.getString("username"));
-        user.setPassword(rs.getString("password_hash"));
+        //user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));
         user.setActivated(true);
         return user;
