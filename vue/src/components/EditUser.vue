@@ -59,12 +59,16 @@ export default {
     },
     methods: {
         toggleShowPass() {
+            this.stupidBoolean = !this.stupidBoolean;
             this.showPassword = !this.showPassword;
             if(this.icon == 'eye') { this.icon = 'eye-slash'; }
             else { this.icon = 'eye'; }
+            this.$store.commit('TOGGLE_MODIFY_USER');
         },
         updateTest() {
             this.stupidBoolean = !this.stupidBoolean;
+            this.$store.commit('TOGGLE_MODIFY_USER');
+            //this.showPassword = !this.showPassword; //if this is here, the method works, if it's not here the method doesn't run.... ????
         },
         updateUser() {
             userService.update(this.user).then(response => {

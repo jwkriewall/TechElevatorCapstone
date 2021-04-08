@@ -2,7 +2,7 @@
     <div id="my-account">
         <div class="content">
             <user-info v-show="!modify" />
-            <input v-if="!modify" type="submit" value="Modify" @click.prevent="toggleModify" />
+            <input type="submit" value="Modify" @click.prevent="toggleModify" />
             <div v-show="modify" class="edit-info">
                 <h1>Update User Information</h1>
                 <edit-user />
@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             user: this.$store.state.user,
-            modify: false
+            modify: this.$store.state.modifyUserInfo
         }
     },
     methods: {
