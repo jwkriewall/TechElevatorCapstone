@@ -22,5 +22,6 @@ public interface tournamentDAO {
 	public List<Tournament> listAllTournamentsByUserId(long userId);
 	
 	
-	public void addUserToTournament(long userId);
+	//
+	public void addUserToTournament(int id, long userId);
 }

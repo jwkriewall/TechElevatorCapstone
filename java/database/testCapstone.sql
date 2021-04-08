@@ -29,5 +29,17 @@ JOIN organizer ON organizer.organizer_id = tournament.organizer_id
 WHERE users.user_id = ?;
 
 
+SELECT user_id FROM tournament_user WHERE tournament_id = ? AND user_id = ?;
+
+INSERT INTO tournament_user VALUES (?, ?, 1, ?)
+JOIN;
+
+SELECT user_id FROM tournament_user WHERE tournament_id = ? AND user_id = ?;
+
+WHERE tournament_id = ? AND user_id = ?;
+
+
+
+SELECT * from USERS;
 
 ROLLBACK TRANSACTION;

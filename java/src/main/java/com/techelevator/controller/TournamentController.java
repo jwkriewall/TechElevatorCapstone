@@ -66,7 +66,11 @@ public class TournamentController {
 		return tournamentDAO.listAllTournamentsByUserId(user.getId());
 	}
 	
-	
+	// Change endpoint to match front end
+	@RequestMapping(path="tournaments/{id}/registration/", method = RequestMethod.POST)
+	public void addUserToTournament(@RequestBody User user, @PathVariable int id) {
+		tournamentDAO.addUserToTournament(id, user.getId());
+	}
 
 }
  
