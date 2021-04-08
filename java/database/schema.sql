@@ -30,8 +30,9 @@ CREATE TABLE users (
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-
-
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Nick', 'Stewart', 'nickstewart', 'nick@gmail.com', 5555555555, 'nickstewart', 'test1', 'ROLE_USER');
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Ben', 'Baker', 'benbaker', 'ben@gmail.com', 4444444444, 'benbaker', 'test2', 'ROLE_ADMIN');
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('JW', 'Kriewall', 'jwkriewall', 'jw@gmail.com', 3333333333, 'jwkriewall', 'test3', 'ROLE_USER');
 
 
 
@@ -45,6 +46,11 @@ CREATE TABLE organizer (
         
         constraint fk_user_id_organizer foreign key (user_id) references users (user_id)
 );
+
+
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (3, 'Nick', 'Stewart', 5555555555, 'nick@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (4, 'Ben', 'Baker', 4444444444, 'ben@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (5, 'JW', 'Kriewall', 3333333333, 'jw@gmail.com');
 
 CREATE TABLE tournament (
         id serial primary key NOT NULL,
