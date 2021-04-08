@@ -21,7 +21,8 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     organizer: {},
-    modifyUserInfo: false
+    modifyUserInfo: false,
+    modifyOrganizer: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -44,8 +45,10 @@ export default new Vuex.Store({
       state.organizer = organizer;
     },
     TOGGLE_MODIFY_USER(state){
-      const modify = state.modifyUserInfo;
-      state.modifyUserInfo = !modify;
+      state.modifyUserInfo = !state.modifyUserInfo;
+    },
+    TOGGLE_MODIFY_ORGANIZER(state){
+      state.modifyOrganizer = !state.modifyOrganizer;
     }
   }
 })

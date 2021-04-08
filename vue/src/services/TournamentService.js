@@ -9,5 +9,8 @@ export default{
     },
     updateTournament(tournament){
         return axios.put('/tournaments/' + tournament.id, tournament);
+    },
+    getAllTournaments(){
+        return axios.get('/tournaments')
     }
 }

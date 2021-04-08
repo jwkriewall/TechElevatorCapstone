@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Tournament;
+import com.techelevator.model.UserAlreadyExistsException;
 
 @Component
 public class JDBCTournamentDAO implements tournamentDAO{
@@ -65,13 +66,18 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	}
 	
 	@Override
-	public void addUserToTournament(long userId) {
-		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
-				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
-				"JOIN users ON tournament_user.user_id = users.user_id " + 
-				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
-				"WHERE users.user_id = ?";
-		jdbcTemplate.update(sql, userId);
+	public void addUserToTournament(int id, long userId) {
+		// query tournament_user table for matching userIds in same tournament Id
+		// throw exception if there's duplicate data
+		
+		String sqlStatement = "SELECT user_id FROM tournament_user WHERE tournament_id = ? AND user_id = ?";
+		SqlRowSet userIdInTournament = jdbcTemplate.queryForRowSet(sqlStatement, id, userId);
+		
+		if (!userIdInTournament.next()) {
+				String sql = "INSERT INTO tournament_user VALUES (?, ?, ?, ?)";
+				jdbcTemplate.update(sql, id, userId, 1, "NICKNAME"); 
+		} else throw new UserAlreadyExistsException();
+		
 	}
 	
 	
@@ -103,7 +109,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
 				"JOIN users ON tournament_user.user_id = users.user_id " + 
 				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
-				"WHERE users.user_id = ?;";
+				"WHERE users.user_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
 		while(rows.next()) {
 			Tournament tournament = mapRowToTournament(rows);

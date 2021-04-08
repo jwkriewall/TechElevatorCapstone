@@ -1,7 +1,7 @@
 <template>
     <div class="edit-user">
         <div class="update-user-info">
-            <input type="checkbox" @click="stupidBoolean = true" />
+            <input type="checkbox" @change="$store.commit('TOGGLE_MODIFY_USER')" />
             <div>   
                 <label for="firstName">First Name: </label>
                 <input class="input" type="text" name="firstName" id="firstName" v-model.trim="user.firstName" />
@@ -32,8 +32,7 @@
                 <input class="input" :type="[showPassword ? 'text' : 'password']" id="verify-password" v-model.trim="verifyPassword" />
                 <font-awesome-icon :icon="icon" @click="toggleShowPass" />
             </div>
-            <input v-if="showField" class="submit" type="submit" value="Update" @click="updateTest" />
-            
+            <input v-if="showField" class="submit" type="submit" value="Update" @click="updateUser" />
         </div>
     </div>
 </template>
@@ -50,7 +49,6 @@ export default {
             icon: 'eye',
             showField: true,
             user: this.$store.state.user,
-            stupidBoolean: false
         }
     },
     created() {
@@ -59,32 +57,31 @@ export default {
     },
     methods: {
         toggleShowPass() {
-            this.stupidBoolean = !this.stupidBoolean;
             this.showPassword = !this.showPassword;
             if(this.icon == 'eye') { this.icon = 'eye-slash'; }
             else { this.icon = 'eye'; }
             this.$store.commit('TOGGLE_MODIFY_USER');
         },
-        updateTest() {
-            this.stupidBoolean = !this.stupidBoolean;
-            this.$store.commit('TOGGLE_MODIFY_USER');
-            //this.showPassword = !this.showPassword; //if this is here, the method works, if it's not here the method doesn't run.... ????
-        },
         updateUser() {
-            userService.update(this.user).then(response => {
-                if(response.status == 200) {
-                    this.$router.push({name: 'account'});
+            if(this.user.password === this.verifyPassword) {
+                userService.update(this.user).then(response => {
+                    if(response.status == 200) {
+                        this.$store.commit('TOGGLE_MODIFY_USER');
+                        this.$router.push({name: 'account'});
+                    }
+                })
+                .catch(error => {
+                if (error.response) {
+                alert(error.response.statusText);
+                } else if (error.request) {
+                alert("Server could not be reached.");
+                } else {
+                alert("Request could not be created.");
                 }
-            })
-            .catch(error => {
-            if (error.response) {
-              alert(error.response.statusText);
-            } else if (error.request) {
-              alert("Server could not be reached.");
+                });
             } else {
-              alert("Request could not be created.");
+                alert("Passwords do not match");
             }
-          });
         }
     }
 }
