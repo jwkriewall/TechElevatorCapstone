@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.tournamentDAO;
+import com.techelevator.model.Organizer;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 
@@ -56,13 +57,15 @@ public class TournamentController {
 		tournamentDAO.deleteTournament(id);
 	}
 	
+	
+	// this is not working
 	@RequestMapping(path="tournaments/organizers/{id}", method = RequestMethod.GET)
-	public List<Tournament> getAllTournamentsByOrganizerId(@PathVariable int organizerId) {
-		return tournamentDAO.listAllTournamentsByOrganizerId(organizerId);
+	public List<Tournament> getAllTournamentsByOrganizerId(@PathVariable int id) {
+		return tournamentDAO.listAllTournamentsByOrganizerId(id);
 	}
 	
 	@RequestMapping(path="users/tournaments/", method = RequestMethod.GET)
-	public List<Tournament> getAllTournamentsByUserId(@RequestBody User user){
+	public List<Tournament> listAllTournamentsByUserId(@RequestBody User user){
 		return tournamentDAO.listAllTournamentsByUserId(user.getId());
 	}
 	

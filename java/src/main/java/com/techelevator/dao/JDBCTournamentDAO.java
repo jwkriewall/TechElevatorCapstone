@@ -75,7 +75,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		
 		if (!userIdInTournament.next()) {
 				String sql = "INSERT INTO tournament_user VALUES (?, ?, ?, ?)";
-				jdbcTemplate.update(sql, id, userId, 1, "NICKNAME"); 
+				jdbcTemplate.update(sql, id, userId, null, "NICKNAME"); 
 		} else throw new UserAlreadyExistsException();
 		
 	}
@@ -88,10 +88,12 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	}
 	
 	
+	
+	// this works
 	@Override
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
 		List<Tournament> organizerTournaments = new ArrayList();
-		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+		String sql = "SELECT id, tournament_name, tournament.organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament " + 
 				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
 				"WHERE organizer.organizer_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
@@ -102,14 +104,23 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		return organizerTournaments;
 	}
 
+	
+	
+	
 	@Override
 	public List<Tournament> listAllTournamentsByUserId(long userId) {
 		List<Tournament> userTournaments = new ArrayList();
-		String sql = "SELECT tournament_name, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+//		String sql = "SELECT tournament_name, max_participants, is_team, is_double, start_date, end_date, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
+//				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
+//				"JOIN users ON tournament_user.user_id = users.user_id " + 
+//				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
+//				"WHERE users.user_id = ?";
+		
+		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament " + 
 				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
 				"JOIN users ON tournament_user.user_id = users.user_id " + 
-				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
 				"WHERE users.user_id = ?";
+		
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
 		while(rows.next()) {
 			Tournament tournament = mapRowToTournament(rows);
@@ -117,11 +128,6 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		}
 		return userTournaments;
 	}
-
-	
-	
-	
-	
 	
 	private Tournament mapRowToTournament (SqlRowSet rows) {
 		Tournament tournament = new Tournament();
@@ -135,6 +141,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
 		return tournament;
 	}
+	
 
 
 	

@@ -23,6 +23,10 @@ JOIN organizer ON organizer.organizer_id = tournament.organizer_id;
 SELECT * from tournament;
 SELECT * from organizer;
 
+SELECT * FROM users;
+
+SELECT user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role FROM users;
+
 UPDATE organizer SET organizer_first_name = ?, organizer_last_name = ?, organizer_phone = ?, organizer_email = ?
 WHERE organizer_id = ?;
 

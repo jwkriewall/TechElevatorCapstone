@@ -41,7 +41,7 @@ public class JDBCUserDAO implements UserDAO {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "SELECT user_id, user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role FROM users;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()) {
@@ -66,7 +66,6 @@ public class JDBCUserDAO implements UserDAO {
     public boolean create(String username, String password, String role) {
         boolean userCreated = false;
 
-        // create user
         String insertUser = "insert into users (username,password_hash,role) values(?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = "ROLE_" + role.toUpperCase();
@@ -86,33 +85,31 @@ public class JDBCUserDAO implements UserDAO {
         return userCreated;
     }
 
-
 	@Override
 	public User updateUser(User user) {
 		
 		//update user.
-		String sqlUpdate = "UPDATE users SET  user_first_name = ?, user_last_name = ?, user_nickname = ?, "
+		String sqlUpdate = "UPDATE users SET user_id = ?, user_first_name = ?, user_last_name = ?, user_nickname = ?, "
 				+ "user_email = ?, user_phone = ?, username = ?, password_hash = ? " 
 				+ "WHERE user_id = ?";
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlUpdate, user.getFirstName(), user.getLastName(), user.getNickname(),
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlUpdate,user.getId(), user.getFirstName(), user.getLastName(), user.getNickname(),
 				                                      user.getEmail(), user.getPhoneNumber(), user.getUsername(), user.getPassword(),
 				                                      user.getId());
 		if(rows.next()) {
 			return mapRowToUser(rows);
 		} else {
-			throw new RuntimeException("Username "+ user.getUsername()+ " was not found.");
+			throw new RuntimeException("Username " + user.getUsername() + " was not found.");
 		}
 	}
-	
 	
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));
         user.setFirstName(rs.getString("user_first_name"));
         user.setLastName(rs.getString("user_last_name"));
-        user.setNickname(rs.getNString("user_nickname"));
+        user.setNickname(rs.getString("user_nickname"));
         user.setEmail(rs.getString("user_email"));
-        user.setPhoneNumber(rs.getNString("user_phone"));
+        user.setPhoneNumber(rs.getString("user_phone"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));

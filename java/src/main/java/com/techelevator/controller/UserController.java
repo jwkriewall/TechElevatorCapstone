@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,11 @@ public class UserController {
 	@RequestMapping(path="/users", method = RequestMethod.PUT)
 	public User updateUser(@RequestBody User user) {
 		return UserDAO.updateUser(user);
+	}
+	
+	@RequestMapping(path="/users", method = RequestMethod.GET)
+	public List<User> findAll(){
+		return UserDAO.findAll();
 	}
 
 }
