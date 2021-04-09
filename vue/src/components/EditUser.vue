@@ -35,15 +35,22 @@
                 <input v-if="showField" class="submit" type="submit" value="Update" @click="updateUser" />
                 <input class="submit" type="submit" value="Cancel" @click="$store.commit('TOGGLE_MODIFY_USER')" />
             </div>
+            <div class="image-uploader">
+                <image-uploader />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import userService from '../services/AuthService.js';
+import imageUploader from '../components/ImageUploader.vue'
 
 export default {
     name: 'edit-user',
+    components: {
+        imageUploader
+    },
     data() {
         return {
             showPassword: false,
