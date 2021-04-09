@@ -10,6 +10,7 @@ import TournamentDetails from '../views/TournamentDetails.vue'
 import MyAccount from '../views/MyAccount.vue'
 import MyTournaments from '../views/MyTournaments.vue'
 import Tournaments from '../views/Tournaments.vue'
+import Rankings from '../views/Rankings.vue'
 
 Vue.use(Router)
 
@@ -94,6 +95,14 @@ const router = new Router({
       path: "/tournaments/",
       name: "search-tournaments",
       component: Tournaments,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/tournaments/:id/rankings/",
+      name: "rankings",
+      component: Rankings,
       meta: {
         requiresAuth: false
       }
