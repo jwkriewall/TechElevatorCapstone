@@ -184,7 +184,7 @@ export default {
     background-color: lightskyblue;
 }
 
-.display-tournaments table {
+/* .display-tournaments table {
     margin: 0 auto;
-}
+} */
 </style>
