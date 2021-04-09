@@ -183,6 +183,7 @@ export default {
 .organizer {
     background-color: #D9D6D5;
 }
+
 .display-tournaments table {
     margin: 0 auto;
     text-align: center;
