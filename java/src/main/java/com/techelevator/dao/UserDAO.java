@@ -17,4 +17,7 @@ public interface UserDAO {
     boolean create(String username, String password, String role);
     
     User updateUser(User user);
+    
+    // update user ranking / seeding
+    // get user ranking by id
 }
