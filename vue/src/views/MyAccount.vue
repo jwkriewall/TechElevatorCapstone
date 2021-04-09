@@ -1,12 +1,14 @@
 <template>
     <div id="my-account">
         <div class="content">
-            <user-info v-show="!modifyUser && !modifyOrganizer" />
-            <input v-show="!modifyUser && !modifyOrganizer" type="submit" value="Modify" @click.prevent="toggleModifyUser" />
-            
-            <organizer-info v-show="!modifyOrganizer && organizer.organizerId && !modifyUser" :organizer="organizer" />
-            <input v-show="!modifyOrganizer && !modifyUser" type="submit" value="Modify" @click.prevent="toggleModifyOrganizer" />
-            
+            <div v-show="!modifyUser && !modifyOrganizer" class="user-information">
+                <user-info />
+                <input  type="submit" value="Modify" @click.prevent="toggleModifyUser" />
+            </div>
+            <div v-show="!modifyOrganizer && organizer.organizerId && !modifyUser" class="organizer-information">
+                <organizer-info  :organizer="organizer" />
+                <input type="submit" value="Modify" @click.prevent="toggleModifyOrganizer" />
+            </div>
             <div v-show="modifyUser" class="edit-user-info">
                 <h1>Update User Information</h1>
                 <edit-user />
