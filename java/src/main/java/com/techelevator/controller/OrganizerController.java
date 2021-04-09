@@ -15,8 +15,8 @@ import com.techelevator.model.Organizer;
 import com.techelevator.model.User;
 
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class OrganizerController {
 	
 	private OrganizerDAO organizerDAO;

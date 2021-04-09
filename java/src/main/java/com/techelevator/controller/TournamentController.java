@@ -1,6 +1,5 @@
 package com.techelevator.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techelevator.dao.tournamentDAO;
+import com.techelevator.dao.TournamentDAO;
 import com.techelevator.model.Organizer;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class TournamentController {
 	
-	private tournamentDAO tournamentDAO;
+	private TournamentDAO tournamentDAO;
 	
-	TournamentController(tournamentDAO tournamentDAO) {
+	TournamentController(TournamentDAO tournamentDAO) {
 		this.tournamentDAO = tournamentDAO;
 	}
 	

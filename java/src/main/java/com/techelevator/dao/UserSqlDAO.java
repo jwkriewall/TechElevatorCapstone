@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 import com.techelevator.model.User;
 
 @Service
-public class JDBCUserDAO implements UserDAO {
+public class UserSqlDAO implements UserDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JDBCUserDAO(JdbcTemplate jdbcTemplate) {
+    public UserSqlDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -41,7 +41,7 @@ public class JDBCUserDAO implements UserDAO {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT user_id, user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role FROM users;";
+        String sql = "select * from users";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()) {
@@ -66,7 +66,8 @@ public class JDBCUserDAO implements UserDAO {
     public boolean create(String username, String password, String role) {
         boolean userCreated = false;
 
-        String insertUser = "insert into users (username ,password_hash, role) values(?,?,?)";
+        // create user
+        String insertUser = "insert into users (username,password_hash,role) values(?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = "ROLE_" + role.toUpperCase();
 
@@ -85,35 +86,23 @@ public class JDBCUserDAO implements UserDAO {
         return userCreated;
     }
 
-	@Override
-	public User updateUser(User user) {
-		
-		//update user.
-		String sqlUpdate = "UPDATE users SET user_id = ?, user_first_name = ?, user_last_name = ?, user_nickname = ?, "
-				+ "user_email = ?, user_phone = ?, username = ? " 
-				+ "WHERE user_id = ?";
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlUpdate, user.getId(), user.getFirstName(), user.getLastName(), user.getNickname(),
-				                                      user.getEmail(), user.getPhoneNumber(), user.getUsername(),
-				                                      user.getId());
-		if(rows.next()) {
-			return mapRowToUser(rows);
-		} else {
-			throw new RuntimeException("Username " + user.getUsername() + " was not found.");
-		}
-	}
-	
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));
-        user.setFirstName(rs.getString("user_first_name"));
-        user.setLastName(rs.getString("user_last_name"));
-        user.setNickname(rs.getString("user_nickname"));
-        user.setEmail(rs.getString("user_email"));
-        user.setPhoneNumber(rs.getString("user_phone"));
         user.setUsername(rs.getString("username"));
-        //user.setPassword(rs.getString("password_hash"));
+        user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));
         user.setActivated(true);
         return user;
     }
+
+	@Override
+	public User updateUser(User user) {
+		String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
+		String sql = "UPDATE users SET user_first_name = ?, user_last_name = ?, user_nickname = ?, user_email = ?, user_phone = ?, username = ?, password_hash = ? "
+				+ "WHERE user_id = ?";
+		jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getNickname(), user.getEmail(), user.getPhone(), user.getUsername(), password_hash, user.getId());
+		
+		return getUserById(user.getId());
+	}
 }

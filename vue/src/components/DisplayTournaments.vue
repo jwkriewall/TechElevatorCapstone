@@ -118,13 +118,13 @@ export default {
                     tournament.organizerId == this.organizer.organizerId
                 );
             }
-            if(this.userTournaments != '') {
-                filteredTournaments = filteredTournaments.filter( tournament => 
-                    this.userTournaments.forEach( userTournament => {
-                        userTournament.id == tournament.id
-                    })
-                );
-            }
+            // if(this.userTournaments != '') {
+            //     filteredTournaments = filteredTournaments.filter( tournament => 
+            //         this.userTournaments.forEach( userTournament => {
+            //             userTournament.id == tournament.id
+            //         })
+            //     );
+            // }
             return filteredTournaments;
         }
     }

@@ -19,6 +19,8 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
+   
+   
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
@@ -70,8 +72,16 @@ public class User {
       this.authorities = authorities;
    }
 
+   public void setAuthorities(String authorities) {
+      String[] roles = authorities.split(",");
+      for(String role : roles) {
+         String authority = role.contains("ROLE_") ? role : "ROLE_" + role;
+         this.authorities.add(new Authority(authority));
+      }
+   }
+
    public String getFirstName() {
-		return firstName;
+	   return firstName;
 	}
 	
 	public void setFirstName(String firstName) {
@@ -102,22 +112,15 @@ public class User {
 		this.email = email;
 	}
 	
-	public String getPhoneNumber() {
+	public String getPhone() {
 		return phoneNumber;
 	}
 	
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhone(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-   public void setAuthorities(String authorities) {
-      String[] roles = authorities.split(",");
-      for(String role : roles) {
-         String authority = role.contains("ROLE_") ? role : "ROLE_" + role;
-         this.authorities.add(new Authority(authority));
-      }
-   }
 
-   @Override
+@Override
    public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;

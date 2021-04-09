@@ -10,20 +10,20 @@ import javax.sql.DataSource;
 
 public class UserSqlDaoIntegrationTest extends DAOIntegrationTest {
 
-    private JDBCUserDAO jDBCUserDAO;
+    private UserSqlDAO userSqlDAO;
 
     @Before
     public void setup() {
         DataSource dataSource = this.getDataSource();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jDBCUserDAO = new JDBCUserDAO(jdbcTemplate);
+        userSqlDAO = new UserSqlDAO(jdbcTemplate);
     }
 
     @Test
     public void createNewUser() {
-        boolean userCreated = jDBCUserDAO.create("TEST_USER","test_password","user");
+        boolean userCreated = userSqlDAO.create("TEST_USER","test_password","user");
         Assert.assertTrue(userCreated);
-        User user = jDBCUserDAO.findByUsername("TEST_USER");
+        User user = userSqlDAO.findByUsername("TEST_USER");
         Assert.assertEquals("TEST_USER", user.getUsername());
     }
 

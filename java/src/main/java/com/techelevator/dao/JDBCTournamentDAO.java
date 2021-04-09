@@ -11,7 +11,7 @@ import com.techelevator.model.Tournament;
 import com.techelevator.model.UserAlreadyExistsException;
 
 @Component
-public class JDBCTournamentDAO implements tournamentDAO{
+public class JDBCTournamentDAO implements TournamentDAO{
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -21,8 +21,6 @@ public class JDBCTournamentDAO implements tournamentDAO{
 
 	@Override
 	public Tournament createTournament(Tournament tournament) {
-		// updated query to return all items needed for tournament including tournament id
-		// String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double) VALUES (?, ?, ?, ?, ?)";
 		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date";
 		
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate());
@@ -34,7 +32,7 @@ public class JDBCTournamentDAO implements tournamentDAO{
 
 	@Override
 	public List<Tournament> listAllTournaments() {
-		List<Tournament> tournaments = new ArrayList();
+		List<Tournament> tournaments = new ArrayList<Tournament>();
 		
 		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email, start_date, end_date FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
@@ -67,9 +65,6 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	
 	@Override
 	public void addUserToTournament(int id, long userId) {
-		// query tournament_user table for matching userIds in same tournament Id
-		// throw exception if there's duplicate data
-		
 		String sqlStatement = "SELECT user_id FROM tournament_user WHERE tournament_id = ? AND user_id = ?";
 		SqlRowSet userIdInTournament = jdbcTemplate.queryForRowSet(sqlStatement, id, userId);
 		
@@ -88,11 +83,9 @@ public class JDBCTournamentDAO implements tournamentDAO{
 	}
 	
 	
-	
-	// this works
 	@Override
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
-		List<Tournament> organizerTournaments = new ArrayList();
+		List<Tournament> organizerTournaments = new ArrayList<Tournament>();
 		String sql = "SELECT id, tournament_name, tournament.organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament " + 
 				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
 				"WHERE organizer.organizer_id = ?";
@@ -104,18 +97,10 @@ public class JDBCTournamentDAO implements tournamentDAO{
 		return organizerTournaments;
 	}
 
-	
-	
-	
+
 	@Override
 	public List<Tournament> listAllTournamentsByUserId(long userId) {
-		List<Tournament> userTournaments = new ArrayList();
-//		String sql = "SELECT tournament_name, max_participants, is_team, is_double, start_date, end_date, organizer_first_name, organizer_last_name, organizer_phone, organizer_email FROM tournament " + 
-//				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
-//				"JOIN users ON tournament_user.user_id = users.user_id " + 
-//				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
-//				"WHERE users.user_id = ?";
-		
+		List<Tournament> userTournaments = new ArrayList<Tournament>();
 		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament " + 
 				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
 				"JOIN users ON tournament_user.user_id = users.user_id " + 

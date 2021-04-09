@@ -22,11 +22,6 @@ export default {
             if(response.status === 200) {
                 this.tournaments = response.data;
             }
-        }),
-        organizerService.getOrganizer(this.$store.state.user.id).then(response => {
-            if(response.status === 200) {
-                this.organizer = response.data;
-            }
         })
         .catch(error => {
         if (error.response) {
@@ -37,6 +32,15 @@ export default {
             alert("Request could not be created.");
         }
         });
+        
+        if(this.$store.state.user.id > 0) {
+            organizerService.getOrganizer(this.$store.state.user.id).then(response => {
+                if(response.status === 200) {
+                    this.organizer = response.data;
+                }
+            })
+        }
+        
     },
 }
 </script>

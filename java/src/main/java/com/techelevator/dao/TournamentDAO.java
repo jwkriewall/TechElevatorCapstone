@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.techelevator.model.Tournament;
 
 @Component
-public interface tournamentDAO {
+public interface TournamentDAO {
 	// find tournament by name - future
 	// find tournament by ID
 	// find tournaments entered (by username or userID?)
