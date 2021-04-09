@@ -30,9 +30,9 @@ CREATE TABLE users (
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Nick', 'Stewart', 'nickstewart', 'nick@gmail.com', 5555555555, 'nickstewart', 'test1', 'ROLE_USER');
-INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Ben', 'Baker', 'benbaker', 'ben@gmail.com', 4444444444, 'benbaker', 'test2', 'ROLE_ADMIN');
-INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('JW', 'Kriewall', 'jwkriewall', 'jw@gmail.com', 3333333333, 'jwkriewall', 'test3', 'ROLE_USER');
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Nick', 'Stewart', 'nickstewart', 'nick@gmail.com', 5555555555, 'nickstewart', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Ben', 'Baker', 'benbaker', 'ben@gmail.com', 4444444444, 'benbaker', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN');
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('JW', 'Kriewall', 'jwkriewall', 'jw@gmail.com', 3333333333, 'jwkriewall', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
 
 
 
@@ -86,5 +86,10 @@ CREATE TABLE tournament_user (
         constraint fk_user_id_tournament_user foreign key (user_id) references users (user_id)
         );
 
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 2, 0, '');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 2, 0, '');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 2, 0, '');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, '');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 3, 0, '');
 
 COMMIT TRANSACTION;

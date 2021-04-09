@@ -99,17 +99,14 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 
 	@Override
-	public List<Tournament> listAllTournamentsByUserId(long userId) {
-		List<Tournament> userTournaments = new ArrayList<Tournament>();
-		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament " + 
-				"JOIN tournament_user ON tournament.id = tournament_user.tournament_id " + 
-				"JOIN users ON tournament_user.user_id = users.user_id " + 
-				"WHERE users.user_id = ?";
+	public List<Integer> listAllTournamentsByUserId(long userId) {
+		List<Integer> userTournaments = new ArrayList<Integer>();
+		String sql = "SELECT tournament_id FROM tournament_user " 
+					+ "WHERE user_id = ?";
 		
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId);
 		while(rows.next()) {
-			Tournament tournament = mapRowToTournament(rows);
-			userTournaments.add(tournament);
+			userTournaments.add(rows.getInt("tournament_id"));
 		}
 		return userTournaments;
 	}

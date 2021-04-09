@@ -9,6 +9,7 @@
                 <th>Max Participants</th>
                 <th>Elimination</th>
                 <th>Type</th>
+                <th v-if="myTournaments">Role</th>
                 <th></th>
             </tr>
             <tr>
@@ -31,6 +32,13 @@
                         <option value="true">Team</option>
                     </select>
                 </td>
+                <td>
+                    <select v-if="myTournaments" v-model="search.role">
+                        <option selected value="All">All</option>
+                        <option value="Participant">Participant</option>
+                        <option value="Organizer">Organizer</option>
+                    </select>
+                </td>
             </tr>
             <tr v-for="tournament in searchTournaments" v-bind:key="tournament.id" :class="[organizer.organizerId == tournament.organizerId && myTournaments ? 'organizer' : '']">
                 <td></td>
@@ -40,8 +48,12 @@
                 <td>{{ tournament.maxParticipants }}</td>
                 <td>{{ tournament.double ? 'Double' : 'Single'}}</td>
                 <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
+                <td v-if="myTournaments">{{ tournament.organizerId == organizer.organizerId ? 'Organizer' : 'Participant' }}</td>
                 <td><input type="submit" value="Details" @click="goToDetails(tournament.id)" /></td>
-                <td v-if="!myTournaments"><input type="submit" value="Join" /></td>
+                <td v-if="!myTournaments && tournament.organizerId != organizer.organizerId ">
+                    <!-- how to add in line above?        && !userTournaments.includes(tournament.id) -->
+                    <input type="submit" value="Join" @click="joinTournament(tournament.id)" />
+                </td>
             </tr>
         </table>
             
@@ -52,6 +64,7 @@
 </template>
 
 <script>
+import tournamentService from '../services/TournamentService';
 
 
 export default {
@@ -65,13 +78,17 @@ export default {
                 endDate: '',
                 maxParticipants: '',
                 isTeam: "All",
-                isDouble: "All"
+                isDouble: "All",
+                role: "All"
             },
         }
     },
     methods: {
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
+        },
+        joinTournament(tournamentId) {
+            tournamentService.joinTournament(this.$store.state.user, tournamentId)
         }
     },
     computed: {
@@ -113,18 +130,24 @@ export default {
                     tournament.team == searchTeam
                 );
             }
-            if(this.myTournaments) {
+            if(this.myTournaments && this.userTournaments != '' && this.search.role == 'All') {
+                filteredTournaments = filteredTournaments.filter( tournament =>
+                    tournament.organizerId == this.organizer.organizerId || this.userTournaments.includes(tournament.id)
+                );
+            } else if(this.myTournaments && this.search.role == 'Organizer' ) {
+                filteredTournaments = filteredTournaments.filter( tournament =>
+                    tournament.organizerId == this.organizer.organizerId
+                );
+            } else if(this.myTournaments && this.userTournament != '' && this.search.role == 'Participant') {
+                filteredTournaments = filteredTournaments.filter( tournament =>
+                    tournament.organizerId != this.organizer.organizerId && this.userTournaments.includes(tournament.id)
+                );
+            } else if(this.myTournaments) {
                 filteredTournaments = filteredTournaments.filter( tournament =>
                     tournament.organizerId == this.organizer.organizerId
                 );
             }
-            // if(this.userTournaments != '') {
-            //     filteredTournaments = filteredTournaments.filter( tournament => 
-            //         this.userTournaments.forEach( userTournament => {
-            //             userTournament.id == tournament.id
-            //         })
-            //     );
-            // }
+  
             return filteredTournaments;
         }
     }

@@ -19,7 +19,7 @@ public interface TournamentDAO {
 	public void deleteTournament(int id);
 	
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId);
-	public List<Tournament> listAllTournamentsByUserId(long userId);
+	public List<Integer> listAllTournamentsByUserId(long userId);
 	
 	
 	//

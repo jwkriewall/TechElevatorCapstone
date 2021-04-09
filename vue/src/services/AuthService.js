@@ -10,9 +10,6 @@ export default {
   },
   update(user) {
     return axios.put('/users', user)
-  },
-  getUserTournaments(user) {
-    return axios.get('/users/tournaments', user)
   }
 
 }

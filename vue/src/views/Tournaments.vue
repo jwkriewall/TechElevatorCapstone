@@ -39,6 +39,15 @@ export default {
                     this.organizer = response.data;
                 }
             })
+            .catch(error => {
+                if (error.response) {
+                    //alert(error.response.statusText);
+                } else if (error.request) {
+                    alert("Server could not be reached.");
+                } else {
+                    alert("Request could not be created.");
+                }
+            });
         }
         
     },
