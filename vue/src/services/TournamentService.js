@@ -18,5 +18,8 @@ export default{
     },
     joinTournament(user, tournamentId) {
         return axios.put('/tournaments/' + tournamentId + '/registration/', user)
+    },
+    getTournamentRankings(tournamentId) {
+        return axios.get('/tournaments/' + tournamentId + '/rankings/')
     }
 }
