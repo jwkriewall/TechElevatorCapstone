@@ -21,16 +21,16 @@
                 <label for="username">Username: </label>
                 <input class="input" type="username" id="username" v-model.trim="user.username" />
             </div>
-            <div v-if="showField">
+            <!-- <div v-if="showField">
                 <label for="password">Password: </label>
                 <input class="input" :type="[showPassword ? 'text' : 'password']" id="password" v-model.trim="user.password" />
                 <font-awesome-icon :icon="icon" @click="toggleShowPass" />
             </div>
             <div v-if="showField">
                 <label for="verify-password">Verify Password: </label>
-                <input class="input" :type="[showPassword ? 'text' : 'password']" id="verify-password" v-model.trim="verifyPassword" />
+                <input class="input" :type="[showPassword ? 'text' : 'password']" id="verify-password" v-model.trim="user.password" />
                 <font-awesome-icon :icon="icon" @click="toggleShowPass" />
-            </div>
+            </div> -->
             <div>
                 <input v-if="showField" class="submit" type="submit" value="Update" @click="updateUser" />
                 <input class="submit" type="submit" value="Cancel" @click="$store.commit('TOGGLE_MODIFY_USER')" />
@@ -64,7 +64,7 @@ export default {
             else { this.icon = 'eye'; }
         },
         updateUser() {
-            if(this.user.password === this.verifyPassword) {
+            // if(this.user.password === this.user.password) {
                 userService.update(this.user).then(response => {
                     if(response.status == 200) {
                         this.$store.commit('TOGGLE_MODIFY_USER');
@@ -80,9 +80,9 @@ export default {
                 alert("Request could not be created.");
                 }
                 });
-            } else {
-                alert("Passwords do not match");
-            }
+            // } else {
+            //     alert("Passwords do not match");
+            // }
         }
     }
 }
