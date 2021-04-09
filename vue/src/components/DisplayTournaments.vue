@@ -181,9 +181,22 @@ export default {
 
 <style>
 .organizer {
-    background-color: lightskyblue;
+    background-color: #D9D6D5;
 }
+
 .display-tournaments table {
     margin: 0 auto;
+    text-align: center;
+    
+}
+.display-tournaments table > tr > td:nth-child(2) {
+    text-align: left;
+}
+.display-tournaments table > tr.organizer > td:last-child {
+    background-color: #fff;
+}
+input[type="submit"] { 
+    margin: 5px 0;
+    padding:0;
 }
 </style>

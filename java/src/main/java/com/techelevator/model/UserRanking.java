@@ -6,6 +6,8 @@ public class UserRanking {
 	private int userId;
 	private int userSeeding;
 	private String userNickname;
+	private String firstName;
+	private String lastName;
 	
 	
 	public int getTournamentId() {
@@ -32,5 +34,22 @@ public class UserRanking {
 	public void setUserNickname(String userNickname) {
 		this.userNickname = userNickname;
 	}
+	
+	
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+
 
 }

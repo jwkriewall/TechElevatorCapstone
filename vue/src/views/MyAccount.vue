@@ -20,6 +20,7 @@
             </div>
         </div>
         <div class="image">
+            <img src="@/assets/ps4.jpg" alt="">
         </div>
     </div>
 </template>
@@ -93,10 +94,35 @@ ul li {
     padding:0 10px;
     border-radius:10px;
 }
-
 ul li:nth-child(odd) {
     background-color: #f4f4f4;
     color: black;
 }
 
+.image{
+    width: 45vw;
+    overflow: hidden;
+
+}
+
+.image img{
+    width: 70vw;
+    margin: 0;
+    padding: 0;
+    grid-area: right;
+}
+
+
+
+div#my-account {
+    display: flex;
+    /* display: grid;
+    grid-template: 'left right'; */
+   
+}
+
+div{
+    /* grid-area: left; */
+    display: grid;
+}
 </style>
