@@ -15,7 +15,19 @@
       </ul>
 
       <input type="submit" value="Modify" v-if="isCurrentUserOrganizer" v-show="!okModify" @click='okModify = true' />
-
+        <div class="tournament-seeding">
+            <h2>Tournament Seeding</h2>
+            <table class="rankings" >
+            <tr>
+                <th>User Name/Nick</th>
+                <th>Seeding</th>
+            </tr>
+            <tr v-for="user in rankings" :key="user.id">
+                <td>{{ user.userNickname ? (user.userNickname != "NICKNAME" ? user.userNickname : user.firstName + user.lastName) : user.firstName + user.lastName }}</td>
+                <td>{{ user.userSeeding }}</td>
+            </tr>
+        </table>
+        </div>
       <div v-if="okModify">
           <form v-on:submit.prevent="updateTournament" class="tournamentForm">
               <h2>Update Tournament Information</h2>
@@ -92,7 +104,8 @@ export default {
             tournament: {},
             organizer: {},
             okModify: false,
-            isCurrentUserOrganizer: false
+            isCurrentUserOrganizer: false,
+            rankings: []
         }
     },
     created(){
@@ -110,6 +123,11 @@ export default {
                 });
             }
         });
+        tournamentService.getTournamentRankings(tournamentID).then(response => {
+            if(response.status === 200) {
+                this.rankings = response.data;
+            }
+        })
     },
     methods: {
         updateAll(){

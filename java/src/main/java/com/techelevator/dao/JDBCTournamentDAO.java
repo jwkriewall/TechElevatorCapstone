@@ -119,7 +119,9 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	public List<UserRanking> getUserRankingByTournamentId(int tournamentId) {
 		List<UserRanking> tournamentRankings = new ArrayList<UserRanking>();
 		
-		String sql = "SELECT * from tournament_user WHERE tournament_id = ?";
+		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name from tournament_user " + 
+				"JOIN users ON users.user_id = tournament_user.user_id " + 
+				"WHERE tournament_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		
 		while(rows.next()) {
@@ -137,8 +139,15 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		userRanking.setUserSeeding(rows.getInt("user_seeding"));
 		userRanking.setUserNickname(rows.getString("user_nickname"));
 		
+		if (rows.getString("user_first_name") != null) {
+			userRanking.setFirstName(rows.getString("user_first_name"));
+		}
+		if (rows.getString("user_last_name") != null) {
+			userRanking.setLastName(rows.getString("user_last_name"));
+		}	
 		return userRanking;
 	}
+	
 
 
 

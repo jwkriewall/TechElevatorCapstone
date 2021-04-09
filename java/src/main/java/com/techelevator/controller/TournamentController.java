@@ -74,7 +74,7 @@ public class TournamentController {
 		tournamentDAO.addUserToTournament(id, userID);
 	}
 	
-	@RequestMapping(path="/tournament/{id}/rankings/", method = RequestMethod.GET)
+	@RequestMapping(path="/tournaments/{id}/rankings/", method = RequestMethod.GET)
 	public List<UserRanking> getUserRankingByTournamentId (@PathVariable int id){
 		return tournamentDAO.getUserRankingByTournamentId(id);
 	}
