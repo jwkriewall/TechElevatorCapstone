@@ -17,7 +17,10 @@
                 <label for="email">Email Address: </label>
                 <input class="input" type="email" id="organizer-email" v-model.trim="organizer.email" />
             </div>
-            <input class="submit" type="submit" value="Update" @click="updateOrganizer" />
+            <div>
+                <input class="submit" type="submit" value="Update" @click="updateOrganizer" />
+                <input class="submit" type="submit" value="Cancel" @click="$store.commit('TOGGLE_MODIFY_ORGANIZER')" />
+            </div>
         </div>
     </div>
 </template>

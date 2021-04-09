@@ -1,7 +1,6 @@
 <template>
     <div class="edit-user">
         <div class="update-user-info">
-            <input type="checkbox" @change="$store.commit('TOGGLE_MODIFY_USER')" />
             <div>   
                 <label for="firstName">First Name: </label>
                 <input class="input" type="text" name="firstName" id="firstName" v-model.trim="user.firstName" />
@@ -32,7 +31,10 @@
                 <input class="input" :type="[showPassword ? 'text' : 'password']" id="verify-password" v-model.trim="verifyPassword" />
                 <font-awesome-icon :icon="icon" @click="toggleShowPass" />
             </div>
-            <input v-if="showField" class="submit" type="submit" value="Update" @click="updateUser" />
+            <div>
+                <input v-if="showField" class="submit" type="submit" value="Update" @click="updateUser" />
+                <input class="submit" type="submit" value="Cancel" @click="$store.commit('TOGGLE_MODIFY_USER')" />
+            </div>
         </div>
     </div>
 </template>
