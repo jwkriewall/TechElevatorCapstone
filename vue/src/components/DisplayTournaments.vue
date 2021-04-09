@@ -50,9 +50,9 @@
                 <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
                 <td v-if="myTournaments">{{ tournament.organizerId == organizer.organizerId ? 'Organizer' : 'Participant' }}</td>
                 <td><input type="submit" value="Details" @click="goToDetails(tournament.id)" /></td>
-                <td v-if="!myTournaments && tournament.organizerId != organizer.organizerId ">
+                <td v-if="!myTournaments && !userTournaments.includes(tournament.id)">
                     <!-- how to add in line above?        && !userTournaments.includes(tournament.id) -->
-                    <input type="submit" value="Join" @click="joinTournament(tournament.id)" />
+                    <input type="submit" value="Join" @click.prevent="joinTournament(tournament.id)" />
                 </td>
             </tr>
         </table>
@@ -88,7 +88,7 @@ export default {
             this.$router.push('/tournaments/' + tournamentId);
         },
         joinTournament(tournamentId) {
-            tournamentService.joinTournament(this.$store.state.user, tournamentId)
+            tournamentService.joinTournament(tournamentId)
         }
     },
     computed: {

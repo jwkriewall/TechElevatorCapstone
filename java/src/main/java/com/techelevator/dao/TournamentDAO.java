@@ -1,10 +1,13 @@
 package com.techelevator.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Tournament;
+import com.techelevator.model.User;
+import com.techelevator.model.UserRanking;
 
 @Component
 public interface TournamentDAO {
@@ -21,7 +24,8 @@ public interface TournamentDAO {
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId);
 	public List<Integer> listAllTournamentsByUserId(long userId);
 	
-	
-	//
 	public void addUserToTournament(int id, long userId);
+
+	// get user ranking by tournament ID
+	public List<UserRanking> getUserRankingByTournamentId(int tournamentId);
 }

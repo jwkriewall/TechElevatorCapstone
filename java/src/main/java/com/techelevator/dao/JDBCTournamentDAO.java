@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Tournament;
+import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
+import com.techelevator.model.UserRanking;
 
 @Component
 public class JDBCTournamentDAO implements TournamentDAO{
@@ -111,6 +114,35 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		return userTournaments;
 	}
 	
+	
+	@Override
+	public List<UserRanking> getUserRankingByTournamentId(int tournamentId) {
+		List<UserRanking> tournamentRankings = new ArrayList<UserRanking>();
+		
+		String sql = "SELECT * from tournament_user WHERE tournament_id = ?";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
+		
+		while(rows.next()) {
+			tournamentRankings.add(mapUserRanking(rows));
+		}
+		return tournamentRankings;
+	}
+	
+	
+	private UserRanking mapUserRanking(SqlRowSet rows) {
+		UserRanking userRanking = new UserRanking();
+		
+		userRanking.setTournamentId(rows.getInt("tournament_id"));
+		userRanking.setUserId(rows.getInt("user_id"));
+		userRanking.setUserSeeding(rows.getInt("user_seeding"));
+		userRanking.setUserNickname(rows.getString("user_nickname"));
+		
+		return userRanking;
+	}
+
+
+
+	
 	private Tournament mapRowToTournament (SqlRowSet rows) {
 		Tournament tournament = new Tournament();
 		tournament.setId(rows.getInt("id"));
@@ -123,7 +155,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
 		return tournament;
 	}
-	
+
 
 
 	
