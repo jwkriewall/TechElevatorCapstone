@@ -18,5 +18,8 @@ export default{
     },
     joinTournament(tournamentId) {
         return axios.post('/tournaments/' + tournamentId + '/registration/');
+    },
+    getTournamentRankings(tournamentId) {
+        return axios.get('/tournaments/' + tournamentId + '/rankings/');
     }
 }

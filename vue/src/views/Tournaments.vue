@@ -6,7 +6,7 @@
 
 <script>
 import displayTournaments from '../components/DisplayTournaments.vue';
-import tournamentService from '../services/TournamentService.js'
+import tournamentService from '../services/TournamentService.js';
 import organizerService from "../services/OrganizerService.js";
 
 export default {
@@ -17,6 +17,13 @@ export default {
             organizer: {},
             userTournaments: []
         }
+    },
+    methods: {
+        getTournaments() {
+            
+        }
+    },
+    computed: {
     },
     created() {
         tournamentService.getAllTournaments().then(response =>{
@@ -49,23 +56,24 @@ export default {
                     alert("Request could not be created.");
                 }
             });
-             tournamentService.getUserTournaments().then(response => {
+        }
+
+        tournamentService.getUserTournaments().then(response => {
             if(response.status === 200) {
                 this.userTournaments = response.data;
-            }
-        })
-        .catch(error => {
-        if (error.response) {
-            //alert(error.response.statusText);
-        } else if (error.request) {
-            alert("Server could not be reached.");
-        } else {
-            alert("Request could not be created.");
-        }
-        });
-        }
-        
-    },
+                this.$store.commit('UPDATE_USER_TOURNAMENTS', this.userTournaments);
+            } 
+            })
+            .catch(error => {
+                if (error.response) {
+                    //alert(error.response.statusText);
+                } else if (error.request) {
+                    alert("Server could not be reached.");
+                } else {
+                    alert("Request could not be created.");
+                }
+            });
+    }
 }
 </script>
 

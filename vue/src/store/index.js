@@ -22,7 +22,8 @@ export default new Vuex.Store({
     user: currentUser || {},
     organizer: {},
     modifyUserInfo: false,
-    modifyOrganizer: false
+    modifyOrganizer: false,
+    userTournaments: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     TOGGLE_MODIFY_ORGANIZER(state){
       state.modifyOrganizer = !state.modifyOrganizer;
+    },
+    UPDATE_USER_TOURNAMENTS(state, userTournaments) {
+      state.userTournaments = userTournaments;
     }
   }
 });

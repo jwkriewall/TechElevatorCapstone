@@ -50,9 +50,9 @@
                 <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
                 <td v-if="myTournaments">{{ tournament.organizerId == organizer.organizerId ? 'Organizer' : 'Participant' }}</td>
                 <td><input type="submit" value="Details" @click="goToDetails(tournament.id)" /></td>
-                <td v-if="!myTournaments && !userTournaments.includes(tournament.id)">
+                <td v-if="!myTournaments && !$store.state.userTournaments.includes(tournament.id)">
                     <!-- how to add in line above?        && !userTournaments.includes(tournament.id) -->
-                    <input type="submit" value="Join" @click.prevent="joinTournament(tournament.id)" />
+                    <input type="submit" value="Join" @click="joinTournament(tournament.id)" />
                 </td>
             </tr>
         </table>
@@ -72,6 +72,7 @@ export default {
     props: ['organizer', 'tournaments', 'userTournaments'],
     data() {
         return {
+            currentEnteredTournaments: [],
             search: {
                 name: '',
                 startDate: '',
@@ -83,13 +84,37 @@ export default {
             },
         }
     },
+    created() {
+        this.currentEnteredTournaments = this.$store.state.userTournaments
+    },
     methods: {
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
         },
         joinTournament(tournamentId) {
-            tournamentService.joinTournament(tournamentId)
-        }
+            tournamentService.joinTournament(tournamentId).then(response => {
+                if(response.status === 200) {
+                    this.getUserTournaments();
+                }
+            });
+            
+        },
+        getUserTournaments() {
+            tournamentService.getUserTournaments().then(response => {
+            if(response.status === 200) {
+                this.$store.commit('UPDATE_USER_TOURNAMENTS', response.data);
+            } 
+            })
+            .catch(error => {
+                if (error.response) {
+                    //alert(error.response.statusText);
+                } else if (error.request) {
+                    alert("Server could not be reached.");
+                } else {
+                    alert("Request could not be created.");
+                }
+            });
+        },
     },
     computed: {
         myTournaments() {
