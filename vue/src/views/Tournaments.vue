@@ -1,6 +1,6 @@
 <template>
   <div class="tournaments">
-      <display-tournaments :organizer="organizer" :tournaments="tournaments" />
+      <display-tournaments :organizer="organizer" :tournaments="tournaments" :userTournaments="userTournaments" />
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
     data() {
         return {
             tournaments: [],
-            organizer: {}
+            organizer: {},
+            userTournaments: []
         }
     },
     created() {
@@ -48,6 +49,20 @@ export default {
                     alert("Request could not be created.");
                 }
             });
+             tournamentService.getUserTournaments().then(response => {
+            if(response.status === 200) {
+                this.userTournaments = response.data;
+            }
+        })
+        .catch(error => {
+        if (error.response) {
+            //alert(error.response.statusText);
+        } else if (error.request) {
+            alert("Server could not be reached.");
+        } else {
+            alert("Request could not be created.");
+        }
+        });
         }
         
     },

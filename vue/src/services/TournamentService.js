@@ -11,12 +11,12 @@ export default{
         return axios.put('/tournaments/' + tournament.id, tournament);
     },
     getAllTournaments(){
-        return axios.get('/tournaments')
+        return axios.get('/tournaments');
     },
-    getUserTournaments(user) {
-        return axios.get('/users/tournaments/', user)
+    getUserTournaments() {
+        return axios.get('/users/tournaments/');
     },
-    joinTournament(user, tournamentId) {
-        return axios.put('/tournaments/' + tournamentId + '/registration/', user)
+    joinTournament(tournamentId) {
+        return axios.post('/tournaments/' + tournamentId + '/registration/');
     }
 }

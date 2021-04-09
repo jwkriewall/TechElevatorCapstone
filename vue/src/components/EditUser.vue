@@ -62,7 +62,6 @@ export default {
             this.showPassword = !this.showPassword;
             if(this.icon == 'eye') { this.icon = 'eye-slash'; }
             else { this.icon = 'eye'; }
-            this.$store.commit('TOGGLE_MODIFY_USER');
         },
         updateUser() {
             if(this.user.password === this.verifyPassword) {

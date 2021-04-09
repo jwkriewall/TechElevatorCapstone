@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TournamentDAO;
+import com.techelevator.dao.UserDAO;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 
@@ -19,9 +21,11 @@ import com.techelevator.model.User;
 public class TournamentController {
 	
 	private TournamentDAO tournamentDAO;
+	private UserDAO userDAO;
 	
-	TournamentController(TournamentDAO tournamentDAO) {
+	TournamentController(TournamentDAO tournamentDAO, UserDAO userDAO) {
 		this.tournamentDAO = tournamentDAO;
+		this.userDAO = userDAO;
 	}
 	
 	@RequestMapping(path="/tournaments", method = RequestMethod.GET)
@@ -57,13 +61,15 @@ public class TournamentController {
 	}
 	
 	@RequestMapping(path="/users/tournaments/", method = RequestMethod.GET)
-	public List<Integer> listAllTournamentsByUserId(@RequestBody User user){
-		return tournamentDAO.listAllTournamentsByUserId(user.getId());
+	public List<Integer> listAllTournamentsByUserId(Principal principal){
+		int userID = userDAO.findIdByUsername(principal.getName());
+		return tournamentDAO.listAllTournamentsByUserId(userID);
 	}
 	
 	@RequestMapping(path="/tournaments/{id}/registration/", method = RequestMethod.POST)
-	public void addUserToTournament(@RequestBody User user, @PathVariable int id) {
-		tournamentDAO.addUserToTournament(id, user.getId());
+	public void addUserToTournament(Principal principal, @PathVariable int id) {
+		int userID = userDAO.findIdByUsername(principal.getName());
+		tournamentDAO.addUserToTournament(id, userID);
 	}
 
 }
