@@ -1,9 +1,12 @@
 <template>
+<div class="drop-zone" @ondrop="onDrop($event, user)" @dragenter.prevent @dragover.prevent>
   <div>
-      <div v-for="user in rankings" :key="user.id" class="drop-zone" @ondrop="onDrop($event, user)" @dragenter.prevent @dragover.prevent>
-          <p class="drag-el" draggable="true" @ondragstart='startDrag($event, user)'> {{user.firstName}} {{user.lastName }} </p>
-        </div>
+      <div v-for="user in rankings" :key="user.id" class="drag-el" 
+      draggable="true" @ondragstart='startDrag($event, user)'>
+     {{user.firstName}} {{user.lastName }}
+    </div>
    </div>
+</div>
 </template>
 
 <script>
@@ -11,7 +14,7 @@ import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
 
 export default {
-     name: 'rankings',
+    name: 'rankings',
     setup() {
         const startDrag = (event, user) => {
             console.log(user)
@@ -22,7 +25,9 @@ export default {
 
         const onDrop = (event, user) => {
             console.log(user)
-            event.dataTransfer.getData('userID')
+            const userID = event.dataTransfer.getData('userID')
+            const theUser = user.value.find((user) => user.id == userID)
+            user = theUser;
 
         }
 

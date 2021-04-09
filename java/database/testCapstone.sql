@@ -52,6 +52,8 @@ WHERE tournament_id = ? AND user_id = ?;
 
 
 
-SELECT * from USERS;
+SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name from tournament_user
+JOIN users ON users.user_id = tournament_user.user_id
+WHERE tournament_id = ?;
 
 ROLLBACK TRANSACTION;
