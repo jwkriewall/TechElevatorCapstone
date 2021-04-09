@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-h1{
+h1 {
     border-bottom: 2px solid #e74c3c;
     text-align: center;
 }

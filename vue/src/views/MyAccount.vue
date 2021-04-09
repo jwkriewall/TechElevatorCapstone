@@ -94,9 +94,4 @@ ul li {
     border-radius:10px;
 }
 
-ul li:nth-child(odd) {
-    background-color: #f4f4f4;
-    color: black;
-}
-
 </style>

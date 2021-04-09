@@ -23,7 +23,7 @@
                 <th>Seeding</th>
             </tr>
             <tr v-for="user in rankings" :key="user.id">
-                <td>{{ user.userNickname ? (user.userNickname != "NICKNAME" ? user.userNickname : user.firstName + user.lastName) : user.firstName + user.lastName }}</td>
+                <td>{{ user.userNickname ? (user.userNickname != "NICKNAME" ? user.userNickname : user.firstName + ' ' + user.lastName) : user.firstName + ' ' + user.lastName }}</td>
                 <td>{{ user.userSeeding }}</td>
             </tr>
         </table>
