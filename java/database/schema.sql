@@ -86,10 +86,17 @@ CREATE TABLE tournament_user (
         constraint fk_user_id_tournament_user foreign key (user_id) references users (user_id)
         );
 
+<<<<<<< HEAD
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 2, 0, '');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 2, 0, '');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 2, 0, '');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, '');
+=======
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 2, 0, 'THE BEAST');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 1, 0, 'BIG TESTER');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, 'Fat Momma');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 3, 0, '');
+>>>>>>> f1210eab51880ec25cba238388312e2dacd3c4f8
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 3, 0, '');
 
 
