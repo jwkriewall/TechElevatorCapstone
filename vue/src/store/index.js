@@ -20,6 +20,7 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    userImageUrl: '',
     organizer: {},
     modifyUserInfo: false,
     modifyOrganizer: false,
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     },
     UPDATE_USER_TOURNAMENTS(state, userTournaments) {
       state.userTournaments = userTournaments;
+    },
+    UPDATE_IMAGE_URL(state, imageUrl) {
+      state.userImageUrl = imageUrl;
     }
   }
 });

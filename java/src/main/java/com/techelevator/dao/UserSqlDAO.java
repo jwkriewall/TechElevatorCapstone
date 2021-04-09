@@ -101,25 +101,16 @@ public class UserSqlDAO implements UserDAO {
         user.setPhone(rs.getString("user_phone"));
         user.setAuthorities(rs.getString("role"));
         user.setActivated(true);
+        user.setUserImageUrl(rs.getString("user_image_url"));
         return user;
     }
-
-//	@Override
-//	public User updateUser(User user) {
-//		String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
-//		String sql = "UPDATE users SET user_first_name = ?, user_last_name = ?, user_nickname = ?, user_email = ?, user_phone = ?, username = ?, password_hash = ? "
-//				+ "WHERE user_id = ?";
-//		jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getNickname(), user.getEmail(), user.getPhone(), user.getUsername(), password_hash, user.getId());
-//		
-//		return getUserById(user.getId());
-//	}
     
     @Override
 	public User updateUser(User user) {
 		//String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
-		String sql = "UPDATE users SET user_first_name = ?, user_last_name = ?, user_nickname = ?, user_email = ?, user_phone = ?, username = ? "
+		String sql = "UPDATE users SET user_first_name = ?, user_last_name = ?, user_nickname = ?, user_email = ?, user_phone = ?, username = ?, user_image_url = ? "
 				+ "WHERE user_id = ?";
-		jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getNickname(), user.getEmail(), user.getPhone(), user.getUsername(), user.getId());
+		jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getNickname(), user.getEmail(), user.getPhone(), user.getUsername(), user.getUserImageUrl(), user.getId());
 		
 		return getUserById(user.getId());
 	}

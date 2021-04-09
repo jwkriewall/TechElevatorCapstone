@@ -22,12 +22,10 @@
     <router-view />
   </div>
 </template>
-
 <style scoped>
   #app {
     font-family: 'Poppins';
   }
-
   h1 {
     border-bottom: 2px solid #e74c3c;
     font-weight: 800;
@@ -53,7 +51,6 @@
   #nav .applinks a:not(a:first-child) {
     margin-left: 30px;
   }
-
   #nav .userlinks {
     display: flex;
     justify-content: space-evenly;
@@ -68,7 +65,6 @@
     font-weight: 300;
     font-size: 1.0rem;
   }
-
   #nav a {
     color: #2c3e50;
     text-decoration: none;
@@ -80,7 +76,6 @@
     padding-bottom:0px;
     border-bottom: 2px solid #e74c3c;
   }
-
   .BRCKT:hover{
     border: none;
   }
@@ -91,5 +86,3 @@
     flex-grow: 1;
   }
 </style>
-
-
