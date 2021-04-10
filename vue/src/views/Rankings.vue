@@ -10,11 +10,11 @@
         </transition-group>
     </draggable> -->
 
-     <div class="container mt-5">
+     <div class="some-page-wrapper">
             <div class="row">
             </div>
-            <div class="row mt-3">
-                <div class="column" id="column1">
+            <div class="row">
+                <div class="column">
                     <div class="p-2 alert alert-secondary">
                         <h1>{{tournament.name}}</h1>
                         <h3>Participants</h3>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="column" id="column2">
+                <div class="column">
                     <div class="p-2 alert alert-primary">
                         <h3>Matchup 1</h3>
                         <draggable class="list-group bracket-column" :list="firstMatchup" v-if="firstMatchup.length <= 2" group="tasks">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 6" id="column2">
+                <div class="column" v-show="tournament.maxParticipants > 6" id="column2">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 4</h3>
                         <draggable class="list-group bracket-column" :list="fourthMatchup" v-if="fourthMatchup.length <= 2" group="tasks">
@@ -158,6 +158,8 @@
                                 </div>
                             </div>
                         </draggable>
+                        <draggable class="list-group bracket-column" :list="secondRoundByeMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
@@ -170,6 +172,8 @@
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
+                        </draggable>
+                        <draggable class="list-group bracket-column" :list="secondRoundByeMatchupTwo" v-else v-on:click="event.prevent" group="tasks">
                         </draggable>
                     </div>
                 </div>
@@ -306,6 +310,8 @@ h1 {
     padding-left: 40px;
     padding-top: 40px;
     margin-left: 0px;
+    display: flex;
+    width: 100vw;
 }
 
 .sortable-drag {
@@ -330,21 +336,24 @@ h3 {
 
 
 .bracket-column {
-    min-height: 300px;
-    display: grid;
-    grid-template-columns: 50px;
-    grid-template-rows: auto;
-    grid-template-areas: 
-    "column";
+    min-height: 100px;
 }
 
-#column1 {
-    grid-column: 1 / 2;
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-#column2 {
-    grid-column: 2 / 3;
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
 }
+
 
 
 </style>
