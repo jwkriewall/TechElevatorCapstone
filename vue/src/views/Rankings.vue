@@ -1,43 +1,50 @@
 <template>
+
+<div>
+
+    <draggable v-model="rankings" ghost-class="ghost" @end="onEnd">
+        <transition-group type="transition" name="flip-list" class="players">
+            <div class="sortable" :id="user.id" v-for="user in rankings" :key="user.userId">
+                <strong>{{user.firstName}} {{user.userNickname}} {{user.lastName}}</strong>
+            </div>
+        </transition-group>
+    </draggable>
+
+</div>
+
+
+
+
+<!-- <div class="drop-zone" @ondrop="onDrop($event, user)" @dragenter.prevent @dragover.prevent>
   <div>
-      <div v-for="user in rankings" :key="user.id" class="drop-zone" @ondrop="onDrop($event, user)" @dragenter.prevent @dragover.prevent>
-          <p class="drag-el" draggable="true" @ondragstart='startDrag($event, user)'> {{user.firstName}} {{user.lastName }} </p>
+        <div v-for="user in rankings" :key="user.id" draggable="true" id="target" @ondragstart='startDrag($event, user)'
+        @drop='dragFinish($event, user)'>
+        {{user.firstName}} {{user.lastName }} 
         </div>
    </div>
+</div> -->
 </template>
 
 <script>
 import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
+import draggable from 'vuedraggable';
 
 export default {
-     name: 'rankings',
-    setup() {
-        const startDrag = (event, user) => {
-            console.log(user)
-            event.dataTransfer.dropEffect = 'move'
-            event.dataTransfer.effectAllowed = 'move'
-            event.dataTransfer.setData('userID', user.userId)
-        }
-
-        const onDrop = (event, user) => {
-            console.log(user)
-            event.dataTransfer.getData('userID')
-
-        }
-
-        return {
-            rankings: [],
-            startDrag,
-            onDrop
-        }
+    components: {
+        draggable
     },
+    name: 'rankings',
+ 
     data(){
         return {
             tournament: {},
             rankings: [],
-    }
+            oldIndex: '',
+            newIndex: ''
+        }
     },
+
     created() {
         const tournamentID = this.$route.params.id;
         tournamentService.getTournament(tournamentID).then(response => {
@@ -58,7 +65,17 @@ export default {
                 this.rankings = response.data;
             }
         });
+      
+    },
+    methods: {
+        onEnd: function(event) {
+            console.log(event)
+            this.oldIndex = event.oldIndex;
+            this.newIndex = event.newIndex;
+        }
+
     }
+
 }
 </script>
 

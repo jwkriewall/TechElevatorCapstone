@@ -78,6 +78,6 @@ public class TournamentController {
 	public List<UserRanking> getUserRankingByTournamentId (@PathVariable int id){
 		return tournamentDAO.getUserRankingByTournamentId(id);
 	}
-
+	
 }
  

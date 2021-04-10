@@ -130,6 +130,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		return tournamentRankings;
 	}
 	
+
 	
 	private UserRanking mapUserRanking(SqlRowSet rows) {
 		UserRanking userRanking = new UserRanking();
@@ -164,6 +165,8 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
 		return tournament;
 	}
+
+
 
 
 
