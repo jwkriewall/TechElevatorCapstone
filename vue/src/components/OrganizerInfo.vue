@@ -1,11 +1,17 @@
 <template>
     <div class="organizer-info">
         <h1>Organizer Information</h1>
-        <ul>
-            <li>Name: {{ organizer.firstName}} {{organizer.lastName}}</li>
-            <li>Email: {{ organizer.email}}</li>
-            <li>Phone: {{organizer.phone}}</li>
-        </ul>
+        <table>
+            <tr>
+                <td class="label">Name: </td><td>{{ organizer.firstName}} {{organizer.lastName}}</td>
+            </tr>
+            <tr>
+                <td class="label">Email: </td><td>{{ organizer.email}}</td>
+            </tr>
+            <tr>
+                <td class="label">Phone: </td><td>{{organizer.phone}}</td>
+            </tr>
+        </table>
     </div>
 </template>
 
@@ -17,20 +23,4 @@ export default {
 </script>
 
 <style>
-ul {
-    list-style-position: outside;
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    line-height: 2rem;
-    padding:0 10px;
-    border-radius:10px;
-}
-
-ul li:nth-child(odd) {
-    background-color: #f4f4f4;
-    color: black;
-}
 </style>

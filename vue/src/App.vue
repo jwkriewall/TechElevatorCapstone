@@ -1,89 +1,181 @@
 <template>
   <div id="app">
-    <div id="nav">
-     <a class="logo" href="/"> <img class="BRCKT" src="@/assets/BRCKT-05.png" alt="Bracket Logo" /></a>
-      <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>  -->
-      <div class="applinks">
-        <router-link v-bind:to="{name: 'create'}">Create</router-link>
-        <router-link v-bind:to="{name: 'search-tournaments'}">Search/Join</router-link>
-        <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
-        <router-link class="placeholder" v-bind:to="{name: 'create'}"></router-link>
-      </div>
-      <div class="userlinks">
-        <router-link class="logout" v-bind:to="{ name: 'my-tournaments' }" v-if="$store.state.token != ''">My Tournaments</router-link>
-        <router-link class="logout" v-bind:to="{ name: 'account' }" v-if="$store.state.token != ''">My Account</router-link>
-        <router-link class="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-        <router-link class="logout" v-bind:to="{ name: 'login' }" v-if="$store.state.token == '' ">Login</router-link>
-        <router-link class="logout" v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">Sign Up</router-link>
-        <router-link class="logout" v-bind:to="{ name: 'rankings' }" v-if="$store.state.token == ''">Rankings</router-link>
-      </div>
-      
-   
+    
+    <div class="main">
+      <navbar />
+      <router-view />
     </div>
-    <router-view />
+    
   </div>
 </template>
-<style scoped>
+
+<script>
+import navbar from '@/components/Navbar.vue'
+
+export default {
+  components: { navbar },
+}
+</script>
+
+<style>
   #app {
     font-family: 'Poppins';
   }
+
   h1 {
     border-bottom: 2px solid #e74c3c;
     font-weight: 800;
     display: inline-block;
+    color: white;
+    margin-top: 0;
   }
-  
-  #nav{
-    font-family: 'Poppins';
-    font-weight: 700;
-    display: flex;
-    justify-content: flex-start;
-    background: #f4f4f4;
-    height: 130px;
-    align-items: center;
-    font-size: 1.5rem;
-  }
-  #nav .applinks {
-    display:flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-grow:4;
-  }
-  #nav .applinks a:not(a:first-child) {
-    margin-left: 30px;
-  }
-  #nav .userlinks {
-    display: flex;
-    justify-content: space-evenly;
-    flex-grow: 2;
-  }
-  #nav .userlinks a {
-    min-width:70px;
-    text-align:center;
-  }
-  
-  #nav .logout{
-    font-weight: 300;
-    font-size: 1.0rem;
-  }
-  #nav a {
-    color: #2c3e50;
-    text-decoration: none;
-    margin-top:2px;
-    padding-bottom:2px;
-  }
-  
-  #nav a:hover:not(a.logo)  {
-    padding-bottom:0px;
+  h2 {
+    text-transform: uppercase;
+    font-size: 1.3rem;
     border-bottom: 2px solid #e74c3c;
   }
-  .BRCKT:hover{
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .container {
+    grid-area: content;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    height: 80vh;
+  }
+  .content {
+    flex-basis: 50vw;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px 0;
+    height: 100%;
+    box-sizing: border-box;
+    color: white;
+    font-size: 1.2rem;
+    background-color: #2c3e50;
+  }
+  .image {
+    overflow-y: hidden;
+    flex-basis: 50vw;
+    width: 50vw;
+    height: 100%;
+  }
+  .image img {
+    height: 100%;
+  }
+
+  /* Input Styling */
+input {
+    border-radius: 15px;
+    height: 2.2rem;
+    width: 18vw;
+    min-width: 280px;
+    padding: 0 20px;
+    font-size: 1rem;
+    background-color: #44617e;
+    border: 1px solid white;
+    color: white;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px #44617e inset;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+}
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+    filter: invert(0%);
+}
+label {
+    margin: 10px 10px 10px 0;
+    width: 12vw;
+    min-width: 125px;
+    display: inline-block;
+}
+textarea:focus, input:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #e74c3c;
+  background-color:white;
+  color: #707070;
+  -webkit-text-fill-color: #707070;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  -webkit-box-shadow: 0 0 0px 2px #e74c3c;
+}
+
+input[type="button"] {
+    background-color: #e74c3c;
+    -webkit-box-shadow: 0 0 0px 1000px #e74c3c inset;
+    color: white;
+    font-size: 1.1 rem;
+    height: 2rem;
+    font-weight: 900;
+    margin-top: 20px;
     border: none;
-  }
-  .BRCKT {
-    width: 300px;
-    margin-right:50px;
-    flex-basis: 350px;
-    flex-grow: 1;
-  }
+    border-radius: 15px;
+    width: 12vw;
+    min-width: 80px;
+}
+input[type="button"]:hover {
+    background-color:#dc8980;
+    -webkit-box-shadow: 0 0 0px 1000px #dc8980 inset;
+}
+input[type="button"]:focus {
+    outline: none;
+    border:1px solid white;
+}
+input[type="button"]:disabled {
+    color: #dc8980;
+    -webkit-text-fill-color: #dc8980;
+}
+
+/* Little Toggle Switches */
+label.toggle {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    min-width: 50px;
+    height: 20px;
+    background: #BADA55;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+label.toggle:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+label.toggle:active:after {
+    width: 15px;
+}
+input.toggle[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+input.toggle {
+    min-width: 0px;
+}
+input.toggle:checked + label.toggle {
+    background: #e74c3c;
+}
+input.toggle:checked + label.toggle:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+.toggleSwitch {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 30px;
+    margin: 20px 0 10px 0;
+}
 </style>

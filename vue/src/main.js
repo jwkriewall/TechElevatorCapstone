@@ -8,7 +8,6 @@ import { faEye, faEyeSlash, faStar } from '@fortawesome/free-solid-svg-icons'
 //import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import firebase from 'firebase/app'
-import vuetify from './plugins/vuetify';
 
 library.add(faEye, faEyeSlash, faStar)
 
@@ -33,6 +32,5 @@ axios.defaults.baseURL = process.env.VUE_APP_REMOTE_API;
 new Vue({
   router,
   store,
-  vuetify,
   render: h => h(App)
 }).$mount('#app')

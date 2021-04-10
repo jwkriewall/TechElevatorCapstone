@@ -1,13 +1,13 @@
 <template>
-    <div id="my-account">
+    <div class="container">
         <div class="content">
             <div v-show="!modifyUser && !modifyOrganizer" class="user-information">
                 <user-info />
-                <input  type="submit" value="Modify" @click.prevent="toggleModifyUser" />
+                <input  type="button" value="Modify" @click.prevent="toggleModifyUser" />
             </div>
             <div v-show="!modifyOrganizer && organizer.organizerId && !modifyUser" class="organizer-information">
                 <organizer-info  :organizer="organizer" />
-                <input type="submit" value="Modify" @click.prevent="toggleModifyOrganizer" />
+                <input type="button" value="Modify" @click.prevent="toggleModifyOrganizer" />
             </div>
             <div v-show="modifyUser" class="edit-user-info">
                 <h1>Update User Information</h1>
@@ -15,12 +15,11 @@
             </div>
 
             <div v-if="organizer.organizerId && modifyOrganizer" class="edit-organizer-info">
-                <h1>Update Organizer Information</h1>
                 <edit-organizer :organizer="organizer" />
             </div>
         </div>
         <div class="image">
-            <img src="@/assets/ps4.jpg" alt="">
+            <img src="@/assets/ps4.jpg" alt="Gaming Consoles on table" />
         </div>
     </div>
 </template>
@@ -76,53 +75,22 @@ export default {
 </script>
 
 <style>
-.content {
-    width: 50vw;
-    background-color: #2C3E50;
-    padding: 20px 20px 20px 50px;
-    color: white;
+td.label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    min-width: 150px;
 }
-
-ul {
-    list-style-position: outside;
-    list-style-type: none;
-    padding: 0;
+table {
+    border-collapse: collapse;
 }
-
-ul li {
+tr {
     line-height: 2rem;
-    padding:0 10px;
-    border-radius:10px;
 }
-ul li:nth-child(odd) {
-    background-color: #f4f4f4;
+tr:nth-child(odd) {
+    background-color: #f3f3f3;
     color: black;
 }
-
-.image{
-    width: 45vw;
-    overflow: hidden;
-
-}
-
-.image img{
-    width: 70vw;
-    margin: 0;
-    padding: 0;
-    grid-area: right;
-}
-
-
-
-div#my-account {
-    display: flex;
-    /* display: grid;
-    grid-template: 'left right'; */
-   
-}
-
-div{
-    /* grid-area: left; */
-    display: grid;
+input[type="button"]:nth-child(2) {
+    margin-bottom:30px;
 }
 </style>

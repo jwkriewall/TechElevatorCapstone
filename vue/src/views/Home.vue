@@ -1,6 +1,6 @@
 <template>
-  <div id="home">
-    <div class="info">
+  <div class="container">
+    <div class="content">
       <h1>Get Started</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
@@ -12,7 +12,9 @@
         <input type="button" value="Login" @click="$router.push('/login')" v-if="$store.state.token == ''" />
       </div>
     </div>
-    <img src="@/assets/intro-tourney.jpg" alt="People in front of computer screens playing video games">
+    <div class="image">
+      <img src="@/assets/intro-tourney.jpg" alt="People in front of computer screens playing video games">
+    </div>
   </div>
 </template>
 
@@ -23,47 +25,11 @@ export default {
 </script>
 
 <style scoped>
-#home {
-  font-family: 'Poppins';
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-}
-#home > div {
-  display:flex;
-  flex-direction:column;
-  align-items: center;
-  justify-content: center;
-}
-#home div.info h1 {
-  border-bottom: 2px solid #e74c3c;
-}
-#home div.info {
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 20px 30px 15px;
+.content {
   background-color: #2c3e50;
   color:white;
 }
-#home div.home-buttons {
+.home-buttons {
   flex-direction: row;
-}
-input[type=button] {
-  height: 2em;
-  width: 12vw;
-  min-width: 50px;
-  border-radius: 15px;
-  background-color: #e74c3c;
-  color: white;
-  font-size: 1.1rem;
-  border: none;
-  margin: 30px;
-} 
-input[type=button]:hover {
-  background-color: #d85b4d;
-  cursor:grab;
-  
-}
-img{
-  width: 50vw;
 }
 </style>

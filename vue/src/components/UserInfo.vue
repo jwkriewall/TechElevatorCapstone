@@ -1,12 +1,24 @@
 <template>
     <div class="user-info">
         <h1>Account Information</h1>
-        <ul>
-            <li>Name: {{ user.firstName}} {{user.lastName}}</li>
-            <li>Email: {{ user.email}}</li>
-            <li>Phone: {{user.phone}}</li>
-            <li>Username: {{user.username}}</li>
-        </ul>
+        <div class="account-info">
+            <img v-if="$store.state.user.userImageUrl" :src="$store.state.user.userImageUrl" alt="User Photo" />
+            <table>
+                <tr>
+                    <td class="label">Name: </td><td>{{ user.firstName}} {{user.lastName}}</td>
+                </tr>
+                <tr>
+                    <td class="label">Email: </td><td>{{ user.email}}</td>
+                </tr>
+                <tr>
+                    <td class="label">Phone: </td><td>{{user.phone}}</td>
+                </tr>
+                <tr>
+                    <td class="label">Username: </td><td>{{user.username}}</td>
+                </tr>
+            </table>
+            
+        </div>
     </div>
 </template>
 
@@ -21,21 +33,15 @@ export default {
 }
 </script>
 
-<style>
-ul {
-    list-style-position: outside;
-    list-style-type: none;
+<style scoped>
+img {
+    max-width:150px;
+    margin-right: 20px;
+}
+.account-info {
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
     padding: 0;
-}
-
-ul li {
-    line-height: 2rem;
-    padding:0 10px;
-    border-radius:10px;
-}
-
-ul li:nth-child(odd) {
-    background-color: #f4f4f4;
-    color: black;
 }
 </style>
