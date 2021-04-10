@@ -16,10 +16,11 @@
             <div class="row mt-3">
                 <div class="col-md-3">
                     <div class="p-2 alert alert-secondary">
-                        <h1>Participants</h1>
+                        <h1>{{tournament.name}}</h1>
+                        <h3>Participants</h3>
                         <draggable class="list-group" :list="rankings" group="tasks">
                             <div class="list-group-item" v-for="user in rankings" :key="user.name">
-                                <div class="username">
+                                <div class="username" v-bind:class="winner" v-on:click="clicked = !clicked">
                                     {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
@@ -139,7 +140,7 @@
 </div>
 
 
-
+<!-- Drag and drop attempt below -->
 
 <!-- <div class="drop-zone" @ondrop="onDrop($event, user)" @dragenter.prevent @dragover.prevent>
   <div>
@@ -271,8 +272,17 @@ h1 {
     box-shadow: 10px 10px 5px -1px rgba(0,0,0,0, 0.14);
 }
 
+h2 {
+    font-family: 'Poppins';
+}
+
 h3 {
     padding-left: 20px;
 }
+
+winner {
+    color: green;
+}
+
 
 </style>
