@@ -14,13 +14,13 @@
             <div class="row">
             </div>
             <div class="row mt-3">
-                <div class="col-md-3">
+                <div class="column" id="column1">
                     <div class="p-2 alert alert-secondary">
                         <h1>{{tournament.name}}</h1>
                         <h3>Participants</h3>
-                        <draggable class="list-group" :list="rankings" group="tasks">
+                        <draggable class="list-group bracket-column" :list="rankings" group="tasks">
                             <div class="list-group-item" v-for="user in rankings" :key="user.name">
-                                <div class="username" v-bind:class="winner" v-on:click="clicked = !clicked">
+                                <div class="username">
                                     {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
@@ -28,89 +28,131 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="column" id="column2">
                     <div class="p-2 alert alert-primary">
                         <h3>Matchup 1</h3>
-                        <draggable class="list-group" :list="firstMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="firstMatchup" v-if="firstMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in firstMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
                         </draggable>
+                        <draggable class="list-group bracket-column" :list="firstMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 2">
+                <div class="column" v-show="tournament.maxParticipants > 2" id="column2">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 2</h3>
-                        <draggable class="list-group" :list="secondMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="secondMatchup" v-if="secondMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in secondMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
                         </draggable>
+                        <draggable class="list-group bracket-column" :list="secondMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 4">
+                <div class="column" v-show="tournament.maxParticipants > 4 && tournament.maxParticipants != 6" id="column2">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 3</h3>
-                        <draggable class="list-group" :list="thirdMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="thirdMatchup" v-if="thirdMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in thirdMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
                         </draggable>
+                         <draggable class="list-group bracket-column" :list="thirdMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 6">
+                <div class="col-md-3" v-show="tournament.maxParticipants > 6" id="column2">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 4</h3>
-                        <draggable class="list-group" :list="fourthMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="fourthMatchup" v-if="fourthMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in fourthMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
                         </draggable>
+                        <draggable class="list-group bracket-column" :list="fourthMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 8">
+                <div class="column" v-show="tournament.maxParticipants > 8">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 5</h3>
-                        <draggable class="list-group" :list="fifthMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="fifthMatchup" v-if="fifthMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in fifthMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
                         </draggable>
+                        <draggable class="list-group bracket-column" :list="fifthMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 10">
+                <div class="column" v-show="tournament.maxParticipants > 10">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 6</h3>
-                        <draggable class="list-group" :list="sixthMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="sixthMatchup" v-if="sixthMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in sixthMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
                             </div>
                         </draggable>
+                        <draggable class="list-group bracket-column" :list="sixthMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 12">
+                <div class="column" v-show="tournament.maxParticipants > 12">
                     <div class="p-2 alert alert-warning">
                         <h3>Matchup 7</h3>
-                        <draggable class="list-group" :list="seventhMatchup" group="tasks">
+                        <draggable class="list-group bracket-column" :list="seventhMatchup" v-if="seventhMatchup.length <= 2" group="tasks">
                             <div class="list-group-item" v-for="user in seventhMatchup" :key="user.name">
+                                <div class="username">
+                                {{user.firstName}} {{user.userNickname}} {{user.lastName}}
+                                </div>
+                            </div>
+                        </draggable>
+                        <draggable class="list-group bracket-column" :list="seventhMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
+                    </div>
+                </div>
+
+                <div class="column" v-show="tournament.maxParticipants > 14">
+                    <div class="p-2 alert alert-warning">
+                        <h3>Matchup 8</h3>
+                        <draggable class="list-group bracket-column" :list="eighthMatchup" v-if="eighthMatchup.length <= 2" group="tasks">
+                            <div class="list-group-item" v-for="user in eighthMatchup" :key="user.name">
+                                <div class="username">
+                                {{user.firstName}} {{user.userNickname}} {{user.lastName}}
+                                </div>
+                            </div>
+                        </draggable>
+                        <draggable class="list-group bracket-column" :list="eighthMatchup" v-else v-on:click="event.prevent" group="tasks">
+                        </draggable>
+                    </div>
+                </div>
+
+                <div class="column" v-show="tournament.maxParticipants == 6">
+                    <div class="p-2 alert alert-warning">
+                        <h3>Second Round: 1 Bye</h3>
+                        <draggable class="list-group bracket-column" :list="secondRoundByeMatchup" v-if="secondRoundByeMatchup.length <= 2" group="tasks">
+                            <div class="list-group-item" v-for="user in secondRoundByeMatchup" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
@@ -119,11 +161,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="tournament.maxParticipants > 14">
+                <div class="column" v-show="tournament.maxParticipants == 6">
                     <div class="p-2 alert alert-warning">
-                        <h3>Matchup 8</h3>
-                        <draggable class="list-group" :list="eightMatchup" group="tasks">
-                            <div class="list-group-item" v-for="user in eighthMatchup" :key="user.name">
+                        <h3>Second Round: 2 Bye</h3>
+                        <draggable class="list-group bracket-column" :list="secondRoundByeMatchupTwo" v-if="secondRoundByeMatchupTwo.length <= 2" group="tasks">
+                            <div class="list-group-item" v-for="user in secondRoundByeMatchupTwo" :key="user.name">
                                 <div class="username">
                                 {{user.firstName}} {{user.userNickname}} {{user.lastName}}
                                 </div>
@@ -172,7 +214,13 @@ export default {
             firstMatchup:[],
             secondMatchup: [],
             thirdMatchup: [],
-            fourthMatchup: []
+            fourthMatchup: [],
+            fifthMatchup: [],
+            sixthMatchup: [],
+            seventhMatchup: [],
+            eighthMatchup: [],
+            secondRoundByeMatchup: [],
+            secondRoundByeMatchupTwo: []
         }
     },
 
@@ -234,8 +282,8 @@ export default {
 }
 
 .list-group-item {
-    padding: 20px 0;
-    margin: 30px;
+    padding: 10px 0;
+    margin: 10px;
     /* border: 3px solid #44617e; */
     width: 20vw;
     background-color: rgb(246, 244, 244);
@@ -280,8 +328,22 @@ h3 {
     padding-left: 20px;
 }
 
-winner {
-    color: green;
+
+.bracket-column {
+    min-height: 300px;
+    display: grid;
+    grid-template-columns: 50px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "column";
+}
+
+#column1 {
+    grid-column: 1 / 2;
+}
+
+#column2 {
+    grid-column: 2 / 3;
 }
 
 
