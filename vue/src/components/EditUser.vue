@@ -72,10 +72,10 @@ export default {
         },
         updateUser() {
             // if(this.user.password === this.user.password) {
+            this.user.userImageUrl = this.$store.state.userImageUrl;
                 userService.update(this.user).then(response => {
                     if(response.status == 200) {
                         this.$store.commit('TOGGLE_MODIFY_USER');
-                        this.$router.push({name: 'account'});
                     }
                 })
                 .catch(error => {

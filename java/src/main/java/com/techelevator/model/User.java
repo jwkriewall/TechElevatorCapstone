@@ -15,6 +15,7 @@ public class User {
    private String email;
    private String phoneNumber;
    private String username;
+   private String userImageUrl;
    @JsonIgnore
    private String password;
    @JsonIgnore
@@ -31,7 +32,15 @@ public class User {
       this.activated = true;
    }
 
-   public Long getId() {
+   public String getUserImageUrl() {
+	return userImageUrl;
+}
+
+public void setUserImageUrl(String userImageUrl) {
+	this.userImageUrl = userImageUrl;
+}
+
+public Long getId() {
       return id;
    }
 

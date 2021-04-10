@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     create () {
-      
+      this.$store.commit('UPDATE_IMAGE_URL', this.img1);
       const post = {
         photo: this.img1,
         caption: this.caption        

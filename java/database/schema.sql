@@ -24,6 +24,7 @@ CREATE TABLE users (
 	user_phone varchar(60),
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
+	user_image_url varchar(2000),
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
