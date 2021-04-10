@@ -79,4 +79,8 @@ export default {
 
 <style>
 
+td input [type="submit"] {
+    width: 1px;
+}
+
 </style>

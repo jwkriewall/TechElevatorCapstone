@@ -101,6 +101,10 @@ INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, 'Fat Momma');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 3, 0, '');
 
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 2, 0, 'You cant handle the truthy');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 5, 0, 'Bad Chad');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 4, 0, 'Capn Jack');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 3, 0, 'Trix Rabbit');
 
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 3, 0, '');
 
