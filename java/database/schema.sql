@@ -33,7 +33,7 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Nick', 'Stewart', 'nickstewart', 'nick@gmail.com', 5555555555, 'nickstewart', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
 INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Ben', 'Baker', 'benbaker', 'ben@gmail.com', 4444444444, 'benbaker', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN');
 INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('JW', 'Kriewall', 'jwkriewall', 'jw@gmail.com', 3333333333, 'jwkriewall', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
-
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('TestUser6', 'TU6', 'tester', 'tester@gmail.com', 6666666666, 'testuser', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
 
 
 CREATE TABLE organizer (
@@ -47,10 +47,10 @@ CREATE TABLE organizer (
         constraint fk_user_id_organizer foreign key (user_id) references users (user_id)
 );
 
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (2, 'Admin', 'Admin', 5555555555, 'admin@gmail.com');
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (3, 'Nick', 'Stewart', 5555555555, 'nick@gmail.com');
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (4, 'Ben', 'Baker', 4444444444, 'ben@gmail.com');
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (5, 'JW', 'Kriewall', 3333333333, 'jw@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (2, 'Admin2', 'Admin2', 5555555555, 'admin@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (3, 'Admin3', 'Admin3', 5555555555, 'nick@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (4, 'Admin4', 'Admin4', 4444444444, 'ben@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (5, 'Admin5', 'Admin5', 3333333333, 'jw@gmail.com');
 
 CREATE TABLE tournament (
         id serial primary key NOT NULL,
@@ -94,8 +94,12 @@ INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname
 
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 2, 0, 'THE BEAST');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 1, 0, 'BIG TESTER');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 5, 0, 'VUE.JS ROCKS');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 6, 0, 'TE Grad');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 4, 0, '8');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, 'Fat Momma');
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 3, 0, '');
+
 
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 3, 0, '');
 
