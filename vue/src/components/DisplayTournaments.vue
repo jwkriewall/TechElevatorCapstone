@@ -90,14 +90,11 @@ export default {
     },
     
     methods: {
-        // sortTournaments() {
-        //     this.tournaments = this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1)
-        //     return tournaments;
-        // },
 
-        sortTournaments: function() {
-            return this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1);
-        },
+
+        // sortTournaments: function() {
+        //     return this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1);
+        // },
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
         },
@@ -133,7 +130,10 @@ export default {
             return this.$route.name == "my-tournaments"
         },
         searchTournaments() {
-            let filteredTournaments = this.tournaments.sortTournaments();
+            // I want to set the sortTournaments() method on the prop value
+            // all tournaments
+
+            let filteredTournaments = this.tournaments;
 
 
             if(this.search.name != "") {
