@@ -35,7 +35,6 @@ export default {
       roundMatchups: [0],
       playerIndex: -1,
       currentRoundMatchups: this.getMatchups,
-      sixteenManBracket: '',
     }
   },
   methods: {
