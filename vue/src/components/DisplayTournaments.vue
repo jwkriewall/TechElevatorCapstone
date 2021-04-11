@@ -1,6 +1,7 @@
 <template>
     <div class="content-full-width">
-        <table>
+        <form name="tournament-filter">
+            <table>
             <tr>
                 <th>Tournament Name</th>
                 <th>Start Date</th>
@@ -29,8 +30,9 @@
                         <option value="true">Team</option>
                     </select>
                 </td>
-                <td>
-                    <select v-if="myTournaments" v-model="search.role">
+                <td v-if="!myTournaments"><input type="reset" @click="resetFormFilter" value="Clear Filter" class="clear-filter" /></td>
+                <td v-if="myTournaments">
+                    <select v-model="search.role">
                         <option selected value="All">All</option>
                         <option value="Participant">Participant</option>
                         <option value="Organizer">Organizer</option>
@@ -58,6 +60,7 @@
                 </td>
             </tr>
         </table>
+        </form>
             
 
 
@@ -94,6 +97,15 @@ export default {
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
         },
+        resetFormFilter() {
+            this.search.name = '';
+            this.search.startDate = '';
+            this.search.endDate = '';
+            this.search.maxParticipants = '';
+            this.search.isTeam = "All";
+            this.search.isDouble = "All";
+            this.search.role = "All";
+        },
         joinTournament(tournamentId) {
             tournamentService.joinTournament(tournamentId).then(response => {
                 if(response.status === 200) {
@@ -122,9 +134,6 @@ export default {
     computed: {
         myTournaments() {
             return this.$route.name == "my-tournaments"
-        },
-        getTournamentRowClass() {
-
         },
         findTodaysDate(){
             let today = new Date();
@@ -255,5 +264,14 @@ input[type="button"] {
 }
 input[type="button"] {
     margin: 2px 10px 3px 20px;
+}
+input[type="submit"].clear-filter {
+    margin: 0;
+}
+select {
+    height: 33px;
+    margin:0 0 2px 0;
+    border: 1px solid black;
+    width: 100%;
 }
 </style>
