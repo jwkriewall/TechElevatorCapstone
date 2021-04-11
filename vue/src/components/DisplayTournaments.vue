@@ -85,9 +85,19 @@ export default {
         }
     },
     created() {
-        this.currentEnteredTournaments = this.$store.state.userTournaments
+        this.currentEnteredTournaments = this.$store.state.userTournaments;
+        //this.tournaments = this.tournaments.sortTournaments;
     },
+    
     methods: {
+        // sortTournaments() {
+        //     this.tournaments = this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1)
+        //     return tournaments;
+        // },
+
+        sortTournaments: function() {
+            return this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1);
+        },
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
         },
@@ -117,11 +127,14 @@ export default {
         },
     },
     computed: {
+
+  
         myTournaments() {
             return this.$route.name == "my-tournaments"
         },
         searchTournaments() {
-            let filteredTournaments = this.tournaments;
+            let filteredTournaments = this.tournaments.sortTournaments();
+
 
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
@@ -172,8 +185,10 @@ export default {
                     tournament.organizerId == this.organizer.organizerId
                 );
             }
-  
-            return filteredTournaments;
+
+ 
+            return filteredTournaments;             
+            
         }
     }
 }
