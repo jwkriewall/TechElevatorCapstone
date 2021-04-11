@@ -77,5 +77,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+div.tournaments {
+    display: flex;
+    background: url('../assets/light.jpg') fixed center top no-repeat;
+}
 </style>
