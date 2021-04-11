@@ -77,5 +77,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+div.tournaments {
+    display: flex;
+    background-image: url('../assets/light.jpg');
+    background-size: cover;
+    overflow: scroll;
+    width: 1425px;
+    height: 500px; 
+}
+
 </style>

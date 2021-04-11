@@ -72,9 +72,12 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-    border-bottom: 2px solid #e74c3c;
-    text-align: center;
+div.my-tournaments{
+    background-image: url('../assets/light2.jpg');
+    background-size: cover;
+    overflow: scroll;
+    width: 1425px;
+    height: 500px; 
 }
 
 </style>

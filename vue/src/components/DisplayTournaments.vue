@@ -223,4 +223,7 @@ input[type="button"] {
     width: 50px;
     height: 20px;
 }
+/* table:last-child{
+    color: #e74c3c;
+} */
 </style>
