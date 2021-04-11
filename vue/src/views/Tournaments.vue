@@ -77,8 +77,9 @@ export default {
 }
 </script>
 
-<style>
-.content-full-width {
-    /* background: url('../assets/empty-seats.png') fixed center top no-repeat; */
+<style scoped>
+div.tournaments {
+    display: flex;
+    background: url('../assets/light.jpg') fixed center top no-repeat;
 }
 </style>
