@@ -1,8 +1,7 @@
 <template>
-    <div class="display-tournaments">
+    <div class="content-full-width">
         <table>
             <tr>
-                <th></th>
                 <th>Tournament Name</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -10,10 +9,8 @@
                 <th>Elimination</th>
                 <th>Type</th>
                 <th v-if="myTournaments">Role</th>
-                <th></th>
             </tr>
             <tr>
-                <td></td>
                 <td><input type="text" placeholder="search" v-model="search.name" /></td>
                 <td><input type="date" placeholder="search" v-model="search.startDate" /></td>
                 <td><input type="date" placeholder="search" v-model="search.endDate" /></td>
@@ -41,7 +38,6 @@
                 </td>
             </tr>
             <tr v-for="tournament in searchTournaments" v-bind:key="tournament.id" :class="[organizer.organizerId == tournament.organizerId && myTournaments ? 'organizer' : '']">
-                <td></td>
                 <td>{{ tournament.name }}</td>
                 <td>{{ tournament.startDate }}</td>
                 <td>{{ tournament.endDate }}</td>
@@ -49,10 +45,9 @@
                 <td>{{ tournament.double ? 'Double' : 'Single'}}</td>
                 <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
                 <td v-if="myTournaments">{{ tournament.organizerId == organizer.organizerId ? 'Organizer' : 'Participant' }}</td>
-                <td><input type="submit" value="Details" @click="goToDetails(tournament.id)" /></td>
+                <td><input type="button" value="Details" @click="goToDetails(tournament.id)" /></td>
                 <td v-if="!myTournaments && !$store.state.userTournaments.includes(tournament.id)">
-                    <!-- how to add in line above?        && !userTournaments.includes(tournament.id) -->
-                    <input type="submit" value="Join" @click="joinTournament(tournament.id)" />
+                    <input type="button" value="Join" @click="joinTournament(tournament.id)" />
                 </td>
             </tr>
         </table>
@@ -122,7 +117,7 @@ export default {
         },
         searchTournaments() {
             let filteredTournaments = this.tournaments;
-
+            
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
                     tournament.name.toLowerCase().includes(this.search.name.toLowerCase())
@@ -179,24 +174,47 @@ export default {
 }
 </script>
 
-<style>
-.organizer {
-    background-color: #D9D6D5;
-}
-
-.display-tournaments table {
+<style scoped>
+table {
     margin: 0 auto;
     text-align: center;
+    border-spacing: 0rem;
+    width: 90vw;
+    color: black;
+    font-size: 1.2rem;
+}
+table tr:nth-child(odd) {
+    background-color: lightgray;
+}
+table tr:first-child {
+    background: none;
+}
+table tr:first-child + tr {
     
 }
-.display-tournaments table > tr > td:nth-child(2) {
-    text-align: left;
+table td:nth-last-child(2), td:last-child {
+    background-color: none;
+    padding-left:20px;
 }
-.display-tournaments table > tr.organizer > td:last-child {
+input:not(input[type="button"]) {
+    border-radius: 0;
     background-color: #fff;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    -webkit-text-fill-color: black;
+    color: black;
+    border: 1px solid black;
+    width: 120px;
+    min-width: 120px;
+    height: 30px;
 }
-input[type="submit"] { 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: none;
+}
+input[type="button"] { 
     margin: 5px 0;
     padding:0;
+    border-radius: 0;
+    width: 50px;
+    height: 20px;
 }
 </style>

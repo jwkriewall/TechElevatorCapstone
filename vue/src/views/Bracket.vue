@@ -35,6 +35,12 @@ export default {
       roundMatchups: [0],
       playerIndex: -1,
       currentRoundMatchups: this.getMatchups,
+      bracket16Seeding: [ 1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11 ],
+      bracket14Seeding: [ 8,9,4,13,5,12,7,10,3,14,6,11,1, '', '', '', 2, '', '', '' ],
+      bracket12Seeding: [ 8,9,4,5,12,7,10,6,11,1,'',4,'',2,'',3,'' ],
+      bracket10Seeding: [ 8,9,7,10,1,'',4,5,2,'',3,6 ],
+      bracket8Seeding: [ 1,8,4,5,2,7,3,6 ],
+      bracket4Seeding: [ 1,4,2,3 ],
     }
   },
   methods: {

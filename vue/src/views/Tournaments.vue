@@ -78,9 +78,4 @@ export default {
 </script>
 
 <style>
-
-td input [type="submit"] {
-    width: 1px;
-}
-
 </style>

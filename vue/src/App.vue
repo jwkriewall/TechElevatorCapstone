@@ -47,7 +47,7 @@ export default {
     padding: 0;
     height: 80vh;
   }
-  .content {
+  .content, .content-full-width {
     flex-basis: 50vw;
     display: flex;
     flex-direction: column;
@@ -57,6 +57,10 @@ export default {
     color: white;
     font-size: 1.2rem;
     background-color: #2c3e50;
+  }
+  .content-full-width {
+    flex-basis: 100vw;
+    background: none;
   }
   .image {
     overflow-y: hidden;
