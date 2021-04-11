@@ -2,7 +2,8 @@
     <div class="user-info">
         <h1>Account Information</h1>
         <div class="account-info">
-            <img v-if="$store.state.user.userImageUrl" :src="$store.state.user.userImageUrl" alt="User Photo" />
+            <image-uploader />
+            <!-- <img v-if="$store.state.user.userImageUrl" :src="$store.state.user.userImageUrl" alt="User Photo" /> -->
             <table>
                 <tr>
                     <td class="label">Name: </td><td>{{ user.firstName}} {{user.lastName}}</td>
@@ -23,8 +24,11 @@
 </template>
 
 <script>
+import ImageUploader from './ImageUploader.vue';
+
 export default {
     name: 'user-info',
+    components: { ImageUploader },
     data() {
         return {
             user: this.$store.state.user

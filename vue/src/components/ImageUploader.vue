@@ -1,26 +1,15 @@
 
-<template>
-  <div class="upload-photo">
-    <h2>Upload a photo</h2>
-    
+<template>   
     <div class="uploader">
-      <div>
-        <input v-if="!imageData" type="button" @click="choosePhoto" value="Choose Photo" />
+      <div class="image-preview">                     
+        <img :src="[imageData ? img1 : [storedImgUrl ? storedImgUrl : require('@/assets/profile-placeholder.png')] ]">
+      </div>   
+        <input v-if="!changingPhoto" type="button" class="upload" @click="choosePhoto" value="Change" />
         <input type="file" ref="input1"
           style="display: none"
           @change="previewImage" accept="image/*" >                
-      </div>
- 
-      <div class="image-preview" v-if="imageData">                     
-        <img :src="img1">
-      </div>   
-      
-      <input v-if="imageData" type="button" class="upload" @click="create" value="upload" />
-      
+      <input v-if="changingPhoto" type="button" class="upload" @click="create" value="upload" />
     </div>
-
-    
-  </div>
 </template>
 
 
@@ -31,7 +20,10 @@ export default {
     return {
       caption : '',
       img1: '',
-      imageData: null
+      imageData: null,
+      imgPlaceholder: '../assets/profile-placeholder.png',
+      changingPhoto: false,
+      storedImgUrl: this.$store.state.user.userImageUrl,
     }
   },
   methods: {
@@ -44,12 +36,17 @@ export default {
       firebase.database().ref('UserPhotos').push(post)
       .then((response) => {
         console.log(response)
+        this.toggleChangingPhoto();
       })
       .catch(err => {
         console.log(err)
       })
     },
+    toggleChangingPhoto() {
+      this.changingPhoto = !this.changingPhoto;
+    },
     choosePhoto() {
+      this.toggleChangingPhoto();
       this.$refs.input1.click()   
     },
     previewImage(event) { 
@@ -82,6 +79,7 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-right: 20px;
 }
 
  .image-preview {
@@ -89,15 +87,22 @@ export default {
    min-height: 50px;
    min-width: 50px;
    max-height: 150px;
-   max-width: 150px;
+   max-width: 10px;
+   margin: 0;
+   padding: 0;
  }
  .image-preview img {
    height: 100%;
+   max-width: 133px;
+   margin: 0;
  }
  input.upload {
    margin: 0;
    border-radius: 0;
    min-width: 50px;
    width:133px;
+   font-size:0.7rem;
+   text-transform: uppercase;
+   height: 20px;
  }
 </style>
