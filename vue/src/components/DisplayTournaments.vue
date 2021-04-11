@@ -81,15 +81,10 @@ export default {
     },
     created() {
         this.currentEnteredTournaments = this.$store.state.userTournaments;
-        //this.tournaments = this.tournaments.sortTournaments;
     },
     
     methods: {
 
-
-        // sortTournaments: function() {
-        //     return this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1);
-        // },
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
         },
@@ -127,10 +122,13 @@ export default {
         searchTournaments() {
             // I want to set the sortTournaments() method on the prop value
             // all tournaments
-            // USE: filterTournaments.sort
 
             let filteredTournaments = this.tournaments;
 
+            // filterTournaments = filteredTournaments.sort((a, b) => 
+            //        a.startDate < b.startDate ? -1 : 1
+            //     );
+        
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
                     tournament.name.toLowerCase().includes(this.search.name.toLowerCase())
@@ -198,18 +196,11 @@ table {
     color: black;
     font-size: 1.2rem;
 }
-table tr:nth-child(odd) {
+tr:nth-child(odd) {
     background-color: lightgray;
 }
-table tr:first-child {
+tr:first-child {
     background: none;
-}
-table tr:first-child + tr {
-    
-}
-table td:nth-last-child(2), td:last-child {
-    background-color: none;
-    padding-left:20px;
 }
 input:not(input[type="button"]) {
     border-radius: 0;
@@ -226,7 +217,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     filter: none;
 }
 input[type="button"] { 
-    margin: 5px 0;
+    margin: 5px 10px;
     padding:0;
     border-radius: 0;
     width: 50px;
