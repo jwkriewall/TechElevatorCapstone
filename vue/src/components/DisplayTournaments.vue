@@ -180,8 +180,8 @@ export default {
             }
 
  
-            return filteredTournaments;             
-            
+            //return filteredTournaments.sort((a, b) => { new Date (a.startDate) > new Date (b.startDate) ? 1 : -1});             
+            return filteredTournaments.sort();
         }
     }
 }
