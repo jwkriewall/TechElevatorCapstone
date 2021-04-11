@@ -1,5 +1,5 @@
 <template>
-  <div id="register" class="text-center">
+  <div id="register" class="content-full-width">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -100,68 +100,18 @@ export default {
 </script>
 
 <style scoped>
-div#register {
-  font-family: 'Poppins';
-  text-align: center;
+.content-full-width {
   background: url('../assets/createAccount.jpg') fixed center top;
-  background-size: cover;
-  padding-bottom: 40vh;
-  color: white;
 }
 
-#register h1{ 
-  font-weight: 800;
-}
-
-form.form-register{
+form.form-register {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-form.form-register > input, textarea {
-  width: 15vw;
-  height: 2em;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-  font-weight:lighter;
-  border: 1px solid white;
-  background-color: #44617e;
-  color: #f4f4f4;
-  -webkit-text-fill-color: #f4f4f4;
-}
-
-textarea:focus, form.form-register > input:focus {
-  outline: none;
-  box-shadow: 0px 0px 0px 2px #e74c3c;
-  background-color:white;
-  color: #707070;
-  -webkit-text-fill-color: #707070;
-}
-
-form.form-register label{
-  font-size: 1.5rem;
-  padding: 5px 0;
-}
-form.form-register label:not(label:nth-child(2)) {
-  margin-top:40px;
-}
-
 input#confirmPassword {
   margin-top: 5px;
-}
-
-form.form-register button.btn{
-  height: 3em;
-  width: 10vw;
-  min-width: 50px;
-  margin-top: 20px;
-  border-radius: 15px;
-  background-color: #e74c3c;
-  color: white;
-  font-size: 1.1rem;
-  border: none;
 }
 
 #register a {

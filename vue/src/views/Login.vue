@@ -1,5 +1,5 @@
 <template>
-  <div id="login" class="text-center">
+  <div id="login" class="content-full-width">
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -75,83 +75,26 @@ export default {
 };
 </script>
 <style scoped>
-  div h1 {
-    border-bottom: 2px solid #e74c3c;
-    text-decoration-color: #e74c3c;
-  }
-
-  div#login {
-    font-family: 'Poppins';
-    text-align: center;
-    background-color: gray;
-    background: url('../assets/blue-dice.jpg') fixed left top;
-    background-size: cover;
-    padding: 20vh 0 40vh 0;
-    color: white;
-  }
-
-  form.form-signin{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  input {
-    width: 15vw;
-    height: 2em;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    font-weight:lighter;
-    border: 1px solid white;
-    background-color: #44617e;
-    color: #f4f4f4;
-    -webkit-text-fill-color: #f4f4f4;
-  }
-
-div button.submit {
-  height: 2em;
-  width: 12vw;
-  min-width: 50px;
-  margin-top: 40px;
-  border-radius: 15px;
-  background-color: #e74c3c;
-  color: white;
-  font-size: 1.1rem;
-  border: none;
+.content-full-width {
+  background: url('../assets/blue-dice.jpg') fixed left top;
 }
 
-
-div button.submit:hover {
-  background-color: #d85b4d;
+form.form-signin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #login a{
   color: white;
-  margin-top:10px;
+  margin-top:30px;
 }
+
 #login a:hover {
   color:#e74c3c;
   text-decoration:none;
 }
-label {
-  text-shadow: #44617e;
-  font-size: 1.35rem;
-}
 
-label.sr-only {
-  font-size: 1.6rem;;
-}
-
-textarea:focus, input:focus
- {
-  outline: none;
-  box-shadow: 0px 0px 0px 2px #e74c3c;
-  background-color:white;
-  color: #707070;
-  -webkit-text-fill-color: #707070;
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-}
 
 
 

@@ -32,4 +32,7 @@ export default {
 .home-buttons {
   flex-direction: row;
 }
+.home-buttons input[type="button"]:first-child {
+  margin-right: 80px;
+}
 </style>

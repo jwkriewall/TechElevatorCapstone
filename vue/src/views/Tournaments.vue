@@ -78,4 +78,7 @@ export default {
 </script>
 
 <style>
+.content-full-width {
+    /* background: url('../assets/empty-seats.png') fixed center top no-repeat; */
+}
 </style>
