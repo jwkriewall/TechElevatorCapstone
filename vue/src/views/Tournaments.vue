@@ -87,4 +87,7 @@ div.tournaments {
     height: 500px; 
 }
 
+.content-full-width {
+    /* background: url('../assets/empty-seats.png') fixed center top no-repeat; */
+}
 </style>
