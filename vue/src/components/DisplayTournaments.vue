@@ -80,9 +80,16 @@ export default {
         }
     },
     created() {
-        this.currentEnteredTournaments = this.$store.state.userTournaments
+        this.currentEnteredTournaments = this.$store.state.userTournaments;
+        //this.tournaments = this.tournaments.sortTournaments;
     },
+    
     methods: {
+
+
+        // sortTournaments: function() {
+        //     return this.tournaments.sort((a, b) => a.startDate < b.startDate ? -1 : 1);
+        // },
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
         },
@@ -112,12 +119,18 @@ export default {
         },
     },
     computed: {
+
+  
         myTournaments() {
             return this.$route.name == "my-tournaments"
         },
         searchTournaments() {
+            // I want to set the sortTournaments() method on the prop value
+            // all tournaments
+            // USE: filterTournaments.sort
+
             let filteredTournaments = this.tournaments;
-            
+
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
                     tournament.name.toLowerCase().includes(this.search.name.toLowerCase())
@@ -167,8 +180,10 @@ export default {
                     tournament.organizerId == this.organizer.organizerId
                 );
             }
-  
-            return filteredTournaments;
+
+ 
+            return filteredTournaments;             
+            
         }
     }
 }
