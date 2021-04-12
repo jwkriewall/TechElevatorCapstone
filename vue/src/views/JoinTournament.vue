@@ -14,11 +14,21 @@
 
 <script>
 import tournamentDetails from '/TournamentDetails.vue';
+import tournamentService from '../services/TournamentService.vue';
 
 export default {
-    props: ['tournament'],
     components: {
         tournamentDetails
+    },
+    data() {
+        return {
+            tournament: {},
+        }
+    },
+    created() {
+        tournamentService.getTournament(this.$route.params).then(response => {
+            this.tournament = response.data;
+        })
     }
 }
 </script>

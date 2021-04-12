@@ -24,9 +24,9 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public Tournament createTournament(Tournament tournament) {
-		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date";
+		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended";
 		
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate());
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), false);
 		while (rows.next()) {
 			tournament = mapRowToTournament(rows);
 		}
@@ -49,7 +49,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
-		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament WHERE id = ?";
+		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended FROM tournament WHERE id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		
 		if(rows.next()) {

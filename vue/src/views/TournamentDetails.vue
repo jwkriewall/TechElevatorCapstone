@@ -1,19 +1,17 @@
 <template>
     <div class="container">
         <div class="content">
-            <tournament-details :tournament="tournament" />
+            <tournament-details v-if="!modifyTournament" :tournament="tournament" :organizer="organizer" />
+            <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
+            
             <div class="buttons">
-                <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!okModify" @click='okModify = true' />
-                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer" @click='endTournament' />
-            </div>   
-            <div v-if="okModify">
-                <!-- INSERT EDIT TOURNAMENT COMPONENT -->
-
-            </div>
+                <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament" @click='modifyTournament = true' />
+                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" @click='endTournament' />
+            </div>  
         </div>
         <div class="image">
             <div class="tournament-seeding">
-                <h2>Tournament Seeding</h2>
+                <h2>Current Seeding</h2>
                 <table class="rankings" >
                     <tr>
                         <th>User Name/Nick</th>
@@ -22,6 +20,10 @@
                     <tr v-for="user in rankings" :key="user.id">
                         <td>{{ user.userNickname ? (user.userNickname != "NICKNAME" ? user.userNickname : user.firstName + ' ' + user.lastName) : user.firstName + ' ' + user.lastName }}</td>
                         <td>{{ user.userSeeding }}</td>
+                    </tr>
+                     <tr class="no-participants" v-if="rankings.length === 0">
+                        <td>No participants in current tournament</td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -33,15 +35,16 @@
 import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
+import editTournament from "../components/EditTournament.vue";
 
 export default {
-    name: 'tournament-details',
-    components: [ tournamentDetails ],
+    name: 'tournament-detail-page',
+    components: { tournamentDetails, editTournament },
     data(){
         return {
             tournament: {},
             organizer: {},
-            okModify: false,
+            modifyTournament: false,
             isCurrentUserOrganizer: false,
             rankings: []
         }
@@ -68,17 +71,23 @@ export default {
         })
     },
     methods: {
-        updateAll(){
-            tournamentService.updateTournament(this.tournament);
-            organizerService.updateOrganizer(this.organizer);
-            this.okModify = false;
+        updateAll(organizer, tournament){
+            this.tournament = tournament;
+            this.organizer = organizer;
+            tournamentService.updateTournament(tournament);
+            organizerService.updateOrganizer(organizer);
+            this.toggleModifyTournament();
         },
+
         endTournament() {
             if(confirm("Are you sure you want to end the tourament?")) 
                 // mark tournament object as ended && update database
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
+        },
+        toggleModifyTournament() {
+            this.modifyTournament = !this.modifyTournament
         }
     }
 }
@@ -95,33 +104,14 @@ export default {
 .image {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
 }
 .tournament-seeding {
-    margin-right: 90px;
+    margin: 50px 90px 0 0;
+    color: white;
 }
-h1 {
-    font-size: 2rem;
-}
-ul{
-    margin: 0;
-    padding: 0;
-    list-style-position: outside;
-    list-style-type: none;
-}
-ul li {
-    padding: 3px 0;
-    margin: 0;
-    display: block;
-}
-.tournamentForm{
-    border-top: 2px dashed #e74c3c;
-    margin-top: 50px;
-    padding-top: 20px;
-    margin-left: -50px;
-    padding-left: 50px;
-}
+
 h2{
     border-bottom: 2px solid #e74c3c;
     display: inline-block;
@@ -130,7 +120,15 @@ h2{
 input.update:hover{
     background-color: #d85b4d;
     -webkit-box-shadow: 0 0 0 1000px #d85b4d inset;
-    border: 1px solid red;
+}
+th {
+    text-align: left;
+    text-decoration: underline;
+}
+tr.no-participants td {
+    color: #e74c3c;
+    text-transform: uppercase;
+    padding-top: 20px;
 }
 
 </style>
