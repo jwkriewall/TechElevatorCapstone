@@ -31,10 +31,9 @@ export default {
   data() {
     return {
       participantsArray: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ],
-      participants: '',
       roundMatchups: [0],
       playerIndex: -1,
-      currentRoundMatchups: this.getMatchups,
+      // currentRoundMatchups: this.getMatchups,
       bracket16Seeding: [ 1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11 ],
       bracket14Seeding: [ 8,9,4,13,5,12,7,10,3,14,6,11,1, '', '', '', 2, '', '', '' ],
       bracket12Seeding: [ 8,9,4,5,12,7,10,6,11,1,'',4,'',2,'',3,'' ],
@@ -60,7 +59,9 @@ export default {
   },
   created() {
     let total = this.participantsArray.length
-    this.participants = total;
+    
+    if(total % 2 === 1) { total = total + 1; }
+
     let currentCount = 1;   //2 
     for(let i = 0; i <= total; i++) {
       if((currentCount * 2) < total) {
