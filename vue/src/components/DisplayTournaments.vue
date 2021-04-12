@@ -203,14 +203,8 @@ export default {
                 );
             }
 
-<<<<<<< HEAD
- 
-            //return filteredTournaments.sort((a, b) => { new Date (a.startDate) > new Date (b.startDate) ? 1 : -1});             
-            return filteredTournaments.sort();
-=======
             return filteredTournaments;             
             
->>>>>>> a1af6b16ecb34021ab79aca0407aad924984cc4e
         }
     }
 }
