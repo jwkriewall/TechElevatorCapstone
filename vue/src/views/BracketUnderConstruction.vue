@@ -126,7 +126,9 @@ export default {
             }
         });
     let total = this.participantsArray.length
-    this.participants = total;
+    
+    if(total % 2 === 1) { total = total + 1; }
+
     let currentCount = 1;   //2 
     for(let i = 0; i <= total; i++) {
       if((currentCount * 2) < total) {

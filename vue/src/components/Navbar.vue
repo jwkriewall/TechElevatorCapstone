@@ -67,7 +67,7 @@ export default {
     padding-bottom:2px;
   }
   
-  #nav a:hover:not(a.logo)  {
+  #nav a:hover:not(a.logo), a.router-link-exact-active  {
     padding-bottom:0px;
     border-bottom: 2px solid #e74c3c;
   }

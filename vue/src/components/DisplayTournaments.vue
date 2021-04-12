@@ -1,11 +1,12 @@
 <template>
     <div class="content-full-width">
-        <table>
+        <form name="tournament-filter">
+            <table>
             <tr>
                 <th>Tournament Name</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Max Participants</th>
+                <th>Max <br />Participants</th>
                 <th>Elimination</th>
                 <th>Type</th>
                 <th v-if="myTournaments">Role</th>
@@ -29,15 +30,19 @@
                         <option value="true">Team</option>
                     </select>
                 </td>
-                <td>
-                    <select v-if="myTournaments" v-model="search.role">
+                <td v-if="!myTournaments"><input type="reset" @click="resetFormFilter" value="Clear Filter" class="clear-filter" /></td>
+                <td v-if="myTournaments">
+                    <select v-model="search.role">
                         <option selected value="All">All</option>
                         <option value="Participant">Participant</option>
                         <option value="Organizer">Organizer</option>
                     </select>
                 </td>
             </tr>
-            <tr v-for="tournament in searchTournaments" v-bind:key="tournament.id" :class="[organizer.organizerId == tournament.organizerId && myTournaments ? 'organizer' : '']">
+            <tr v-for="tournament in searchTournaments" v-bind:key="tournament.id" 
+            :class="[tournament.endDate < findTodaysDate ? 'endedTournament' : ''] + ' ' +  
+            [organizer.organizerId == tournament.organizerId && myTournaments ? 'organizer' : '']"
+            >
                 <td>{{ tournament.name }}</td>
                 <td>{{ tournament.startDate }}</td>
                 <td>{{ tournament.endDate }}</td>
@@ -45,12 +50,17 @@
                 <td>{{ tournament.double ? 'Double' : 'Single'}}</td>
                 <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
                 <td v-if="myTournaments">{{ tournament.organizerId == organizer.organizerId ? 'Organizer' : 'Participant' }}</td>
-                <td><input type="button" value="Details" @click="goToDetails(tournament.id)" /></td>
-                <td v-if="!myTournaments && !$store.state.userTournaments.includes(tournament.id)">
-                    <input type="button" value="Join" @click="joinTournament(tournament.id)" />
+                <td class="buttonCell">
+                    <input type="button" value="Details" @click="goToDetails(tournament.id)" />
+                    <input type="button" value="Join" 
+                    v-if="!myTournaments && 
+                    !$store.state.userTournaments.includes(tournament.id) && 
+                    tournament.endDate > findTodaysDate"
+                    @click="joinTournament(tournament.id)" />
                 </td>
             </tr>
         </table>
+        </form>
             
 
 
@@ -84,9 +94,17 @@ export default {
     },
     
     methods: {
-
         goToDetails(tournamentId) {
             this.$router.push('/tournaments/' + tournamentId);
+        },
+        resetFormFilter() {
+            this.search.name = '';
+            this.search.startDate = '';
+            this.search.endDate = '';
+            this.search.maxParticipants = '';
+            this.search.isTeam = "All";
+            this.search.isDouble = "All";
+            this.search.role = "All";
         },
         joinTournament(tournamentId) {
             tournamentService.joinTournament(tournamentId).then(response => {
@@ -114,20 +132,28 @@ export default {
         },
     },
     computed: {
-
-  
         myTournaments() {
             return this.$route.name == "my-tournaments"
         },
+        findTodaysDate(){
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth()+1;
+            let yyyy = today.getFullYear();
+            if ( dd<10 ) {
+                dd = '0' + dd
+            }
+            if ( mm<10 ) {
+                mm = '0' + mm
+            }
+            return yyyy + '-' + mm + '-' + dd;
+        },
         searchTournaments() {
-            // I want to set the sortTournaments() method on the prop value
-            // all tournaments
+   
+            let filteredTournaments = this.tournaments.sort((a, b) => 
+                   a.startDate > b.startDate ? -1 : 1
+                );
 
-            let filteredTournaments = this.tournaments;
-
-            // filterTournaments = filteredTournaments.sort((a, b) => 
-            //        a.startDate < b.startDate ? -1 : 1
-            //     );
         
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
@@ -179,7 +205,6 @@ export default {
                 );
             }
 
- 
             return filteredTournaments;             
             
         }
@@ -188,19 +213,36 @@ export default {
 </script>
 
 <style scoped>
+
 table {
     margin: 0 auto;
     text-align: center;
     border-spacing: 0rem;
-    width: 90vw;
+    width: 95vw;
     color: black;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    border-left: 1px solid grey;
 }
-tr:nth-child(odd) {
-    background-color: lightgray;
+td {
+    min-height:30px;
+}
+tr:nth-child(odd) td {
+    background-color: #D9D6D5;
 }
 tr:first-child {
     background: none;
+}
+tr.endedTournament td {
+    border-bottom: 1px solid white;
+    background-color: #707070;
+    color: white;
+
+}
+tr td.buttonCell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 input:not(input[type="button"]) {
     border-radius: 0;
@@ -217,10 +259,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     filter: none;
 }
 input[type="button"] { 
-    margin: 5px 10px;
     padding:0;
-    border-radius: 0;
+    border-radius: 6px;
     width: 50px;
     height: 20px;
+    margin: 0;
+}
+input[type="button"] {
+    margin: 2px 10px 3px 20px;
+}
+input[type="submit"].clear-filter {
+    margin: 0;
+}
+select {
+    height: 33px;
+    margin:0 0 2px 0;
+    border: 1px solid black;
+    width: 100%;
 }
 </style>

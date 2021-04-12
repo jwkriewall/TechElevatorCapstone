@@ -25,8 +25,9 @@ export default {
   h1 {
     border-bottom: 2px solid #e74c3c;
     font-weight: 800;
-    display: inline-block;
-    color: white;
+    /* display: inline-block; */
+    color: #302403;
+    text-align: center;
     margin-top: 0;
   }
   h2 {
@@ -61,6 +62,9 @@ export default {
   .content-full-width {
     flex-basis: 100vw;
     background: none;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 50px;
   }
   .image {
     overflow-y: hidden;
@@ -108,7 +112,7 @@ textarea:focus, input:focus {
   -webkit-box-shadow: 0 0 0px 2px #e74c3c;
 }
 
-input[type="button"] {
+input[type="button"], input[type="submit"], button {
     background-color: #e74c3c;
     -webkit-box-shadow: 0 0 0px 1000px #e74c3c inset;
     color: white;
@@ -121,17 +125,22 @@ input[type="button"] {
     width: 12vw;
     min-width: 80px;
 }
-input[type="button"]:hover {
+input[type="button"]:hover, input[type="submit"]:hover, button:hover {
     background-color:#dc8980;
     -webkit-box-shadow: 0 0 0px 1000px #dc8980 inset;
 }
-input[type="button"]:focus {
+input[type="button"]:focus, input[type="submit"]:focus, button:focus {
     outline: none;
     border:1px solid white;
 }
-input[type="button"]:disabled {
+input[type="button"]:disabled, input[type="submit"]:disabled, button:disabled {
     color: #dc8980;
     -webkit-text-fill-color: #dc8980;
+}
+label.sr-only {
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 20px 0 10px;
 }
 
 /* Little Toggle Switches */
