@@ -149,9 +149,11 @@ export default {
             return yyyy + '-' + mm + '-' + dd;
         },
         searchTournaments() {
+   
             let filteredTournaments = this.tournaments.sort((a, b) => 
                    a.startDate > b.startDate ? -1 : 1
                 );
+
         
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
@@ -219,6 +221,7 @@ table {
     width: 95vw;
     color: black;
     font-size: 1.1rem;
+    border-left: 1px solid grey;
 }
 td {
     min-height:30px;
@@ -257,7 +260,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 input[type="button"] { 
     padding:0;
-    border-radius: 0;
+    border-radius: 6px;
     width: 50px;
     height: 20px;
     margin: 0;
