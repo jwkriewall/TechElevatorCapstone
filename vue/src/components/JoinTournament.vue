@@ -16,7 +16,7 @@
 import tournamentDetails from '/TournamentDetails.vue';
 
 export default {
-    props: [tournament],
+    props: ['tournament'],
     components: {
         tournamentDetails
     }

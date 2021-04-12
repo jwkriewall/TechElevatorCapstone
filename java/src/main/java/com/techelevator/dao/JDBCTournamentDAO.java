@@ -37,7 +37,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	public List<Tournament> listAllTournaments() {
 		List<Tournament> tournaments = new ArrayList<Tournament>();
 		
-		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email, start_date, end_date FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
+		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email, start_date, end_date, ended FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 		
 		while (rows.next()) {
@@ -164,7 +164,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		tournament.setDouble(rows.getBoolean("is_double"));
 		tournament.setStartDate(rows.getDate("start_date").toLocalDate());
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
-		if(rows.getBoolean("ended")) {
+		if(rows.getBoolean("ended") == true) {
 			tournament.setEnded(rows.getBoolean("ended"));
 		}
 		return tournament;
