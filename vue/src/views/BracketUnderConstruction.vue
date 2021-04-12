@@ -4,7 +4,7 @@
     <div class="tournament" :style="{ 'grid-template-columns': getColumns}">
       <div class="participant-list">Participants List
         <draggable class="participant-list-individual" :list="rankings" group="tasks">
-              <div class="list-group-item" v-for="user in rankings" :key="user.name">
+              <div  v-for="user in rankings" :key="user.name">
                   <div class="username-participant">
                       <strong> {{user.firstName}} {{user.userNickname}} {{user.lastName}} </strong>
                   </div>
@@ -18,17 +18,27 @@
       <h2 v-for="headerIndex in roundMatchups.length" :key="headerIndex.id">Round {{headerIndex}}  </h2>
       <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
         <div v-for="matchIndex in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`">
-          
-          <div class="participant" v-for="participantIndex in 2" :key="participantIndex.id">
+         <div class="participant" v-for="participantIndex in 2" :key="participantIndex.id">
             <div class="seed">{{matchIndex}}</div>
              <draggable :list="bracket16Array" group="tasks">
-                 <div class="name" v-on:create="getParticipant" >
-                    <div class="username">
+                 <div class="name" v-for="user in bracket16Array" :key="user.name" >
+                    <div class="username" >
                         <strong> {{bracket16Array[playerIndex].firstName}} {{bracket16Array[playerIndex].userNickname}} {{bracket16Array[playerIndex].lastName}} </strong>
                     </div>
                   </div>
             </draggable>
           </div>
+
+
+          <draggable class="list-group bracket-column" :list="firstMatchup" v-if="firstMatchup.length <= 2" group="tasks">
+                            <div class="list-group-item" v-for="user in firstMatchup" :key="user.name">
+                                <div class="username">
+                                {{user.firstName}} {{user.userNickname}} {{user.lastName}}
+                                </div>
+                            </div>
+                        </draggable>
+                        <draggable class="list-group bracket-column" :list="firstMatchup" v-else v-on:click="event.prevent" group="tasks">
+          </draggable>
           
         </div>
         <div class="champion" v-if="roundIndex === roundMatchups.length">
@@ -64,14 +74,22 @@ export default {
       participantsArray: [ 1,2,3,4,5,6,7,8,8,8,11,12,13,14,15,16 ],
       participants: '',
       roundMatchups: [0],
-      playerIndex: -1,
+      playerIndex: 0,
       currentRoundMatchups: this.getMatchups,
       bracket16Array: [" "],
-      bracket14Array: [],
-      bracket12Array: [],
-      bracket10Array: [],
-      bracket8Array: [],
-      bracket4Array: [],
+      bracket1: [],
+      bracket2: [],
+      bracket3: [],
+      bracket4: [],
+      bracket5: [],
+      firstMatchup:[],
+      secondMatchup: [],
+      thirdMatchup: [],
+      fourthMatchup: [],
+      fifthMatchup: [],
+      sixthMatchup: [],
+      seventhMatchup: [],
+      eighthMatchup: [],
       bracket16Seeding: [ 1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11 ],
       bracket14Seeding: [ 8,9,4,13,5,12,7,10,3,14,6,11,1, '', '', '', 2, '', '', '' ],
       bracket12Seeding: [ 8,9,4,5,12,7,10,6,11,1,'',4,'',2,'',3,'' ],
@@ -175,7 +193,7 @@ export default {
     },
     currentParticipant() {
       let index = this.playerIndex;
-      return index += 1;
+      return index += 2;
     }
   },
   
@@ -197,6 +215,11 @@ export default {
   color: black;
 
 }
+
+.list-group-item {
+  background-color: #2c3e50;
+}
+
 .round {
   display: flex;
   flex-direction: column;
