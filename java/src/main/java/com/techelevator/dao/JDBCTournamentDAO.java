@@ -60,20 +60,22 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public void updateTournament(Tournament tournament) {
-		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ? " + 
+		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ?, ended = ? " + 
 				"WHERE id = ?";
-		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.getId());
+		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.isEnded(), tournament.getId());
 		
 	}
 	
 	@Override
-	public void addUserToTournament(int id, long userId) {
+	public void addUserToTournament(UserRanking user, int tournamentID) {
+		// Checking to see if user is already in tournament
 		String sqlStatement = "SELECT user_id FROM tournament_user WHERE tournament_id = ? AND user_id = ?";
-		SqlRowSet userIdInTournament = jdbcTemplate.queryForRowSet(sqlStatement, id, userId);
+		SqlRowSet userIdInTournament = jdbcTemplate.queryForRowSet(sqlStatement, tournamentID, user.getUserId());
 		
+		// if not already in tournament
 		if (!userIdInTournament.next()) {
-				String sql = "INSERT INTO tournament_user VALUES (?, ?, ?, ?)";
-				jdbcTemplate.update(sql, id, userId, null, "NICKNAME"); 
+				String sql = "INSERT INTO tournament_user VALUES (?, ?, ?, ?, ?)";
+				jdbcTemplate.update(sql, tournamentID, user.getUserId(), user.getUserSeeding(), user.getUserNickname(), user.isNotify()); 
 		} else throw new UserAlreadyExistsException();
 		
 	}
@@ -89,7 +91,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	@Override
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
 		List<Tournament> organizerTournaments = new ArrayList<Tournament>();
-		String sql = "SELECT id, tournament_name, tournament.organizer_id, max_participants, is_team, is_double, start_date, end_date FROM tournament " + 
+		String sql = "SELECT id, tournament_name, tournament.organizer_id, max_participants, is_team, is_double, start_date, end_date, ended FROM tournament " + 
 				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
 				"WHERE organizer.organizer_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
@@ -119,7 +121,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	public List<UserRanking> getUserRankingByTournamentId(int tournamentId) {
 		List<UserRanking> tournamentRankings = new ArrayList<UserRanking>();
 		
-		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name from tournament_user " + 
+		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name, notify FROM tournament_user " + 
 				"JOIN users ON users.user_id = tournament_user.user_id " + 
 				"WHERE tournament_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
@@ -145,13 +147,12 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		}
 		if (rows.getString("user_last_name") != null) {
 			userRanking.setLastName(rows.getString("user_last_name"));
-		}	
+		}
+		if (rows.getBoolean("notify")) {
+			userRanking.setNotify(rows.getBoolean("notify"));
+		}
 		return userRanking;
 	}
-	
-
-
-
 	
 	private Tournament mapRowToTournament (SqlRowSet rows) {
 		Tournament tournament = new Tournament();
@@ -163,6 +164,9 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		tournament.setDouble(rows.getBoolean("is_double"));
 		tournament.setStartDate(rows.getDate("start_date").toLocalDate());
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
+		if(rows.getBoolean("ended")) {
+			tournament.setEnded(rows.getBoolean("ended"));
+		}
 		return tournament;
 	}
 

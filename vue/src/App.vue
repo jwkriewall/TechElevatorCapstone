@@ -25,9 +25,9 @@ export default {
   h1 {
     border-bottom: 2px solid #e74c3c;
     font-weight: 800;
-    /* display: inline-block; */
-    color: #302403;
-    text-align: center;
+    display: inline-block;
+    color: #fff;
+    text-align: left;
     margin-top: 0;
   }
   h2 {

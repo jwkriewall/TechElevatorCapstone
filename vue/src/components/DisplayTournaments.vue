@@ -149,9 +149,13 @@ export default {
             return yyyy + '-' + mm + '-' + dd;
         },
         searchTournaments() {
-            let filteredTournaments = this.tournaments.sort((a, b) => 
+            let sortedTournaments = this.tournaments;
+            
+            sortedTournaments = sortedTournaments.sort((a, b) => 
                    a.startDate > b.startDate ? -1 : 1
                 );
+
+            let filteredTournaments = sortedTournaments;
         
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 

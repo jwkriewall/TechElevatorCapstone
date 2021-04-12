@@ -5,7 +5,8 @@
       <div class="participant-list">Participants List</div>
       <h2 v-for="headerIndex in roundMatchups.length" :key="headerIndex.id">Round {{headerIndex}}  </h2>
       <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
-        <div v-for="(matchIndex) in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`">
+        <div v-for="matchIndex in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`">
+          
           <div class="participant" v-for="participantIndex in 2" :key="participantIndex.id">
             <div class="seed">{{matchIndex}}</div>
             <div class="name">Player Name</div>

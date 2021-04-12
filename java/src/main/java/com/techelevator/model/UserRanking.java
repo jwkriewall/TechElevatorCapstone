@@ -8,8 +8,15 @@ public class UserRanking {
 	private String userNickname;
 	private String firstName;
 	private String lastName;
+	private boolean notify;
 	
 	
+	public boolean isNotify() {
+		return notify;
+	}
+	public void setNotify(boolean notify) {
+		this.notify = notify;
+	}
 	public int getTournamentId() {
 		return tournamentId;
 	}

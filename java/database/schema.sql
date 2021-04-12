@@ -61,27 +61,29 @@ CREATE TABLE tournament (
         is_team boolean,
         is_double boolean,
         start_date date,
-        end_date date,  
+        end_date date,
+        ended boolean,  
         constraint fk_organizer_id_tournament foreign key (organizer_id) references organizer (organizer_id)
 
 );
 
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Soccer Tournament', 1, 10, true, false, '2021-04-27', '2021-04-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Super Smash', 3, 8, false, false, '2021-04-25', '2021-05-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Boring Tourney', 3, 16, true, true, '2021-03-25', '2021-03-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Tournament of DOOM', 1, 20, false, false, '2022-04-25', '2022-04-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('meh', 2, 10, false, false, '2014-04-25', '2015-04-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Java Blue? Java Best!', 1, 10, false, true, '2021-04-22', '2021-04-28');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Space Adventure', 3, 100, true, false, '2021-04-25', '2021-04-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Matt''s Tourney', 2, 4, true, false, '2019-04-25', '2019-04-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Losers Only', 2, 13, false, true, '2021-06-25', '2021-06-30');
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date) VALUES ('Dad Jokes Required', 2, 42, false, false, '2021-05-01', '2021-05-16');
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Soccer Tournament', 1, 10, true, false, '2021-04-27', '2021-04-30', false);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Super Smash', 3, 8, false, false, '2021-04-25', '2021-05-30', false);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Boring Tourney', 3, 16, true, true, '2021-03-25', '2021-03-30', true);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Tournament of DOOM', 1, 20, false, false, '2022-04-25', '2022-04-30', false);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('meh', 2, 10, false, false, '2014-04-25', '2015-04-30', true);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Java Blue? Java Best!', 1, 10, false, true, '2021-04-22', '2021-04-28', false);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Space Adventure', 3, 100, true, false, '2021-04-25', '2021-04-30', false);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Matt''s Tourney', 2, 4, true, false, '2019-04-25', '2019-04-30', true);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Losers Only', 2, 13, false, true, '2021-06-25', '2021-06-30', false);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Dad Jokes Required', 2, 42, false, false, '2021-05-01', '2021-05-16', false);
 
 CREATE TABLE tournament_user (
         tournament_id int, 
         user_id int,
         user_seeding int,
         user_nickname varchar(150),
+        notify boolean,
         
         constraint fk_tournament_id_tournament_user foreign key (tournament_id) references tournament (id),
         constraint fk_user_id_tournament_user foreign key (user_id) references users (user_id)

@@ -16,8 +16,8 @@ export default{
     getUserTournaments() {
         return axios.get('/users/tournaments/');
     },
-    joinTournament(tournamentId) {
-        return axios.post('/tournaments/' + tournamentId + '/registration/');
+    joinTournament(tournamentId, user) {
+        return axios.post('/tournaments/' + tournamentId + '/registration/', user);
     },
     getTournamentRankings(tournamentId) {
         return axios.get('/tournaments/' + tournamentId + '/rankings/');

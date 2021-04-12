@@ -55,8 +55,6 @@ public class TournamentController {
 		tournamentDAO.deleteTournament(id);
 	}
 	
-	
-	// this is not working
 	@RequestMapping(path="/tournaments/organizers/{id}", method = RequestMethod.GET)
 	public List<Tournament> getAllTournamentsByOrganizerId(@PathVariable int id) {
 		return tournamentDAO.listAllTournamentsByOrganizerId(id);
@@ -69,9 +67,13 @@ public class TournamentController {
 	}
 	
 	@RequestMapping(path="/tournaments/{id}/registration/", method = RequestMethod.POST)
-	public void addUserToTournament(Principal principal, @PathVariable int id) {
+	public void addUserToTournament(Principal principal, @RequestBody UserRanking user, @PathVariable int id) {
 		int userID = userDAO.findIdByUsername(principal.getName());
-		tournamentDAO.addUserToTournament(id, userID);
+		
+		if(userID == user.getUserId()) {
+			tournamentDAO.addUserToTournament(user, id);
+		} 
+		else { throw new NotAuthorizedException("You can only register yourself"); }
 	}
 	
 	@RequestMapping(path="/tournaments/{id}/rankings/", method = RequestMethod.GET)
