@@ -22,23 +22,12 @@
             <div class="seed">{{matchIndex}}</div>
              <draggable :list="bracket16Array" group="tasks">
                  <div class="name" v-for="user in bracket16Array" :key="user.name" >
-                    <div class="username" >
-                        <strong> {{bracket16Array[playerIndex].firstName}} {{bracket16Array[playerIndex].userNickname}} {{bracket16Array[playerIndex].lastName}} </strong>
+                    <div class="username">
+                        <strong> {{user.firstName}} {{user.userNickname}} {{user.lastName}} </strong>
                     </div>
                   </div>
             </draggable>
           </div>
-
-
-          <draggable class="list-group bracket-column" :list="firstMatchup" v-if="firstMatchup.length <= 2" group="tasks">
-                            <div class="list-group-item" v-for="user in firstMatchup" :key="user.name">
-                                <div class="username">
-                                {{user.firstName}} {{user.userNickname}} {{user.lastName}}
-                                </div>
-                            </div>
-                        </draggable>
-                        <draggable class="list-group bracket-column" :list="firstMatchup" v-else v-on:click="event.prevent" group="tasks">
-          </draggable>
           
         </div>
         <div class="champion" v-if="roundIndex === roundMatchups.length">
@@ -77,19 +66,11 @@ export default {
       playerIndex: 0,
       currentRoundMatchups: this.getMatchups,
       bracket16Array: [" "],
-      bracket1: [],
-      bracket2: [],
-      bracket3: [],
-      bracket4: [],
-      bracket5: [],
-      firstMatchup:[],
-      secondMatchup: [],
-      thirdMatchup: [],
-      fourthMatchup: [],
-      fifthMatchup: [],
-      sixthMatchup: [],
-      seventhMatchup: [],
-      eighthMatchup: [],
+      bracket14Array: [],
+      bracket12Array: [],
+      bracket10Array: [],
+      bracket8Array: [],
+      bracket4Array: [],
       bracket16Seeding: [ 1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11 ],
       bracket14Seeding: [ 8,9,4,13,5,12,7,10,3,14,6,11,1, '', '', '', 2, '', '', '' ],
       bracket12Seeding: [ 8,9,4,5,12,7,10,6,11,1,'',4,'',2,'',3,'' ],
@@ -193,7 +174,7 @@ export default {
     },
     currentParticipant() {
       let index = this.playerIndex;
-      return index += 2;
+      return index += 1;
     }
   },
   
