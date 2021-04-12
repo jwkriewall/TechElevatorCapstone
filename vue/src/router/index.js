@@ -11,7 +11,7 @@ import MyAccount from '../views/MyAccount.vue'
 import MyTournaments from '../views/MyTournaments.vue'
 import Tournaments from '../views/Tournaments.vue'
 import Rankings from '../views/Rankings.vue'
-import Bracket from '../views/Bracket.vue'
+import BracketUnderConstruction from '../views/BracketUnderConstruction.vue'
 
 Vue.use(Router)
 
@@ -109,9 +109,9 @@ const router = new Router({
       }
     },
     {
-      path: "/bracket",
+      path: "/bracket/:id",
       name: "bracket",
-      component: Bracket,
+      component: BracketUnderConstruction,
       meta: {
         requiresAuth: false
       }
