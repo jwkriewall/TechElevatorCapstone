@@ -16,9 +16,17 @@
         <!-- <div v-for="matchIndex in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`"> -->
           <div class="participant" v-for="(participant, index) in tournamentMatchups[roundIndex-1]" :key="participant.id">
             <div class="seed">{{ participant ? index + 1 : '&nbsp;' }}</div>
-            <draggable :list="bracketArray" group="tasks">
-                <div class="name">{{ bracketArray[index] ? bracketArray[index].userNickname : [participant ? participant : '&nbsp;'] }}</div>
+            
+            <draggable v-if="roundIndex === 1" :list="bracketArray1" group="tasks">
+                <div class="name">{{ bracketArray1[index] ? bracketArray1[index].userNickname : [participant ? participant : '&nbsp;'] }}</div>
             </draggable>
+
+            <draggable v-if="roundIndex === 2" :list="bracketArray2" group="tasks">
+                <div class="name">{{ bracketArray2[index] ? bracketArray2[index].userNickname : [participant ? participant : '&nbsp;'] }}</div>
+            </draggable>
+
+            <div v-if="!(roundIndex <= 2)" class="name">&nbsp;</div>
+
           </div>
         <!-- </div> -->
         <div class="champion" v-if="roundIndex === roundMatchups.length">
@@ -48,6 +56,8 @@ export default {
       roundMatchups: [0],
       tournamentMatchups: [],
       tournamentSeeeding: [],
+      bracketArray1: [],
+      bracketArray2: [],
       bracketArray: [],
       numberCheck: '',
     }
