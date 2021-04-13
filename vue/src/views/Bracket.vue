@@ -52,7 +52,7 @@ export default {
       tournament: {},
       participantsArray: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
       rankings: [],
-      totalParticipants: 14,
+      totalParticipants: 16,
       roundMatchups: [0],
       tournamentMatchups: [],
       tournamentSeeeding: [],
@@ -103,14 +103,14 @@ export default {
     createTournamentArray() {
         let roundMatches = this.roundMatchups;
         let total = this.totalParticipants;
-        let participants = this.participantsArray;
+        let participants = Array.from(this.participantsArray);
         let allMatchups = [];
 
         let variance = total - (roundMatches[0] * 2);
 
         for(let j = 0; j <= roundMatches.length; j++) {
         
-            let roundMatchups = []
+            let roundMatchups = [];
             
             for(let i = 0; i < roundMatches[j] * 2; i++) {
                 if(j==0) {
@@ -155,7 +155,6 @@ export default {
             bottomBracket.unshift(count);
         }
 
-    
 
         let seedBracket = [];
         for(let i = 0; i < halvedTotal; i++) {
@@ -191,6 +190,7 @@ const tournamentID = this.$route.params.id;
         tournamentService.getTournament(tournamentID).then(response => {
             if(response.status === 200){
                 this.tournament = response.data;
+                //this.totalParticipants = this.tournament.maxParticipants;
                 organizerService.getOrganizerInfo(response.data.organizerId).then(response => {
                     if(response.status === 200){
                         this.organizer = response.data;
