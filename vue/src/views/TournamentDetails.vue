@@ -81,10 +81,12 @@ export default {
 
         endTournament() {
             if(confirm("Are you sure you want to end the tourament?")) 
-                // mark tournament object as ended && update database
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
+
+                
+
         },
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
