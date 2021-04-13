@@ -83,6 +83,7 @@ CREATE TABLE tournament_user (
         user_id int,
         user_seeding int,
         user_nickname varchar(150),
+        user_email varchar(150),
         notify boolean,
         
         constraint fk_tournament_id_tournament_user foreign key (tournament_id) references tournament (id),
@@ -90,25 +91,22 @@ CREATE TABLE tournament_user (
         );
 
 
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 2, 0, '');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 2, 0, '');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 2, 0, '');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, '');
-
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 2, 0, 'THE BEAST');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 1, 0, 'BIG TESTER');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 5, 0, 'VUE.JS ROCKS');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 6, 0, 'TE Grad');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 4, 0, '8');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (1, 3, 0, 'Fat Momma');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (2, 3, 0, '');
-
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 2, 0, 'You cant handle the truthy');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 5, 0, 'Bad Chad');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 4, 0, 'Capn Jack');
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (8, 3, 0, 'Trix Rabbit');
-
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname) VALUES (3, 3, 0, '');
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 2, 0, '', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (2, 2, 0, '', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (3, 2, 0, '', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 3, 0, '', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 2, 0, 'THE BEAST', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 1, 0, 'BIG TESTER', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 5, 0, 'VUE.JS ROCKS', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 6, 0, 'TE Grad', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 4, 0, '8', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 3, 0, 'Fat Momma', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (2, 3, 0, '', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (8, 2, 0, 'You cant handle the truthy', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (8, 5, 0, 'Bad Chad', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (8, 4, 0, 'Capn Jack', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (8, 3, 0, 'Trix Rabbit', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (3, 3, 0, '', '', false);
 
 
 

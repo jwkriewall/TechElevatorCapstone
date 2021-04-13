@@ -130,5 +130,8 @@ tr.no-participants td {
     text-transform: uppercase;
     padding-top: 20px;
 }
+tr td:nth-child(2) {
+    text-align: center;
+}
 
 </style>

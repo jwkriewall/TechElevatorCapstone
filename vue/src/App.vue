@@ -46,7 +46,7 @@ export default {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 0;
-    height: 80vh;
+    /* height: 80vh; */
   }
   .content, .content-full-width {
     flex-basis: 50vw;
@@ -102,7 +102,7 @@ label {
     min-width: 125px;
     display: inline-block;
 }
-textarea:focus, input:focus {
+textarea:focus, input:not(input[type="checkbox"]):focus {
   outline: none;
   box-shadow: 0px 0px 0px 2px #e74c3c;
   background-color:white;

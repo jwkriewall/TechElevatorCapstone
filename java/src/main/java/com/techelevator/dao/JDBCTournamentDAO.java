@@ -74,8 +74,10 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		
 		// if not already in tournament
 		if (!userIdInTournament.next()) {
-				String sql = "INSERT INTO tournament_user VALUES (?, ?, ?, ?, ?)";
-				jdbcTemplate.update(sql, tournamentID, user.getUserId(), user.getUserSeeding(), user.getUserNickname(), user.isNotify()); 
+				String sql = "INSERT INTO tournament_user VALUES (?, ?, ?, ?, ?, ?)";
+				boolean userNotify = user.isNotify();
+				if(!userNotify) { userNotify = false; }
+				jdbcTemplate.update(sql, tournamentID, user.getUserId(), user.getUserSeeding(), user.getUserNickname(), user.getUserEmail(), userNotify); 
 		} else throw new UserAlreadyExistsException();
 		
 	}
