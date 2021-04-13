@@ -56,7 +56,7 @@
                     v-if="!myTournaments && 
                     !$store.state.userTournaments.includes(tournament.id) && 
                     tournament.endDate > findTodaysDate"
-                    @click="joinTournament(tournament.id)" />
+                    @click="$router.push(`/tournaments/${tournament.id}/join`)" />
                 </td>
             </tr>
         </table>
@@ -106,14 +106,6 @@ export default {
             this.search.isDouble = "All";
             this.search.role = "All";
         },
-        joinTournament(tournamentId) {
-            tournamentService.joinTournament(tournamentId).then(response => {
-                if(response.status === 200) {
-                    this.getUserTournaments();
-                }
-            });
-            
-        },
         getUserTournaments() {
             tournamentService.getUserTournaments().then(response => {
             if(response.status === 200) {
@@ -149,11 +141,13 @@ export default {
             return yyyy + '-' + mm + '-' + dd;
         },
         searchTournaments() {
-   
-            let filteredTournaments = this.tournaments.sort((a, b) => 
+            let sortedTournaments = this.tournaments;
+            
+            sortedTournaments = sortedTournaments.sort((a, b) => 
                    a.startDate > b.startDate ? -1 : 1
                 );
 
+            let filteredTournaments = sortedTournaments;
         
             if(this.search.name != "") {
                 filteredTournaments = filteredTournaments.filter( (tournament) => 
@@ -221,7 +215,6 @@ table {
     width: 95vw;
     color: black;
     font-size: 1.1rem;
-    border-left: 1px solid grey;
 }
 td {
     min-height:30px;

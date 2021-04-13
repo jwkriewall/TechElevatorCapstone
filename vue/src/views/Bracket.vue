@@ -2,100 +2,221 @@
   <div class="content">
     <h1> Bracket</h1>
     <div class="tournament" :style="{ 'grid-template-columns': getColumns}">
-      <div class="participant-list">Participants List</div>
+      <div class="participant-list">Participants List
+          <draggable class="participant-list-individual" :list="rankings" group="tasks">
+              <div class="list-group-item" v-for="user in rankings" :key="user.name">
+                  <div class="username-participant">
+                      <strong> {{user.firstName}} {{user.userNickname}} {{user.lastName}} </strong>
+                  </div>
+              </div>
+        </draggable>
+      </div>
       <h2 v-for="headerIndex in roundMatchups.length" :key="headerIndex.id">Round {{headerIndex}}  </h2>
-      <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
-        <div v-for="(matchIndex) in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`">
-          <div class="participant" v-for="participantIndex in 2" :key="participantIndex.id">
-            <div class="seed">{{matchIndex}}</div>
-            <div class="name">Player Name</div>
+      <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round round-${roundIndex}`">
+        <!-- <div v-for="matchIndex in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`"> -->
+          <div class="participant" v-for="(participant, index) in tournamentMatchups[roundIndex-1]" :key="participant.id">
+            <div class="seed">{{ participant ? index + 1 : '&nbsp;' }}</div>
+            
+            <draggable v-if="roundIndex === 1" :list="bracketArray1" group="tasks">
+                <div class="name">{{ bracketArray1[index] ? bracketArray1[index].userNickname : [participant ? participant : '&nbsp;'] }}</div>
+            </draggable>
+
+            <draggable v-if="roundIndex === 2" :list="bracketArray2" group="tasks">
+                <div class="name">{{ bracketArray2[index] ? bracketArray2[index].userNickname : [participant ? participant : '&nbsp;'] }}</div>
+            </draggable>
+
+            <div v-if="!(roundIndex <= 2)" class="name">&nbsp;</div>
+
           </div>
-        </div>
+        <!-- </div> -->
         <div class="champion" v-if="roundIndex === roundMatchups.length">
             <div class="seed">#</div>
             <div class="name"></div>
           </div>
       </div>
     </div>
-
-
-
-
-
-
   </div>
 </template>
 
 <script>
+import organizerService from "../services/OrganizerService.js";
+import tournamentService from "../services/TournamentService.js";
+import draggable from 'vuedraggable';
+
 export default {
+    components: {
+        draggable,
+    },
   data() {
     return {
-      participantsArray: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ],
+      tournament: {},
+      participantsArray: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
+      rankings: [],
+      totalParticipants: 14,
       roundMatchups: [0],
-      playerIndex: -1,
-      // currentRoundMatchups: this.getMatchups,
-      bracket16Seeding: [ 1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11 ],
-      bracket14Seeding: [ 8,9,4,13,5,12,7,10,3,14,6,11,1, '', '', '', 2, '', '', '' ],
-      bracket12Seeding: [ 8,9,4,5,12,7,10,6,11,1,'',4,'',2,'',3,'' ],
-      bracket10Seeding: [ 8,9,7,10,1,'',4,5,2,'',3,6 ],
-      bracket8Seeding: [ 1,8,4,5,2,7,3,6 ],
-      bracket4Seeding: [ 1,4,2,3 ],
+      tournamentMatchups: [],
+      tournamentSeeeding: [],
+      bracketArray1: [],
+      bracketArray2: [],
+      bracketArray: [],
+      numberCheck: '',
     }
   },
   methods: {
+    onEnd: function(event) {
+        console.log(event)
+        this.oldIndex = event.oldIndex;
+        this.newIndex = event.newIndex;
+        },
+    add() {
+        if(this.rankings) {
+          this.rankings.push({name: this.rankings})
+          this.rankings = "";
+            }
+        },
     getMatchupNumber(index) {
       return index + 1;
     },
-    getParticipant() {
-      this.playerIndex += 1;
-      return true;
-    },
-    // getBracketSeed(round, match, participant) {
-    //   if(participantsArray.length === 16) {
-    //     if(match === 1) 
-    //       if(round === 1)
-    //   }
-    // }
-  },
-  created() {
-    let total = this.participantsArray.length
-    
-    if(total % 2 === 1) { total = total + 1; }
+    createRoundMatchups() {
+        let total = this.totalParticipants
+        
+        //check if odd, if yes, increase by 1
+        if(total % 2 != 0) { total += 1; }
 
-    let currentCount = 1;   //2 
-    for(let i = 0; i <= total; i++) {
-      if((currentCount * 2) < total) {
-        currentCount = currentCount * 2;
-        this.roundMatchups.unshift(currentCount/2);
-      } else {
-          if(total === 6) {
-            this.roundMatchups.unshift(1);
-            break;
-          } else {
-            this.roundMatchups.unshift(total-currentCount);
-            break;
-          }
-      }
+        let currentCount = 1;  
+
+        for(let i = 0; i <= total; i++) {
+            if((currentCount * 2) < total) {
+                currentCount = currentCount * 2;
+                this.roundMatchups.unshift(currentCount/2);
+            } else {
+                if(total === 6) {
+                    this.roundMatchups.unshift(1);
+                    break;
+                } else {
+                    this.roundMatchups.unshift(total-currentCount);
+                    break;
+                }
+            }
+        }
+    },
+    createTournamentArray() {
+        let roundMatches = this.roundMatchups;
+        let total = this.totalParticipants;
+        let participants = this.participantsArray;
+        let allMatchups = [];
+
+        let variance = total - (roundMatches[0] * 2);
+
+        for(let j = 0; j <= roundMatches.length; j++) {
+        
+            let roundMatchups = []
+            
+            for(let i = 0; i < roundMatches[j] * 2; i++) {
+                if(j==0) {
+                    roundMatchups.push(participants[0 + variance]);
+                    participants.splice(0 + variance, 1);
+                } 
+                else if(j==1) { 
+                    let buffer = (roundMatches[j] * 2) - participants.length
+                    if(i < buffer) { roundMatchups.push('') }
+                    else { 
+                        roundMatchups.push(participants[1]);
+                        roundMatchups.unshift(participants[0]);
+                        break;
+                    }
+                } else {
+                    roundMatchups.push('');
+                }
+            }
+            
+            allMatchups.push(roundMatchups);
+            if(j==0) { variance = 0; }
+        }
+
+        this.tournamentMatchups = allMatchups;
+    },
+    createBracketSeeding() {
+        let total = this.totalParticipants;
+        let halvedTotal = total / 2;
+        
+        let topBracket = [1,2,3];
+        let count = total;
+
+        for(let i = 0; i < halvedTotal; i++) {
+            count++;
+            topBracket.pop(count);
+        }
+
+        let bottomBracket = [];
+
+        for(let i = 0; i < halvedTotal; i++) {
+            count++;
+            bottomBracket.unshift(count);
+        }
+
+    
+
+        let seedBracket = [];
+        for(let i = 0; i < halvedTotal; i++) {
+            seedBracket.push(topBracket[i]);
+            seedBracket.push(bottomBracket[i]);
+        }
+
+        this.tournamentSeeding = seedBracket;
+        count = 0;
     }
   },
+  created() {
+    // const tournamentID = this.$route.params.id;
+    // tournamentService.getTournament(tournamentID).then(response => {
+    //     if(response.status === 200) {
+    //         this.tournament = response.data;
+    //     }
+    // })
+    // tournamentService.getTournamentRankings(tournamentID).then(response => {
+    //     if(response.status === 200) {
+    //         alert("Got it, boss!")
+    //         this.participantsArray = response.data;
+    //         this.totalParticipants = response.data.length;
+    //         this.createRoundMatchups();
+    //         this.createTournamentArray();
+    //         this.createBracketSeeding();
+    //     }
+    // })
+
+// //added from construction
+
+const tournamentID = this.$route.params.id;
+        tournamentService.getTournament(tournamentID).then(response => {
+            if(response.status === 200){
+                this.tournament = response.data;
+                organizerService.getOrganizerInfo(response.data.organizerId).then(response => {
+                    if(response.status === 200){
+                        this.organizer = response.data;
+                        if(this.$store.state.user.id == this.organizer.userId) {
+                            this.isCurrentUserOrganizer = true;
+                        }
+                    }
+                });
+            }
+        });
+        tournamentService.getTournamentRankings(tournamentID).then(response => {
+            if(response.status === 200) {
+                this.rankings = response.data;
+                this.createRoundMatchups();
+                this.createTournamentArray();
+                this.createBracketSeeding();
+            }
+        });
+
+
+
+
+
+
+  },
   computed: {
-    getRounds() {
-      let count = 0;
-      //let participants = this.participantsArray.length;
-      let participants = this.participants;
-      for(let i = 0; i<participants; i++) {
-        count += 1;
-        if(participants % 2 === 0) {
-          participants = participants / 2
-        } else { break; }
-        
-        if(participants === 0) { break; }
-      }
-      return count;
-    },
-    getMatchups() {
-      return this.participants / 2;
-    },
     getColumns() {
       let total = this.roundMatchups.length;
       let columnStyle = '1fr ';
@@ -132,12 +253,7 @@ export default {
   justify-content: space-around;
   margin: 10px auto;
 }
-.matchup {
-  padding: 20px 0;
-}
-.matchup, .champion {
-  margin-bottom: 20px;
-}
+
 .participant, .champion {
   display: flex;
   flex-direction: row;
@@ -146,9 +262,9 @@ export default {
   background-color: #f4f4f4;
   color: black;
 }
-.matchup > .participant:nth-child(2) {
+.round > .participant:nth-child(even) {
   border-top: none;
-  margin-top: 2px;
+  margin-bottom: 20px;
 }
 
 .seed {

@@ -24,7 +24,7 @@ public interface TournamentDAO {
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId);
 	public List<Integer> listAllTournamentsByUserId(long userId);
 	
-	public void addUserToTournament(int id, long userId);
+	public void addUserToTournament(UserRanking user, int tournamentID);
 
 	// get user ranking by tournament ID
 	public List<UserRanking> getUserRankingByTournamentId(int tournamentId);

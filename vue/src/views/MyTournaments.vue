@@ -1,7 +1,7 @@
 <template>
-    <div class="my-tournaments">
-        <h1>My Tournaments</h1>
-        <display-tournaments :tournaments="allTournaments" :organizer="organizer" :userTournaments="userTournaments" />
+    <div class="container">
+            <h1>My Tournaments</h1>
+            <display-tournaments :tournaments="allTournaments" :organizer="organizer" :userTournaments="userTournaments" />
     </div>
 </template>
 
@@ -72,12 +72,17 @@ export default {
 </script>
 
 <style scoped>
-div.my-tournaments{
+.container {
     background-image: url('../assets/light2.jpg');
     background-size: cover;
     overflow: scroll;
-    width: 1425px;
-    height: 500px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1 {
+    text-align: center;
+    margin: 50px 0 0 0;
 }
 
 </style>

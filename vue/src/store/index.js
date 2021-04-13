@@ -57,6 +57,6 @@ export default new Vuex.Store({
     },
     UPDATE_IMAGE_URL(state, imageUrl) {
       state.userImageUrl = imageUrl;
-    }
+    },
   }
 });

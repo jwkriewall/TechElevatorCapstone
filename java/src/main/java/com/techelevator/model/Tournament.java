@@ -12,7 +12,14 @@ public class Tournament {
 	private boolean isDouble;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	private boolean isEnded;
 	
+	public boolean isEnded() {
+		return isEnded;
+	}
+	public void setEnded(boolean isEnded) {
+		this.isEnded = isEnded;
+	}
 	public int getId() {
 		return id;
 	}

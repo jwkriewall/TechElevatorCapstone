@@ -25,9 +25,9 @@ export default {
   h1 {
     border-bottom: 2px solid #e74c3c;
     font-weight: 800;
-    /* display: inline-block; */
-    color: #302403;
-    text-align: center;
+    display: inline-block;
+    color: #fff;
+    text-align: left;
     margin-top: 0;
   }
   h2 {
@@ -46,7 +46,7 @@ export default {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 0;
-    height: 80vh;
+    /* height: 80vh; */
   }
   .content, .content-full-width {
     flex-basis: 50vw;
@@ -102,7 +102,7 @@ label {
     min-width: 125px;
     display: inline-block;
 }
-textarea:focus, input:focus {
+textarea:focus, input:not(input[type="checkbox"]):focus {
   outline: none;
   box-shadow: 0px 0px 0px 2px #e74c3c;
   background-color:white;
@@ -188,6 +188,7 @@ input.toggle:checked + label.toggle:after {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     height: 30px;
     margin: 20px 0 10px 0;
 }

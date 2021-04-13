@@ -12,6 +12,7 @@ import MyTournaments from '../views/MyTournaments.vue'
 import Tournaments from '../views/Tournaments.vue'
 import Rankings from '../views/Rankings.vue'
 import Bracket from '../views/Bracket.vue'
+import JoinTournament from '../views/JoinTournament.vue'
 
 Vue.use(Router)
 
@@ -109,13 +110,21 @@ const router = new Router({
       }
     },
     {
-      path: "/bracket",
+      path: "/tournaments/:id/bracket",
       name: "bracket",
       component: Bracket,
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: "/tournaments/:id/join/",
+      name: "join",
+      component: JoinTournament,
+      meta: {
+        requiresAuth: false
+      }
+    },
     
   ]
 })

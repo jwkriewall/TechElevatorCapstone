@@ -8,8 +8,23 @@ public class UserRanking {
 	private String userNickname;
 	private String firstName;
 	private String lastName;
+	private boolean notify;
+	private String userEmail;
 	
 	
+	
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public boolean isNotify() {
+		return notify;
+	}
+	public void setNotify(boolean notify) {
+		this.notify = notify;
+	}
 	public int getTournamentId() {
 		return tournamentId;
 	}
