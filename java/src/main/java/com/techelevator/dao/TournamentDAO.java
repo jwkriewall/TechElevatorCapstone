@@ -28,5 +28,7 @@ public interface TournamentDAO {
 
 	// get user ranking by tournament ID
 	public List<UserRanking> getUserRankingByTournamentId(int tournamentId);
+	
+	public List<UserRanking> getEmailOptInUsers(int tournamentId);
 
 }

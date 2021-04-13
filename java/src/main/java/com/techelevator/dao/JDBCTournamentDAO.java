@@ -134,6 +134,20 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		return tournamentRankings;
 	}
 	
+	@Override
+	public List<UserRanking> getEmailOptInUsers(int tournamentId) {
+		List<UserRanking> optInUsers = new ArrayList<UserRanking>();
+		
+		String sql = 
+				"SELECT * from tournament_user JOIN users ON users.user_id = tournament_user.user_id WHERE tournament_id = ? AND tournament_user.notify = true";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
+		
+		while(rows.next()) {
+			optInUsers.add(mapUserRanking(rows));
+		}
+		return optInUsers;
+	}
+	
 
 	
 	private UserRanking mapUserRanking(SqlRowSet rows) {
@@ -144,13 +158,16 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		userRanking.setUserSeeding(rows.getInt("user_seeding"));
 		userRanking.setUserNickname(rows.getString("user_nickname"));
 		
+		if (rows.getString("user_email") != null) {
+			userRanking.setUserEmail(rows.getString("user_email"));
+		}
 		if (rows.getString("user_first_name") != null) {
 			userRanking.setFirstName(rows.getString("user_first_name"));
 		}
 		if (rows.getString("user_last_name") != null) {
 			userRanking.setLastName(rows.getString("user_last_name"));
 		}
-		if (rows.getBoolean("notify")) {
+		if (rows.getBoolean("notify") == true || rows.getBoolean("notify") == false) {
 			userRanking.setNotify(rows.getBoolean("notify"));
 		}
 		return userRanking;

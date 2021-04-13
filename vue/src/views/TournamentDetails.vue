@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="content">
+            
             <tournament-details v-if="!modifyTournament" :tournament="tournament" :organizer="organizer" />
             <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
             
@@ -37,6 +38,9 @@ import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
 
+// search tournament_user table by tournament id - get list back, 
+// go through list of users where true
+
 export default {
     name: 'tournament-detail-page',
     components: { tournamentDetails, editTournament },
@@ -47,6 +51,7 @@ export default {
             modifyTournament: false,
             isCurrentUserOrganizer: false,
             rankings: []
+           
         }
     },
     created(){
@@ -80,11 +85,17 @@ export default {
         },
 
         endTournament() {
-            if(confirm("Are you sure you want to end the tourament?")) 
-                // mark tournament object as ended && update database
+            if(confirm("Are you sure you want to end the tournament and send emails to participants?")) 
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
+                // if person where notify == true, then send email to their email address
+                // notify
+            // if(this.JoinTournament.user.) {
+                //contactForm.
+            // }
+                
+
         },
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament

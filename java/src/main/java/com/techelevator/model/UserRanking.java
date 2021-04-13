@@ -49,9 +49,6 @@ public class UserRanking {
 	public void setUserNickname(String userNickname) {
 		this.userNickname = userNickname;
 	}
-	
-	
-	
 	public String getFirstName() {
 		return firstName;
 	}

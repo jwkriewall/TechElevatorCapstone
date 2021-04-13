@@ -74,7 +74,7 @@ INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team
 INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('meh', 2, 10, false, false, '2014-04-25', '2015-04-30', true);
 INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Java Blue? Java Best!', 1, 10, false, true, '2021-04-22', '2021-04-28', false);
 INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Space Adventure', 3, 100, true, false, '2021-04-25', '2021-04-30', false);
-INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Matt''s Tourney', 2, 4, true, false, '2019-04-25', '2019-04-30', true);
+INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Matt''s Tourney', 2, 4, true, false, '2019-04-25', '2019-04-30', false);
 INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Losers Only', 2, 13, false, true, '2021-06-25', '2021-06-30', false);
 INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES ('Dad Jokes Required', 2, 42, false, false, '2021-05-01', '2021-05-16', false);
 
@@ -91,7 +91,7 @@ CREATE TABLE tournament_user (
         );
 
 
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 2, 0, '', '', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 2, 0, 'Nickname', '', false);
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (2, 2, 0, '', '', false);
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (3, 2, 0, '', '', false);
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 3, 0, '', '', false);
