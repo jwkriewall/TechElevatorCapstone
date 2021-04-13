@@ -268,7 +268,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .drop-zone {
     width: 50%;

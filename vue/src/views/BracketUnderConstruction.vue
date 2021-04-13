@@ -4,7 +4,7 @@
     <div class="tournament" :style="{ 'grid-template-columns': getColumns}">
       <div class="participant-list">Participants List
         <draggable class="participant-list-individual" :list="rankings" group="tasks">
-              <div class="list-group-item" v-for="user in rankings" :key="user.name">
+              <div  v-for="user in rankings" :key="user.name">
                   <div class="username-participant">
                       <strong> {{user.firstName}} {{user.userNickname}} {{user.lastName}} </strong>
                   </div>
@@ -18,13 +18,12 @@
       <h2 v-for="headerIndex in roundMatchups.length" :key="headerIndex.id">Round {{headerIndex}}  </h2>
       <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
         <div v-for="matchIndex in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`">
-          
-          <div class="participant" v-for="participantIndex in 2" :key="participantIndex.id">
+         <div class="participant" v-for="participantIndex in 2" :key="participantIndex.id">
             <div class="seed">{{matchIndex}}</div>
              <draggable :list="bracket16Array" group="tasks">
-                 <div class="name" v-on:create="getParticipant" >
+                 <div class="name" v-for="user in bracket16Array" :key="user.name" >
                     <div class="username">
-                        <strong> {{bracket16Array[playerIndex].firstName}} {{bracket16Array[playerIndex].userNickname}} {{bracket16Array[playerIndex].lastName}} </strong>
+                        <strong> {{user.firstName}} {{user.userNickname}} {{user.lastName}} </strong>
                     </div>
                   </div>
             </draggable>
@@ -64,7 +63,7 @@ export default {
       participantsArray: [ 1,2,3,4,5,6,7,8,8,8,11,12,13,14,15,16 ],
       participants: '',
       roundMatchups: [0],
-      playerIndex: -1,
+      playerIndex: 0,
       currentRoundMatchups: this.getMatchups,
       bracket16Array: [" "],
       bracket14Array: [],
@@ -197,6 +196,11 @@ export default {
   color: black;
 
 }
+
+.list-group-item {
+  background-color: #2c3e50;
+}
+
 .round {
   display: flex;
   flex-direction: column;
