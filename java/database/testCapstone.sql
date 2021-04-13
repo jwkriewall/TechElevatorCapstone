@@ -51,7 +51,11 @@ SELECT user_id FROM tournament_user WHERE tournament_id = ? AND user_id = ?;
 WHERE tournament_id = ? AND user_id = ?;
 
 
-SELECT * from tournament_user WHERE tournament_id = ? AND tournament_user.notify = false;
+SELECT * from tournament_user 
+JOIN users ON users.user_id = tournament_user.user_id 
+WHERE tournament_id = ? AND tournament_user.notify = false;
+
+SELECT * from tournament_user WHERE tournament_id = ? AND tournament_user.notify = true;
 
 
 
