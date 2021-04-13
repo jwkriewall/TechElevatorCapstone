@@ -79,7 +79,10 @@ export default {
 
 <style scoped>
 div.tournaments {
-    display: flex;
     background: url('../assets/light.jpg') fixed center top no-repeat;
+    background-size: cover;
+    overflow: scroll;
+    width: 1425px;
+    height: 500px; 
 }
 </style>
