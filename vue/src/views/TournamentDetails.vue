@@ -54,10 +54,10 @@ export default {
            
         }
     },
-            mounted() {
-            let emailScript = document.createElement('script');
-            emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
-            document.head.appendChild(emailScript);
+    mounted() {
+        let emailScript = document.createElement('script');
+        emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
+        document.head.appendChild(emailScript);
         },
     created(){
         const tournamentID = this.$route.params.id;
@@ -109,7 +109,7 @@ export default {
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
-                To: 'brcktproject@gmail.com',
+                To: 'brcktproject@gmail.com, jwkriewall@gmail.com',
                 //To: this.rankings.toString,
                 From: "brcktproject@gmail.com",
                 Subject: "Your Tournament Has Ended!",

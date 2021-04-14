@@ -135,17 +135,17 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	}
 	
 	@Override
-	public List<UserRanking> getEmailOptInUsers(int tournamentId) {
-		List<UserRanking> optInUsers = new ArrayList<UserRanking>();
+	public List<String> getEmailOptInUsers(int tournamentId) {
+		List<String> optInUsersEmails = new ArrayList<String>();
 		
-		String sql = 
-				"SELECT * from tournament_user JOIN users ON users.user_id = tournament_user.user_id WHERE tournament_id = ? AND tournament_user.notify = true";
+		String sql = "SELECT user_email from tournament_user WHERE tournament_id = ? AND tournament_user.notify = true";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		
 		while(rows.next()) {
-			optInUsers.add(mapUserRanking(rows));
+			String email = rows.getString("user_email");
+			optInUsersEmails.add(email);
 		}
-		return optInUsers;
+		return optInUsersEmails;
 	}
 	
 
@@ -172,6 +172,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		}
 		return userRanking;
 	}
+
 	
 	private Tournament mapRowToTournament (SqlRowSet rows) {
 		Tournament tournament = new Tournament();
