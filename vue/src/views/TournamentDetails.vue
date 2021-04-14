@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <div class="content">
-            
             <tournament-details v-if="!modifyTournament" :tournament="tournament" :organizer="organizer" />
             <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
             
             <div class="buttons">
                 <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament" @click='modifyTournament = true' />
-                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" @click='endTournament' />
+                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" v-show="this.tournament.ended = false" @click='endTournament' />
+                <!--v-show="!this.store.state.tournament.ended" -->
             </div>  
         </div>
         <div class="image">
@@ -37,6 +37,7 @@ import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
+
 
 // search tournament_user table by tournament id - get list back, 
 // go through list of users where true
@@ -96,25 +97,21 @@ export default {
                 // get list of users who opted in to email && send the notification
                 // if person where notify == true, then send email to their email address
                 // notify
-              
                 this.sendEmail();
-            
-                
-
         },
 
         sendEmail() {
-           
-            window.Email && window.Email.send({
+            
+            tournamentService.getUserEmails(this.tournamentId)
+            .then(response => {
+                window.Email && window.Email.send({
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
-                To: 'brcktproject@gmail.com, jwkriewall@gmail.com',
-                //To: this.rankings.toString,
+                To: response.data,
                 From: "brcktproject@gmail.com",
                 Subject: "Your Tournament Has Ended!",
-                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket! XXX was the winner!"
-
+                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket!" + " was the winner!"
 
                 // Attachments: [
                 // {
@@ -123,17 +120,29 @@ export default {
                 //     // Could we put picture of bracket here????
                 // }]
 
-
                 })
+                console.log(response.data)
                 // .then(message => alert("Mail has been sent successfully")
                 // ); 
+                    }).catch(error => {
+                        console.log(error)
+                })
+                
+            
             },
-
-
-
-
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
+        },
+        // hasTournamentEnded() {
+        //     this.
+        // },
+        emailsToCommaDilineatedString() {
+           tournamentService.getUserEmails(this.tournamentId).then(response => {
+               response.data;
+           }).catch(error => {
+               console.log(error);
+           })
+           
         }
     }
 }
