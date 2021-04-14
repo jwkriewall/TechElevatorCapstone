@@ -107,9 +107,9 @@ INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (8, 4, 0, 'Capn Jack', '', false);
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (8, 3, 0, 'Trix Rabbit', '', false);
 INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (3, 3, 0, '', '', false);
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 4, 0, '', 'brcktproject@gmail.com', false);
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 3, 0, '', 'brcktproject@gmail.com', false);
-INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 5, 0, '', 'brcktproject@gmail.com', false);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 4, 0, '', 'testemail@gmail.com', true);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 3, 0, '', '123@gmail.com', true);
+INSERT INTO tournament_user (tournament_id, user_id, user_seeding, user_nickname, user_email, notify) VALUES (1, 5, 0, '', 'brcktproject@gmail.com', true);
 
 
 

@@ -48,6 +48,8 @@ export default {
     padding: 0;
     height: 80vh;
     min-height: 80vh;
+    /* height: 80vh; */
+    min-height: 100vh;
   }
   .content, .content-full-width {
     flex-basis: 50vw;

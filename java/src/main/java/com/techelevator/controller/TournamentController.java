@@ -81,10 +81,13 @@ public class TournamentController {
 		return tournamentDAO.getUserRankingByTournamentId(id);
 	}
 	
-	@RequestMapping(path="/tournaments/{id}/email/", method = RequestMethod.GET)
-	public List<UserRanking> getEmailOptInUsers (@PathVariable int id) {
+	@RequestMapping(path="/tournaments/{id}/emails/", method = RequestMethod.GET)
+	public List<String> getEmailOptInUsers (@PathVariable int id) {
 		return tournamentDAO.getEmailOptInUsers(id);
+		// security - ADMIN ONLY 
+		// check principal, make sure principal is organizer of tournament
 	}
+	
 	
 }
  

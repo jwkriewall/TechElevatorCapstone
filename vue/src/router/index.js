@@ -13,6 +13,7 @@ import Tournaments from '../views/Tournaments.vue'
 import Rankings from '../views/Rankings.vue'
 import Bracket from '../views/Bracket.vue'
 import JoinTournament from '../views/JoinTournament.vue'
+//import Email from '../views/JoinTournament.vue'
 
 Vue.use(Router)
 
@@ -125,6 +126,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    // {
+    //   path: "/tournaments/:id/emails/",
+    //   name: "email",
+    //   component: Email,
+    //   meta: {
+    //     requiresAuth:false
+    //   }
+    // }
     
   ]
 })

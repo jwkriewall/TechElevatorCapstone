@@ -21,5 +21,8 @@ export default{
     },
     getTournamentRankings(tournamentId) {
         return axios.get('/tournaments/' + tournamentId + '/rankings/');
+    },
+    getUserEmails(tournamentId){
+        return axios.get('/tournaments/' + tournamentId + '/emails/');
     }
 }
