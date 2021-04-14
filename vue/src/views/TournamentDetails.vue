@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="content">
+            
             <tournament-details v-if="!modifyTournament" :tournament="tournament" :organizer="organizer" />
             <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
             
@@ -38,6 +39,9 @@ import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
 import joinTournament from "./JoinTournament.vue";
 
+// search tournament_user table by tournament id - get list back, 
+// go through list of users where true
+
 export default {
     name: 'tournament-detail-page',
     components: { tournamentDetails, editTournament },
@@ -48,8 +52,14 @@ export default {
             modifyTournament: false,
             isCurrentUserOrganizer: false,
             rankings: []
+           
         }
     },
+            mounted() {
+            let emailScript = document.createElement('script');
+            emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
+            document.head.appendChild(emailScript);
+        },
     created(){
         const tournamentID = this.$route.params.id;
         tournamentService.getTournament(tournamentID).then(response => {
@@ -81,18 +91,56 @@ export default {
         },
 
         endTournament() {
-            if(confirm("Are you sure you want to end the tourament?")) 
+            if(confirm("Are you sure you want to end the tournament and send emails to participants?")) 
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
+<<<<<<< HEAD
 
                 // if(joinTournament.user.notify == true){
                 //     alert('Email sent');
                 // }
 
+=======
+                // if person where notify == true, then send email to their email address
+                // notify
+              
+                this.sendEmail();
+            
+>>>>>>> 871af9e65271f46ba5751b623dcc1dbcc847464d
                 
 
         },
+
+        sendEmail() {
+           
+            window.Email && window.Email.send({
+                Host: "smtp.gmail.com",
+                Username: "brcktproject@gmail.com",
+                Password: "thisisapassword1!",
+                To: 'brcktproject@gmail.com',
+                //To: this.rankings.toString,
+                From: "brcktproject@gmail.com",
+                Subject: "Your Tournament Has Ended!",
+                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket! XXX was the winner!"
+
+
+                // Attachments: [
+                // {
+                //     name: "File_Name_with_Extension",
+                //     path: "Full Path of the file"
+                //     // Could we put picture of bracket here????
+                // }]
+
+
+                })
+                // .then(message => alert("Mail has been sent successfully")
+                // ); 
+            },
+
+
+
+
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
         }

@@ -71,8 +71,10 @@ export default {
     methods: {
         joinTournament() {
             tournamentService.joinTournament(this.tournament.id, this.user).then(response => {
-                alert("You have been entered into the tournament");
-                this.$router.push(`/tournaments/${this.tournament.id}`);
+                if(response.status === 200) {
+                    alert("You have been entered into the tournament");
+                    this.$router.push(`/tournaments/${this.tournament.id}`)
+                }
             })
         },
         toggleUserNotify() {
