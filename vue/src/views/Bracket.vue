@@ -3,7 +3,8 @@
     <h1> Bracket</h1>
     <div class="tournament" :style="{ 'grid-template-columns': getColumns}">
       <div class="participant-list">Participants List
-        <draggable :list="rankings" group="tasks">
+        
+        <draggable :list="rankings" group="tasks" @end="onEnd">
           <div class="list-group-item" v-for="user in rankings" :key="user.name">
               <div class="username-participant">
                   <strong> {{user.firstName}} {{user.userNickname}} {{user.lastName}} </strong>
@@ -11,12 +12,13 @@
           </div>
         </draggable>
       </div>
+
       <h2 v-for="headerIndex in roundMatchups.length" :key="headerIndex.id">Round {{headerIndex}}  </h2>
-      <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round round-${roundIndex}`">
+      <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
         <!-- <div v-for="matchIndex in roundMatchups[roundIndex-1]" :key="matchIndex.id" v-bind:class="`matchup ${getMatchupNumber(matchIndex-1)}`"> -->
-          <draggable :list="bracketArray[roundIndex-1]" group="tasks" class="draggable" >
+          <draggable :list="bracketArray[roundIndex-1]" group="tasks" class="draggable" @end="onEnd" >
             <!-- <div class="participant" v-for="(participant, index) in tournamentMatchups[roundIndex-1]" :key="participant.id"> -->
-            <div class="participant" v-for="(participant, index) in bracketArray[roundIndex-1]" :key="participant.id">
+            <div :class="`participant participant-${index+1}`" @click="event=$event.data" v-for="(participant, index) in bracketArray[roundIndex-1]" :key="participant.id">
               <div class="seed">{{ participant ? index + 1 : '&nbsp;' }}</div>
               <div class="name">{{ participant.userNickname ? participant.userNickname : 
                   ( (participant.firstName + participant.lastName) ? participant.firstName + ' ' + participant.lastName : "" ) }}</div>
@@ -52,19 +54,24 @@ export default {
       totalParticipants: 10,
       roundMatchups: [0],
       tournamentMatchups: [],
-      tournamentSeeeding: [],
+      tournamentSeeding: [],
       bracketArray1: [],
       bracketArray2: [],
       bracketArray: [],
       numberCheck: '',
-      bracketCheck: []
+      bracketCheck: [],
+      event: '',
+      newIndex: '',
+      oldIndex: ''
     }
   },
   methods: {
-    onEnd: function(event) {
-        console.log(event)
-        this.oldIndex = event.oldIndex;
-        this.newIndex = event.newIndex;
+    onEnd: function(evt) {
+        console.log(evt)
+        this.oldIndex = evt.oldIndex;
+        this.newIndex = evt.newIndex;
+        // this.updatePosition(evt.newIndex);
+        this.numberCheck = evt.to.parentElement.classList[1] - 1;
         },
     add() {
         if(this.rankings) {
@@ -72,6 +79,24 @@ export default {
           this.rankings = "";
             }
         },
+    updatePosition(evt) {
+     let newIndex = evt.newIndex;
+     let roundIndex = evt.to.parentElement.classList[1] - 1;
+     let oldValue = (this.bracketArray[0])[newIndex];
+     let blankFound = false;
+     for(let i = 0; i < this.bracketArray[0].length; i++) {
+       if((this.bracketArray[0])[i] === ' ') {
+         oldValue = (this.bracketArray[0])[i];
+         (this.bracketArray[0]).splice(i,1);
+         blankFound = true;
+         break;
+       }
+     }
+     if(!blankFound) {
+        this.bracketArray[0].splice(newIndex,1);
+        }
+     this.rankings.push(oldValue);
+    },
     getMatchupNumber(index) {
       return index + 1;
     },
@@ -134,7 +159,7 @@ export default {
                     }
                     
                 } else {
-                    roundMatchups.push('');
+                    roundMatchups.push(' ');
                 }
             }
             
@@ -186,7 +211,7 @@ export default {
 
         if(j === 0) { this.bracketArray1 = thisBracket; }
         if(j === 1) { this.bracketArray2 = thisBracket; }
-        this.bracketArray[j] = thisBracket;
+        this.bracketArray[j] = Array.from(thisBracket);
       } 
     }
   },
