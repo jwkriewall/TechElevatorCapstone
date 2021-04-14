@@ -36,6 +36,7 @@ import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
+import joinTournament from "./JoinTournament.vue";
 
 export default {
     name: 'tournament-detail-page',
@@ -84,6 +85,10 @@ export default {
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
+
+                // if(joinTournament.user.notify == true){
+                //     alert('Email sent');
+                // }
 
                 
 
