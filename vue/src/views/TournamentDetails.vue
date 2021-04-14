@@ -1,14 +1,13 @@
 <template>
     <div class="container">
         <div class="content">
-            
             <tournament-details v-if="!modifyTournament" :tournament="tournament" :organizer="organizer" />
             <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
             
             <div class="buttons">
                 <input type="button" value="View Bracket" @click="$router.push(`/tournaments/${tournament.id}/bracket`)" />
-                <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament" @click='modifyTournament = true' />
-                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" @click='endTournament' />
+                <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament && !tournament.ended" @click='modifyTournament = true' />
+                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" v-show='!tournament.ended' @click='endTournament' />
             </div>  
         </div>
         <div class="image">
@@ -38,6 +37,25 @@ import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
+// import joinTournament from "./JoinTournament.vue";
+
+
+let changeEmailToStringArray = function(emailArray) {
+        let emailList = '';
+        console.log(emailArray);
+            emailArray.forEach(email => {    
+                if (email != '' && (email == emailArray.slice(-1))){
+                    emailList += email;
+                }
+                else if (email != ''){
+                    emailList += email + ', ';
+                }   
+                else {
+                    emailList += ' ';
+                }
+            });
+        return emailList;
+    }
 
 // search tournament_user table by tournament id - get list back, 
 // go through list of users where true
@@ -55,10 +73,10 @@ export default {
            
         }
     },
-            mounted() {
-            let emailScript = document.createElement('script');
-            emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
-            document.head.appendChild(emailScript);
+    mounted() {
+        let emailScript = document.createElement('script');
+        emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
+        document.head.appendChild(emailScript);
         },
     created(){
         const tournamentID = this.$route.params.id;
@@ -95,27 +113,31 @@ export default {
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
+
+                // if(joinTournament.user.notify == true){
+                //     alert('Email sent');
+                // }
+
                 // if person where notify == true, then send email to their email address
                 // notify
-              
                 this.sendEmail();
-            
-                
-
         },
 
         sendEmail() {
-           
+            
+            tournamentService.getUserEmails(this.$route.params.id)
+            .then(response => {
+                
             window.Email && window.Email.send({
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
-                To: 'brcktproject@gmail.com',
-                //To: this.rankings.toString,
+                To: changeEmailToStringArray(response.data),
+                //To: 'brcktproject@gmail.com', 
+                // hardcoded value example above. changeEmailToStringArray function is at top of script-->
                 From: "brcktproject@gmail.com",
                 Subject: "Your Tournament Has Ended!",
-                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket! XXX was the winner!"
-
+                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket!"
 
                 // Attachments: [
                 // {
@@ -124,19 +146,23 @@ export default {
                 //     // Could we put picture of bracket here????
                 // }]
 
-
                 })
+                
+                console.log(response.data)
                 // .then(message => alert("Mail has been sent successfully")
                 // ); 
-            },
-
-
-
-
+                }).catch(error => {
+                    console.log(error)
+            })
+                
+            
+        },
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
-        }
+        },
+    
     }
+
 }
 </script>
 

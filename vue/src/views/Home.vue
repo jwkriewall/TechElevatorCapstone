@@ -2,10 +2,9 @@
   <div class="container">
     <div class="content">
       <h1>Get Started</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+      <p>Whether for a national video game championship or your local softball league, 
+        BRCKT.com provides you with the ultimate website for customizable tournament displays.
+        What are you waiting for? Start your tournament today!
       </p>
       <div class="home-buttons">
         <input type="button" value="Create" @click="$router.push('/create')" />
@@ -28,7 +27,9 @@ export default {
 .content {
   background-color: #2c3e50;
   color:white;
+  height: 80vh;
 }
+
 .home-buttons {
   flex-direction: row;
 }

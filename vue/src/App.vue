@@ -46,6 +46,8 @@ export default {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 0;
+    height: 80vh;
+    min-height: 80vh;
     /* height: 80vh; */
     min-height: 100vh;
   }
