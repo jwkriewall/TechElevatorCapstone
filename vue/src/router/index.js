@@ -123,7 +123,7 @@ const router = new Router({
       name: "join",
       component: JoinTournament,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     // {

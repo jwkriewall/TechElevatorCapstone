@@ -102,6 +102,8 @@ export default {
 <style scoped>
 .content-full-width {
   background: url('../assets/createAccount.jpg') fixed center top;
+  height: 80vh;
+  max-height: 80vh;
 }
 
 form.form-register {

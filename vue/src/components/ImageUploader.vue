@@ -99,8 +99,8 @@ export default {
  input.upload {
    margin: 0;
    border-radius: 0;
-   min-width: 50px;
-   width:133px;
+   min-width: 60px;
+   width:134px;
    font-size:0.7rem;
    text-transform: uppercase;
    height: 20px;

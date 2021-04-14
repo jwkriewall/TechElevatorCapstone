@@ -26,7 +26,7 @@
       </div>
       <div class="buttons">
         <input type="button" value="Back to Details" @click="$router.push(`/tournaments/${tournament.id}`)" />
-        <input type="button" :value="[autoSeeded ? 'Cancel Auto Seed' : 'Auto Seed']" @click="toggleAutoSeed" />
+        <input type="button" v-if="isCurrentOrganizer" :value="[autoSeeded ? 'Cancel Auto Seed' : 'Auto Seed']" @click="toggleAutoSeed" />
         <input type="button" v-if="isCurrentOrganizer" value="Save Bracket" @click="saveTournament" /> 
       </div>
       

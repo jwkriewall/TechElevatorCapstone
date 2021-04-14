@@ -77,6 +77,8 @@ export default {
 <style scoped>
 .content-full-width {
   background: url('../assets/blue-dice.jpg') fixed left top;
+  height: 80vh;
+  max-height: 80vh;
 }
 
 form.form-signin {

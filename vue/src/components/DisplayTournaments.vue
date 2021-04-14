@@ -15,7 +15,7 @@
                 <td><input type="text" placeholder="search" v-model="search.name" /></td>
                 <td><input type="date" placeholder="search" v-model="search.startDate" /></td>
                 <td><input type="date" placeholder="search" v-model="search.endDate" /></td>
-                <td><input type="number" placeholder="search" v-model="search.maxParticipants" /></td>
+                <td><input type="number" placeholder="search" min="0" v-model="search.maxParticipants" /></td>
                 <td>
                     <select v-model="search.isDouble">
                         <option selected value="All">All</option>
@@ -51,12 +51,13 @@
                 <td>{{ tournament.team ? 'Team' : 'Individual'}}</td>
                 <td v-if="myTournaments">{{ tournament.organizerId == organizer.organizerId ? 'Organizer' : 'Participant' }}</td>
                 <td class="buttonCell">
-                    <input type="button" value="Details" @click="goToDetails(tournament.id)" />
+                    
                     <input type="button" value="Join" 
                     v-if="!myTournaments && 
                     !$store.state.userTournaments.includes(tournament.id) && 
                     tournament.endDate > findTodaysDate"
                     @click="$router.push(`/tournaments/${tournament.id}/join`)" />
+                    <input type="button" value="Details" @click="goToDetails(tournament.id)" />
                 </td>
             </tr>
         </table>
@@ -70,10 +71,11 @@
 
 <script>
 import tournamentService from '../services/TournamentService';
-
+// import moment from 'moment'
 
 export default {
     name: 'display-tournaments',
+    // components: { moment },
     props: ['organizer', 'tournaments', 'userTournaments'],
     data() {
         return {
@@ -207,7 +209,9 @@ export default {
 </script>
 
 <style scoped>
-
+.content-full-width {
+    min-height: 80vh;
+}
 table {
     margin: 0 auto;
     text-align: center;
@@ -229,13 +233,15 @@ tr.endedTournament td {
     border-bottom: 1px solid white;
     background-color: #707070;
     color: white;
-
+}
+tr.endedTournament:last-child td {
+    border: none;
 }
 tr td.buttonCell {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 input:not(input[type="button"]) {
     border-radius: 0;
