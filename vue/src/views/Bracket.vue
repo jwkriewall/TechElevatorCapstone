@@ -82,18 +82,20 @@ export default {
     updatePosition(evt) {
      let newIndex = evt.newIndex;
      let roundIndex = evt.to.parentElement.classList[1] - 1;
-     let oldValue = (this.bracketArray[0])[newIndex];
+
+     let oldValue = (this.bracketArray[roundIndex])[newIndex];
      let blankFound = false;
-     for(let i = 0; i < this.bracketArray[0].length; i++) {
-       if((this.bracketArray[0])[i] === ' ') {
-         oldValue = (this.bracketArray[0])[i];
-         (this.bracketArray[0]).splice(i,1);
+
+     for(let i = 0; i < this.bracketArray[roundIndex].length; i++) {
+       if((this.bracketArray[roundIndex])[i] === ' ') {
+         oldValue = (this.bracketArray[roundIndex])[i];
+         (this.bracketArray[roundIndex]).splice(i,1);
          blankFound = true;
          break;
        }
      }
      if(!blankFound) {
-        this.bracketArray[0].splice(newIndex,1);
+        this.bracketArray[roundIndex].splice(newIndex,1);
         }
      this.rankings.push(oldValue);
     },

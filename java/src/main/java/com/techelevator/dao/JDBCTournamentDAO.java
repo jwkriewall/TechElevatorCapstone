@@ -123,7 +123,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	public List<UserRanking> getUserRankingByTournamentId(int tournamentId) {
 		List<UserRanking> tournamentRankings = new ArrayList<UserRanking>();
 		
-		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name, notify FROM tournament_user " + 
+		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name, tournament_user.user_email, notify FROM tournament_user " + 
 				"JOIN users ON users.user_id = tournament_user.user_id " + 
 				"WHERE tournament_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
