@@ -37,7 +37,7 @@ import organizerService from "../services/OrganizerService.js";
 import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
-import joinTournament from "./JoinTournament.vue";
+// import joinTournament from "./JoinTournament.vue";
 
 // search tournament_user table by tournament id - get list back, 
 // go through list of users where true
@@ -95,21 +95,15 @@ export default {
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
                 // get list of users who opted in to email && send the notification
-<<<<<<< HEAD
 
                 // if(joinTournament.user.notify == true){
                 //     alert('Email sent');
                 // }
 
-=======
                 // if person where notify == true, then send email to their email address
                 // notify
               
                 this.sendEmail();
-            
->>>>>>> 871af9e65271f46ba5751b623dcc1dbcc847464d
-                
-
         },
 
         sendEmail() {

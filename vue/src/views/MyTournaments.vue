@@ -73,9 +73,8 @@ export default {
 
 <style scoped>
 .container {
-    background-image: url('../assets/light2.jpg');
+    background-image: url('../assets/light.jpg');
     background-size: cover;
-    overflow: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,6 +82,7 @@ export default {
 h1 {
     text-align: center;
     margin: 50px 0 0 0;
+    color: black;
 }
 
 </style>

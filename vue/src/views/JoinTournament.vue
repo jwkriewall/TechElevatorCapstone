@@ -32,6 +32,7 @@
             </div>
             <br />
         </div>
+            <img src="@/assets/track-and-field.jpg" alt="People in front of computer screens playing video games">
   </div>
 </template>
 
@@ -96,6 +97,17 @@ input[type="checkbox"] {
     color: white;
     -webkit-text-fill-color:none;
     -webkit-box-shadow: none;
+}
+
+.container {
+    height: 115vh;
+}
+
+.container img{
+    /* overflow-y: hidden; */
+    flex-basis: 50vw;
+    width: 50vw;
+    height: 100%;
 }
 .opt-in, .buttons {
     display: flex;

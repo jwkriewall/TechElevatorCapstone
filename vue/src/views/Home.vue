@@ -28,7 +28,9 @@ export default {
 .content {
   background-color: #2c3e50;
   color:white;
+  height: 80vh;
 }
+
 .home-buttons {
   flex-direction: row;
 }
