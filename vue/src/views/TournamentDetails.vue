@@ -6,8 +6,9 @@
             
             <div class="buttons">
                 <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament" @click='modifyTournament = true' />
-                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" v-show="this.tournament.ended = false" @click='endTournament' />
-                <!--v-show="!this.store.state.tournament.ended" -->
+                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" @click='endTournament' />
+               <!--v-show='!tournament.ended'-->
+
             </div>  
         </div>
         <div class="image">
@@ -102,13 +103,15 @@ export default {
 
         sendEmail() {
             
-            tournamentService.getUserEmails(this.tournamentId)
-            .then(response => {
-                window.Email && window.Email.send({
+            //tournamentService.getUserEmails(this.tournamentId)
+            //.then(response => {
+                
+            window.Email && window.Email.send({
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
-                To: response.data,
+                //To: this.emailsToCommaDilineatedString,
+                To: 'brcktproject@gmail.com',
                 From: "brcktproject@gmail.com",
                 Subject: "Your Tournament Has Ended!",
                 Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket!" + " was the winner!"
@@ -120,30 +123,43 @@ export default {
                 //     // Could we put picture of bracket here????
                 // }]
 
-                })
-                console.log(response.data)
+                
+                //console.log(response.data)
                 // .then(message => alert("Mail has been sent successfully")
                 // ); 
-                    }).catch(error => {
-                        console.log(error)
-                })
+                }).catch(error => {
+                    console.log(error)
+            })
                 
             
-            },
+        },
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
         },
-        // hasTournamentEnded() {
-        //     this.
-        // },
-        emailsToCommaDilineatedString() {
-           tournamentService.getUserEmails(this.tournamentId).then(response => {
-               response.data;
-           }).catch(error => {
-               console.log(error);
-           })
-           
+    
+        computed: {
+            emailsToCommaDilineatedString() {
+                tournamentService.getUserEmails(this.tournamentId)
+                .then(response => {
+                    
+                    let emailList = '';
+                    response.data.foreach(email => {
+                        emailList += email + ', ';
+                    });
+                return emailList;
+
+
+
+
+                }).catch(error => {
+                    console.log(error);
+                })
+                
+            }
+
+
         }
+    
     }
 }
 </script>
