@@ -24,10 +24,13 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  height: 80vh;
+  min-height: 80vh;
+}
 .content {
   background-color: #2c3e50;
   color:white;
-  height: 80vh;
 }
 
 .home-buttons {
@@ -36,4 +39,21 @@ export default {
 .home-buttons input[type="button"]:first-child {
   margin-right: 80px;
 }
+input[type="button"] {
+  height: 60px;
+  font-size: 1.3rem;
+}
+input[type="button"]:nth-child(2) {
+  background-color: #f4f4f4;
+  -webkit-box-shadow: 0 0 0px 1000px #f4f4f4 inset;
+  color:#e74c3c;
+  -webkit-text-fill-color: #e74c3c;
+}
+input[type="button"]:nth-child(2):hover {
+  background-color: #cecece;
+  -webkit-box-shadow: 0 0 0px 1000px #cecece inset;
+  color:#e74c3c;
+  -webkit-text-fill-color: #e74c3c;
+}
+
 </style>

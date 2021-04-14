@@ -220,7 +220,7 @@ td {
     min-height:30px;
 }
 tr:nth-child(odd) td {
-    background-color: #D9D6D5;
+    background-color: #f4f4f4;
 }
 tr:first-child {
     background: none;
