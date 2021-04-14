@@ -96,24 +96,24 @@ export default {
                 // get list of users who opted in to email && send the notification
                 // if person where notify == true, then send email to their email address
                 // notify
+              
                 this.sendEmail();
             
                 
 
         },
 
-// newcode
         sendEmail() {
            
             window.Email && window.Email.send({
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
-                //To: 'brcktproject@gmail.com',
-                To: this.rankings.toString,
+                To: 'brcktproject@gmail.com',
+                //To: this.rankings.toString,
                 From: "brcktproject@gmail.com",
-                Subject: "Sending Email using javascript",
-                Body: "Well that was easy!!"
+                Subject: "Your Tournament Has Ended!",
+                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket! XXX was the winner!"
 
 
                 // Attachments: [
