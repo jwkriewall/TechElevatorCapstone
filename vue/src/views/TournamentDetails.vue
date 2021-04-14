@@ -54,6 +54,11 @@ export default {
            
         }
     },
+            mounted() {
+            let emailScript = document.createElement('script');
+            emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
+            document.head.appendChild(emailScript);
+        },
     created(){
         const tournamentID = this.$route.params.id;
         tournamentService.getTournament(tournamentID).then(response => {
@@ -91,12 +96,42 @@ export default {
                 // get list of users who opted in to email && send the notification
                 // if person where notify == true, then send email to their email address
                 // notify
-            // if(this.JoinTournament.user.) {
-                //contactForm.
-            // }
+                this.sendEmail();
+            
                 
 
         },
+
+// newcode
+        sendEmail() {
+           
+            window.Email && window.Email.send({
+                Host: "smtp.gmail.com",
+                Username: "brcktproject@gmail.com",
+                Password: "thisisapassword1!",
+                //To: 'brcktproject@gmail.com',
+                To: this.rankings.toString,
+                From: "brcktproject@gmail.com",
+                Subject: "Sending Email using javascript",
+                Body: "Well that was easy!!"
+
+
+                // Attachments: [
+                // {
+                //     name: "File_Name_with_Extension",
+                //     path: "Full Path of the file"
+                //     // Could we put picture of bracket here????
+                // }]
+
+
+                })
+                // .then(message => alert("Mail has been sent successfully")
+                // ); 
+            },
+
+
+
+
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
         }
