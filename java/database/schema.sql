@@ -62,7 +62,8 @@ CREATE TABLE tournament (
         is_double boolean,
         start_date date,
         end_date date,
-        ended boolean,  
+        ended boolean,
+        rank_array JSON,
         constraint fk_organizer_id_tournament foreign key (organizer_id) references organizer (organizer_id)
 
 );

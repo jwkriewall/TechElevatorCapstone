@@ -13,7 +13,14 @@ public class Tournament {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private boolean isEnded;
+	private Object rankArray;
 	
+	public Object getRankArray() {
+		return rankArray;
+	}
+	public void setRankArray(Object rankArray) {
+		this.rankArray = rankArray;
+	}
 	public boolean isEnded() {
 		return isEnded;
 	}

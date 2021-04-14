@@ -5,10 +5,9 @@
             <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
             
             <div class="buttons">
+                <input type="button" value="View Bracket" @click="$router.push(`/tournaments/${tournament.id}/bracket`)" />
                 <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament && !tournament.ended" @click='modifyTournament = true' />
                 <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" v-show='!tournament.ended' @click='endTournament' />
-               <!--v-show='!tournament.ended'-->
-
             </div>  
         </div>
         <div class="image">
