@@ -100,7 +100,7 @@ input[type="checkbox"] {
 }
 
 .container {
-    height: 115vh;
+    height: 125vh;
 }
 
 .container img{
