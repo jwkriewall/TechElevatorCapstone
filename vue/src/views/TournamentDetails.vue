@@ -5,8 +5,8 @@
             <edit-tournament v-if="modifyTournament" :tournament="tournament" :organizer="organizer" />
             
             <div class="buttons">
-                <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament" @click='modifyTournament = true' />
-                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" @click='endTournament' />
+                <input type="button" value="Modify" v-if="isCurrentUserOrganizer" v-show="!modifyTournament && !tournament.ended" @click='modifyTournament = true' />
+                <input type="button" value="End Tournament" v-if="isCurrentUserOrganizer && !modifyTournament" v-show='!tournament.ended' @click='endTournament' />
                <!--v-show='!tournament.ended'-->
 
             </div>  
@@ -39,6 +39,23 @@ import tournamentService from "../services/TournamentService.js";
 import tournamentDetails from "../components/TournamentDetails.vue";
 import editTournament from "../components/EditTournament.vue";
 
+
+let changeEmailToStringArray = function(emailArray) {
+        let emailList = '';
+        console.log(emailArray);
+            emailArray.forEach(email => {    
+                if (email != '' && (email == emailArray.slice(-1))){
+                    emailList += email;
+                }
+                else if (email != ''){
+                    emailList += email + ', ';
+                }   
+                else {
+                    emailList += ' ';
+                }
+            });
+        return emailList;
+    }
 
 // search tournament_user table by tournament id - get list back, 
 // go through list of users where true
@@ -103,18 +120,19 @@ export default {
 
         sendEmail() {
             
-            //tournamentService.getUserEmails(this.tournamentId)
-            //.then(response => {
+            tournamentService.getUserEmails(this.$route.params.id)
+            .then(response => {
                 
             window.Email && window.Email.send({
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
-                //To: this.emailsToCommaDilineatedString,
-                To: 'brcktproject@gmail.com',
+                To: changeEmailToStringArray(response.data),
+                //To: 'brcktproject@gmail.com', 
+                // hardcoded value example above. changeEmailToStringArray function is at top of script-->
                 From: "brcktproject@gmail.com",
                 Subject: "Your Tournament Has Ended!",
-                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket!" + " was the winner!"
+                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket!"
 
                 // Attachments: [
                 // {
@@ -123,8 +141,9 @@ export default {
                 //     // Could we put picture of bracket here????
                 // }]
 
+                })
                 
-                //console.log(response.data)
+                console.log(response.data)
                 // .then(message => alert("Mail has been sent successfully")
                 // ); 
                 }).catch(error => {
@@ -137,30 +156,8 @@ export default {
             this.modifyTournament = !this.modifyTournament
         },
     
-        computed: {
-            emailsToCommaDilineatedString() {
-                tournamentService.getUserEmails(this.tournamentId)
-                .then(response => {
-                    
-                    let emailList = '';
-                    response.data.foreach(email => {
-                        emailList += email + ', ';
-                    });
-                return emailList;
-
-
-
-
-                }).catch(error => {
-                    console.log(error);
-                })
-                
-            }
-
-
-        }
-    
     }
+
 }
 </script>
 
