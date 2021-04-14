@@ -47,7 +47,7 @@ export default {
     justify-content: flex-start;
     padding: 0;
     /* height: 80vh; */
-    min-height: 80vh;
+    min-height: 100vh;
   }
   .content, .content-full-width {
     flex-basis: 50vw;
