@@ -33,17 +33,16 @@
             
             <edit-organizer v-if="editTournamentOrganizer" :organizer="$store.state.organizer" />
             
-<<<<<<< HEAD
+
                 <input type="button" v-if="!editTournamentOrganizer" value="Next" @click="toggleEditOrganizer" />
                 <input type="button" v-if="editTournamentOrganizer" value="Back" @click="toggleEditOrganizer" />
                 <input type="button" v-if="editTournamentOrganizer" value="Generate" v-bind:disabled="!isFormValid" @click="createTournament" />
                 <input type="button" v-if="editTournamentOrganizer" value="Generate Tournament" @click="createTournament" v-bind:disabled="!isFormValid" />
-=======
+
             <input type="button" v-if="!editTournamentOrganizer" value="Next" @click="toggleEditOrganizer" />
             <input type="button" v-if="editTournamentOrganizer" value="Back" @click="toggleEditOrganizer" />
             <input type="button" v-if="editTournamentOrganizer" value="Generate Tournament" @click="createTournament" v-bind:disabled="!isFormValid" />
 
->>>>>>> e9e01ad96ee255675ad2dc5c48fbbaaa98527e7e
         </div>
         
         <div class="image">
