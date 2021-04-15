@@ -197,13 +197,23 @@ input.update:hover{
     background-color: #d85b4d;
     -webkit-box-shadow: 0 0 0 1000px #d85b4d inset;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> e9e01ad96ee255675ad2dc5c48fbbaaa98527e7e
 
 input[type="button"] {
   height: 60px;
   font-size: 1.1rem;
 }
 
+<<<<<<< HEAD
+th {
+    text-align: left;
+    text-decoration: underline;
+}
+=======
+>>>>>>> e9e01ad96ee255675ad2dc5c48fbbaaa98527e7e
 .user-card{
     background: rgba(255,255,255,0.6);
     color: black;
@@ -215,6 +225,12 @@ input[type="button"] {
     padding: 10px 20px 10px 0;
     justify-content: flex-start;
 }
+<<<<<<< HEAD
+/* .user-card > div:not(div:last-child) {
+
+} */
+=======
+>>>>>>> e9e01ad96ee255675ad2dc5c48fbbaaa98527e7e
 .user-image {
     width: 20%;
     margin:0; padding: 0;
