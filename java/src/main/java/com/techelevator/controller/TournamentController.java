@@ -1,7 +1,6 @@
 package com.techelevator.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.dao.TournamentDAO;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.model.Tournament;
-import com.techelevator.model.User;
 import com.techelevator.model.UserRanking;
 
 @RestController

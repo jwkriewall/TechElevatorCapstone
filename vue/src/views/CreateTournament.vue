@@ -30,10 +30,16 @@
                         <p>Double Elimination</p> 
                 </div>
             </form>
+            
             <edit-organizer v-if="editTournamentOrganizer" :organizer="$store.state.organizer" />
+            
                 <input type="button" v-if="!editTournamentOrganizer" value="Next" @click="toggleEditOrganizer" />
                 <input type="button" v-if="editTournamentOrganizer" value="Back" @click="toggleEditOrganizer" />
+<<<<<<< HEAD
                 <input type="button" v-if="editTournamentOrganizer" value="Generate" v-bind:disabled="!isFormValid" @click="createTournament" />
+=======
+                <input type="button" v-if="editTournamentOrganizer" value="Generate Tournament" @click="createTournament" v-bind:disabled="!isFormValid" />
+>>>>>>> fe9d3957d59f4d9a75070670fe94e87eccc91b43
         </div>
         
         <div class="image">
