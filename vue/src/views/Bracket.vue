@@ -355,6 +355,7 @@ export default {
         }
 
         this.bracketArray[j] = Array.from(thisBracket);
+        console.log(thisBracket)
       } 
       this.bracketSeeding = Array.from(this.bracketArray);
     },
@@ -403,18 +404,14 @@ export default {
               tournamentService.getTournamentRankings(tournamentID).then(response => {
                 if(response.status === 200) {
                     this.fillRankings(response.data);
-                      console.log(this.rankings);
                     this.createRoundMatchups();
-                    console.log(this.rankings);
                     this.fillDraggableArrays();
 
-                    console.log(this.rankings);
-                    this.updateUserRankings();
+                    //this.updateUserRankings();
 
-                    console.log(this.rankings);
-                    this.autoSeedBrackets();this.createTournamentSeeding();
-
-                    console.log(this.rankings);
+                    this.autoSeedBrackets();
+                    
+                    this.createTournamentSeeding();
                     
                 }
               });

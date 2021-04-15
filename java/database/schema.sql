@@ -53,6 +53,8 @@ INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, u
 'https://firebasestorage.googleapis.com/v0/b/brckt-125af.appspot.com/o/mila.jpeg?alt=media&token=80cc2edd-7464-4e72-a0f7-044cc29d7cc2');
 INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role, user_image_url) VALUES ('William', 'Prince', 'Columbus Prince', 'brcktproject@gmail.com', 4444444444, 'williamprince', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN', 
 'https://firebasestorage.googleapis.com/v0/b/brckt-125af.appspot.com/o/willSmith.jpeg?alt=media&token=c1e5d39d-d0ca-46b8-b176-68a89fba2eb3');
+INSERT INTO users (user_first_name, user_last_name, user_nickname, user_email, user_phone, username, password_hash, role) VALUES ('Kaushal', 'Patel', '', 'brcktproject@gmail.com', 4444444444, 'kaushalpatel', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN');
+
 
 CREATE TABLE organizer (
         organizer_id serial primary key NOT NULL,
@@ -65,10 +67,11 @@ CREATE TABLE organizer (
         constraint fk_user_id_organizer foreign key (user_id) references users (user_id)
 );
 
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (2, 'Admin2', 'Admin2', 5555555555, 'admin@gmail.com');
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (3, 'Admin3', 'Admin3', 5555555555, 'nick@gmail.com');
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (4, 'Admin4', 'Admin4', 4444444444, 'ben@gmail.com');
-INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (5, 'Admin5', 'Admin5', 3333333333, 'jw@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (2, 'Tech', 'Elevator', 5555555555, 'brcktproject@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (3, 'Nick', 'Stewart', 5555555555, 'nick@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (4, 'Ben', 'Baker', 4444444444, 'ben@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (5, 'John', 'Kriewell', 3333333333, 'jw@gmail.com');
+INSERT INTO organizer (user_id, organizer_first_name, organizer_last_name, organizer_phone, organizer_email) VALUES (14, 'Kaushal', 'Patel', 3333333333, 'kaushal@gmail.com');
 
 CREATE TABLE tournament (
         id serial primary key NOT NULL,
