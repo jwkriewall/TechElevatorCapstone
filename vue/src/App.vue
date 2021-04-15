@@ -174,8 +174,9 @@ label.toggle:active:after {
 }
 input.toggle[type=checkbox]{
     height: 0;
-    width: 0;
+    width: 10px;
     visibility: hidden;
+    min-width: 0px;
 }
 input.toggle {
     min-width: 0px;
@@ -195,4 +196,5 @@ input.toggle:checked + label.toggle:after {
     height: 30px;
     margin: 20px 0 10px 0;
 }
+
 </style>

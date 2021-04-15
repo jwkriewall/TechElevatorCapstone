@@ -53,12 +53,9 @@ export default {
     },
   data() {
     return {
-      tournament: {},
-      // participantsArray: [1,2,3,4,5,6,7,8,9,10],
-      rankings: [],
-      // maxParticipants: '',
-      // totalParticipants: 10,
-      roundMatchups: [0],
+      tournament: {},   // current tournament
+      rankings: [],     // rankings from server
+      roundMatchups: [0],   // outline of how many matchups each round - need as reference for other functions
       tournamentMatchups: [],
       tournamentSeeding: [],  //keep for future 
       bracketSeeding: [],
@@ -69,6 +66,7 @@ export default {
       organizer: {},
       isCurrentOrganizer: false,
       autoSeeded: false,
+      updatedRanking: [],
     }
   },
   methods: {
@@ -192,13 +190,9 @@ export default {
           if(total % 2 != 0) { total = total +1 }
 
         let participants = Array.from(this.rankings);
-        
         let allMatchups = [];
-
         let variance = total - (roundMatches[0] * 2);  // determines how many many we skip for round 1 / how many filled spots in round two?
-        
-        let roundParticipants = roundMatches[1] * 2;  // how many slots in round two?
-
+        let roundParticipants = roundMatches[1] * 2;  // how many slots in round two
         let fillSlot = []; // where do those empty spaces go?
 
         for(let i = 0; i < variance; i++) {
@@ -211,21 +205,18 @@ export default {
             a > b ? 1 : -1
         );
 
-        fillSlot = Array.from(sortedPositions);
-
+        fillSlot = Array.from(sortedPositions);   // an array of where we fill in participants in round 2
 
         for(let j = 0; j < roundMatches.length; j++) {     // how many round we have - iterate through
           let roundMatchups = [];
-            
-                    
-                      
 
-                     
-            
             for(let i = 0; i < roundMatches[j] * 2; i++) {    // multiple by 2 because there are two participants per match
 
 
                 if(j===0) {  // if round one
+                  // for(let ii = 0; ii < roundMatches[j].length; ii++) {
+                  //   if([participants[ii].userSeeding == 
+                  // }
                     roundMatchups.push(participants[0 + variance]);
                     participants.splice(0 + variance, 1);
                 }
@@ -338,7 +329,7 @@ export default {
         let seedBracket = [];
         seedBracket[0] = round1Final;
         seedBracket[1] = round2Final;
-        console.log(this.roundMatchups.length)
+
         for(let i=2; i < this.roundMatchups.length; i++) {
           let thisSeedRound = [];
           for(let j = 0; j < this.roundMatchups[i] * 2; j++) {
@@ -347,9 +338,6 @@ export default {
           if(i == this.roundMatchups.length-1) { thisSeedRound.push('-'); }
           seedBracket[i] = thisSeedRound;
         }
-
-
-
 
         this.tournamentSeeding = seedBracket;
     },
@@ -367,8 +355,36 @@ export default {
         }
 
         this.bracketArray[j] = Array.from(thisBracket);
+        console.log(thisBracket)
       } 
       this.bracketSeeding = Array.from(this.bracketArray);
+    },
+    updateUserRankings() {
+      let updatedRankings = [];
+      for(let currentSeed = 1; currentSeed <= this.rankings.length; currentSeed++) {
+
+          for(let j = 0; j < this.rankings.length; j++) {
+              let currentParticipant = this.rankings[j];
+              
+              if(currentParticipant.userSeeding == currentSeed) {
+                updatedRankings.push(currentParticipant);
+                break;
+              }
+          }
+
+      }
+
+      if(updatedRankings.length == 0) {
+        for(let currentSeed = 1; currentSeed <= this.rankings.length; currentSeed++) {
+          let currentParticipant = this.rankings[currentSeed-1];
+          currentParticipant.userSeeding = currentSeed;
+          updatedRankings.push(currentParticipant);
+      }
+
+      }
+      this.rankings = updatedRankings;
+
+
     }
   },
   created() {
@@ -390,7 +406,11 @@ export default {
                     this.fillRankings(response.data);
                     this.createRoundMatchups();
                     this.fillDraggableArrays();
+
+                    //this.updateUserRankings();
+
                     this.autoSeedBrackets();
+                    
                     this.createTournamentSeeding();
                     
                 }
@@ -474,6 +494,12 @@ export default {
 .participant-list .seed {
   background-color: hsl(207, 33%, 63%);
 }
+
+input[type="button"] {
+  height: 50px;
+  font-size: 1.0rem;
+}
+
 .name {
   font-size: 0.8rem;
   padding-left:5px;

@@ -126,4 +126,8 @@ input#confirmPassword {
   text-decoration: none;
 }
 
+button {
+  height: 50px;
+  font-size: 1.1rem;
+}
 </style>

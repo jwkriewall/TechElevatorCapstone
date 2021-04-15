@@ -55,6 +55,7 @@ export default {
         
         tournamentService.getUserTournaments().then(response => {
             if(response.status === 200) {
+                
                 this.userTournaments = response.data;
             }
         })
@@ -73,7 +74,7 @@ export default {
 
 <style scoped>
 .container {
-    background-image: url('../assets/light.jpg');
+    background-image: url('../assets/swimming2.png');
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -82,7 +83,7 @@ export default {
 h1 {
     text-align: center;
     margin: 50px 0 0 0;
-    color: black;
+    color: white;
 }
 
 </style>

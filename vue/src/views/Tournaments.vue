@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 div.tournaments {
-    background: url('../assets/light3.jpg') no-repeat;
+    background: url('../assets/baseball.jpg') no-repeat;
     background-size: cover;
     width: 100%;
     height: 100%; 
