@@ -212,15 +212,17 @@ input[type="button"] {
     height: 5vh;
     align-items: center;
     border-bottom: 1px solid black;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 0;
     justify-content: flex-start;
 }
 .user-image {
     width: 20%;
     margin:0; padding: 0;
+    height: 50px;
+    overflow-y: hidden;
+    text-align: center;
 }
 .user-image img {
-    max-height:50px;
     margin: 5px 0 0 0;
     padding: 0;
 }
