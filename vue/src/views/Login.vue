@@ -97,6 +97,10 @@ form.form-signin {
   text-decoration:none;
 }
 
+button {
+  height: 50px;
+  font-size: 1.1rem;
+}
 
 
 

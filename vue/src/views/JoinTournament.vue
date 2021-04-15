@@ -99,6 +99,11 @@ input[type="checkbox"] {
     -webkit-box-shadow: none;
 }
 
+input[type="button"] {
+  height: 60px;
+  font-size: 1.3rem;
+}
+
 .container {
     height: 125vh;
 }

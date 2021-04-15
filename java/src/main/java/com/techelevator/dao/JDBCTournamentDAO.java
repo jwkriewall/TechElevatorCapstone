@@ -24,9 +24,9 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public Tournament createTournament(Tournament tournament) {
-		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended";
+		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended";
 		
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), false);
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.isEnded());
 		while (rows.next()) {
 			tournament = mapRowToTournament(rows);
 		}
@@ -187,7 +187,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		if(rows.getBoolean("ended") == true) {
 			tournament.setEnded(rows.getBoolean("ended"));
 		}
-		tournament.setRankArray(rows.getObject("rank_array"));
+		//tournament.setRankArray(rows.getObject("rank_array"));
 		return tournament;
 	}
 

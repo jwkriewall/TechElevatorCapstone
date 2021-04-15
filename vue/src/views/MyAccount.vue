@@ -95,4 +95,9 @@ tr:nth-child(odd) {
 input[type="button"]:nth-child(2) {
     margin-bottom:30px;
 }
+
+input[type="button"] {
+  height: 45px;
+  font-size: 1.1rem;
+}
 </style>

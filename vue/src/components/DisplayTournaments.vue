@@ -217,14 +217,18 @@ table {
     text-align: center;
     border-spacing: 0rem;
     width: 95vw;
-    color: black;
+    color: white;
     font-size: 1.1rem;
 }
 td {
     min-height:30px;
 }
+th{
+    color: white;
+}
 tr:nth-child(odd) td {
     background-color: #f4f4f4;
+    color: #707070;
 }
 tr:first-child {
     background: none;

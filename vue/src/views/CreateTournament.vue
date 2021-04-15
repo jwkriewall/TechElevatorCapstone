@@ -1,7 +1,7 @@
 <template>
    <div class="container">
         <div class="content">
-            <form v-if="!editTournamentOrganizer" v-on:submit.prevent="createTournament" class="tournamentForm">
+            <form v-if="!editTournamentOrganizer" class="tournamentForm">
                 <h1>Generate Tournament</h1>
                 <div>
                     <label for="name">Tournament Name: </label>
@@ -33,11 +33,11 @@
             <edit-organizer v-if="editTournamentOrganizer" :organizer="$store.state.organizer" />
                 <input type="button" v-if="!editTournamentOrganizer" value="Next" @click="toggleEditOrganizer" />
                 <input type="button" v-if="editTournamentOrganizer" value="Back" @click="toggleEditOrganizer" />
-                <input type="button" v-if="editTournamentOrganizer" value="Generate Tournament" v-bind:disabled="!isFormValid" />
+                <input type="button" v-if="editTournamentOrganizer" value="Generate" v-bind:disabled="!isFormValid" @click="createTournament" />
         </div>
         
         <div class="image">
-            <img src="@/assets/soccer.jpg" alt="Players on the soccer field during a match">
+            <img src="@/assets/darts.jpg" alt="Players on the soccer field during a match">
         </div>
    </div>
 </template>
@@ -72,10 +72,10 @@ export default {
                    this.newTournament.maxParticipants &&
                    this.newTournament.startDate &&
                    this.newTournament.endDate &&
-                   this.$store.organizer.firstName &&
-                   this.$store.organizer.lastName &&
-                   this.$store.organizer.phone &&
-                   this.$store.organizer.email;
+                   this.organizer.firstName &&
+                   this.organizer.lastName &&
+                   this.organizer.phone &&
+                   this.organizer.email;
         },
         findTodaysDate(){
             let today = new Date();
@@ -192,5 +192,11 @@ img {
 .container{
     height: 100vh;
 }
+
+input[type="button"]{
+  height: 45px;
+  font-size: 1.3rem;
+}
+
 
 </style>

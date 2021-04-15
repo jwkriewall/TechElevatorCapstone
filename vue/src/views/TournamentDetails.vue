@@ -194,6 +194,12 @@ input.update:hover{
     background-color: #d85b4d;
     -webkit-box-shadow: 0 0 0 1000px #d85b4d inset;
 }
+
+input[type="button"] {
+  height: 60px;
+  font-size: 1.1rem;
+}
+
 th {
     text-align: left;
     text-decoration: underline;

@@ -474,6 +474,12 @@ export default {
 .participant-list .seed {
   background-color: hsl(207, 33%, 63%);
 }
+
+input[type="button"] {
+  height: 50px;
+  font-size: 1.0rem;
+}
+
 .name {
   font-size: 0.8rem;
   padding-left:5px;
