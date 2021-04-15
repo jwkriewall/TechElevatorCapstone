@@ -112,19 +112,13 @@ export default {
             if(confirm("Are you sure you want to end the tournament and send emails to participants?")) 
                 this.tournament.ended = true;
                 tournamentService.updateTournament(this.tournament);
-                // get list of users who opted in to email && send the notification
-
-                // if(joinTournament.user.notify == true){
-                //     alert('Email sent');
-                // }
-
-                // if person where notify == true, then send email to their email address
-                // notify
                 this.sendEmail();
         },
 
         sendEmail() {
-            
+            let tournamentName = this.tournament.name;
+            //let linkToTournament = this.$route.params.id;
+            //let thisRoute = this.$route;
             tournamentService.getUserEmails(this.$route.params.id)
             .then(response => {
                 
@@ -136,8 +130,8 @@ export default {
                 //To: 'brcktproject@gmail.com', 
                 // hardcoded value example above. changeEmailToStringArray function is at top of script-->
                 From: "brcktproject@gmail.com",
-                Subject: "Your Tournament Has Ended!",
-                Body: "A recent tournament you entered has now concluded. Please check the website to see the final bracket!"
+                Subject: tournamentName + " Has Ended",
+                Body: "Your tournament has now concluded. Please click the following link to see the final bracket for " + tournamentName + "! " + window.location.href + "/bracket"
 
                 // Attachments: [
                 // {
@@ -159,8 +153,8 @@ export default {
         },
         toggleModifyTournament() {
             this.modifyTournament = !this.modifyTournament
-        },
-    
+        }
+
     }
 
 }
