@@ -197,17 +197,13 @@ input.update:hover{
     background-color: #d85b4d;
     -webkit-box-shadow: 0 0 0 1000px #d85b4d inset;
 }
-<<<<<<< HEAD
+
 
 input[type="button"] {
   height: 60px;
   font-size: 1.1rem;
 }
 
-th {
-    text-align: left;
-    text-decoration: underline;
-=======
 .user-card{
     background: rgba(255,255,255,0.6);
     color: black;
@@ -219,14 +215,9 @@ th {
     padding: 10px 20px;
     justify-content: flex-start;
 }
-.user-card > div:not(div:last-child) {
-
-}
 .user-image {
     width: 20%;
     margin:0; padding: 0;
-    
->>>>>>> fe9d3957d59f4d9a75070670fe94e87eccc91b43
 }
 .user-image img {
     max-height:50px;
