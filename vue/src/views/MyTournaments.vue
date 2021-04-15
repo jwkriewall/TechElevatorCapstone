@@ -55,6 +55,7 @@ export default {
         
         tournamentService.getUserTournaments().then(response => {
             if(response.status === 200) {
+                
                 this.userTournaments = response.data;
             }
         })

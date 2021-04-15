@@ -37,11 +37,6 @@
                 <input type="button" v-if="!editTournamentOrganizer" value="Next" @click="toggleEditOrganizer" />
                 <input type="button" v-if="editTournamentOrganizer" value="Back" @click="toggleEditOrganizer" />
                 <input type="button" v-if="editTournamentOrganizer" value="Generate" v-bind:disabled="!isFormValid" @click="createTournament" />
-                <input type="button" v-if="editTournamentOrganizer" value="Generate Tournament" @click="createTournament" v-bind:disabled="!isFormValid" />
-
-            <input type="button" v-if="!editTournamentOrganizer" value="Next" @click="toggleEditOrganizer" />
-            <input type="button" v-if="editTournamentOrganizer" value="Back" @click="toggleEditOrganizer" />
-            <input type="button" v-if="editTournamentOrganizer" value="Generate Tournament" @click="createTournament" v-bind:disabled="!isFormValid" />
 
         </div>
         
@@ -124,6 +119,7 @@ export default {
     },
     methods:{
         createTournament(){
+            this.changeDates()
             if(this.organizer != this.$store.state.organizer){
                   organizerService.newOrganizer(this.organizer)
                   .then(response => {
