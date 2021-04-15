@@ -66,6 +66,7 @@ export default {
             editTournamentOrganizer: false,
         }
     },
+
     computed:{
         isFormValid(){ 
             return this.newTournament.name &&
@@ -114,7 +115,32 @@ export default {
         
     },
     methods:{
+
+        // formatDate(date){
+        //     date = date.toString();
+        //     let yyyy = date.substring(0,4);
+        //     let mm = date.substring(5,7);
+        //     let dd = date.substring(8,10);
+
+        //     //date = new Date(yyyy-mm-dd);
+        //     return mm + '-' + dd + '-' + yyyy;
+        // },
+        // changeDates() {
+        //     let updatedTournaments = this.tournaments;
+        //  for(let i=0; i < updatedTournaments.length; i++) {
+        //         updatedTournaments[i].startDate = this.formatDate(updatedTournaments[i].startDate);
+        //         updatedTournaments[i].endDate = this.formatDate(updatedTournaments[i].endDate);
+                
+        //     }
+        //     this.updatedTournaments = updatedTournaments;
+            
+        // },
+
+
+
+
         createTournament(){
+            //this.changeDates();
             if(this.organizer != this.$store.state.organizer){
                   organizerService.newOrganizer(this.organizer)
                   .then(response => {

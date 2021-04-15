@@ -70,15 +70,19 @@
 </template>
 
 <script>
+
+
+
+
+
 import tournamentService from '../services/TournamentService';
-// import moment from 'moment'
 
 export default {
     name: 'display-tournaments',
-    // components: { moment },
     props: ['organizer', 'tournaments', 'userTournaments'],
     data() {
         return {
+            updatedTournaments: [],
             currentEnteredTournaments: [],
             search: {
                 name: '',
@@ -91,8 +95,11 @@ export default {
             },
         }
     },
+
     created() {
+        //this.changeDates();
         this.currentEnteredTournaments = this.$store.state.userTournaments;
+        
     },
     
     methods: {
@@ -129,7 +136,8 @@ export default {
         myTournaments() {
             return this.$route.name == "my-tournaments"
         },
-        findTodaysDate(){
+ 
+        findTodaysDate() {
             let today = new Date();
             let dd = today.getDate();
             let mm = today.getMonth()+1;
@@ -140,9 +148,12 @@ export default {
             if ( mm<10 ) {
                 mm = '0' + mm
             }
+            //return mm + '-' + dd + '-' + yyyy;
             return yyyy + '-' + mm + '-' + dd;
         },
+  
         searchTournaments() {
+            //this.changeDates();
             let sortedTournaments = this.tournaments;
             
             sortedTournaments = sortedTournaments.sort((a, b) => 
@@ -200,7 +211,7 @@ export default {
                     tournament.organizerId == this.organizer.organizerId
                 );
             }
-
+            
             return filteredTournaments;             
             
         }
