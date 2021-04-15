@@ -139,16 +139,9 @@ export default {
         //     this.updatedTournaments = updatedTournaments;
             
         // },
-
-
-
-
         createTournament(){
-<<<<<<< HEAD
             //this.changeDates();
-=======
-            this.changeDates()
->>>>>>> e0fd4913e588286553a8d62f37e773bb4f23d55f
+
             if(this.organizer != this.$store.state.organizer){
                   organizerService.newOrganizer(this.organizer)
                   .then(response => {

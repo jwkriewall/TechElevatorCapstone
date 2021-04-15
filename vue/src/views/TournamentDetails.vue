@@ -119,27 +119,27 @@ export default {
 
         sendEmail() {
             let tournamentName = this.tournament.name;
-            //let linkToTournament = this.$route.params.id;
-            //let thisRoute = this.$route;
+
             tournamentService.getUserEmails(this.$route.params.id)
             .then(response => {
                 
             window.Email && window.Email.send({
+                // NOTE: email username and password should be encrypted if used.
                 Host: "smtp.gmail.com",
                 Username: "brcktproject@gmail.com",
                 Password: "thisisapassword1!",
                 To: changeEmailToStringArray(response.data),
-                //To: 'brcktproject@gmail.com', 
+                // To: 'brcktproject@gmail.com', 
                 // hardcoded value example above. changeEmailToStringArray function is at top of script-->
                 From: "brcktproject@gmail.com",
                 Subject: tournamentName + " Has Ended",
                 Body: "Your tournament has now concluded. Please click the following link to see the final bracket for " + tournamentName + "! " + window.location.href + "/bracket"
-
+                // , (comma dilineated)
                 // Attachments: [
                 // {
-                //     name: "File_Name_with_Extension",
-                //     path: "Full Path of the file"
-                //     // Could we put picture of bracket here????
+                //     name: "BRCKT-05.png",
+                //     path: "../src/assets/BRCKT-05.png"
+                //     // Can put links here.
                 // }]
 
                 })
