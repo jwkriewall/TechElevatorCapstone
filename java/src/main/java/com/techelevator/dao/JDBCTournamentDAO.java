@@ -1,6 +1,5 @@
 package com.techelevator.dao;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Tournament;
-import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.model.UserRanking;
 
@@ -24,9 +22,9 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public Tournament createTournament(Tournament tournament) {
-		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended";
+		String sql = "INSERT INTO tournament (tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended) VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended";
 		
-		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), false);
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.isEnded());
 		while (rows.next()) {
 			tournament = mapRowToTournament(rows);
 		}
@@ -123,7 +121,8 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	public List<UserRanking> getUserRankingByTournamentId(int tournamentId) {
 		List<UserRanking> tournamentRankings = new ArrayList<UserRanking>();
 		
-		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name, tournament_user.user_email, notify FROM tournament_user " + 
+		String sql = "SELECT tournament_id, users.user_id, user_seeding, tournament_user.user_nickname, user_first_name, user_last_name, tournament_user.user_email, notify, users.user_image_url " +
+				"FROM tournament_user " + 
 				"JOIN users ON users.user_id = tournament_user.user_id " + 
 				"WHERE tournament_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
@@ -152,24 +151,15 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	
 	private UserRanking mapUserRanking(SqlRowSet rows) {
 		UserRanking userRanking = new UserRanking();
-		
 		userRanking.setTournamentId(rows.getInt("tournament_id"));
 		userRanking.setUserId(rows.getInt("user_id"));
 		userRanking.setUserSeeding(rows.getInt("user_seeding"));
 		userRanking.setUserNickname(rows.getString("user_nickname"));
-		
-		if (rows.getString("user_email") != null) {
-			userRanking.setUserEmail(rows.getString("user_email"));
-		}
-		if (rows.getString("user_first_name") != null) {
-			userRanking.setFirstName(rows.getString("user_first_name"));
-		}
-		if (rows.getString("user_last_name") != null) {
-			userRanking.setLastName(rows.getString("user_last_name"));
-		}
-		if (rows.getBoolean("notify") == true || rows.getBoolean("notify") == false) {
-			userRanking.setNotify(rows.getBoolean("notify"));
-		}
+		userRanking.setUserEmail(rows.getString("user_email"));
+		userRanking.setFirstName(rows.getString("user_first_name"));
+		userRanking.setLastName(rows.getString("user_last_name"));
+		userRanking.setNotify(rows.getBoolean("notify"));
+		userRanking.setUserUrl(rows.getString("user_image_url"));
 		return userRanking;
 	}
 
@@ -184,10 +174,8 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		tournament.setDouble(rows.getBoolean("is_double"));
 		tournament.setStartDate(rows.getDate("start_date").toLocalDate());
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
-		if(rows.getBoolean("ended") == true) {
-			tournament.setEnded(rows.getBoolean("ended"));
-		}
-		tournament.setRankArray(rows.getObject("rank_array"));
+		tournament.setEnded(rows.getBoolean("ended"));
+//		tournament.setRankArray(rows.getObject("rank_array"));
 		return tournament;
 	}
 

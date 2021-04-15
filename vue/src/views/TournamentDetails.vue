@@ -13,20 +13,22 @@
         <div class="image">
             <div class="tournament-seeding">
                 <h2>Current Seeding</h2>
-                <table class="rankings" >
-                    <tr>
-                        <th>User Name/Nick</th>
-                        <th>Seeding</th>
-                    </tr>
-                    <tr v-for="user in rankings" :key="user.id">
-                        <td>{{ user.userNickname ? (user.userNickname != "NICKNAME" ? user.userNickname : user.firstName + ' ' + user.lastName) : user.firstName + ' ' + user.lastName }}</td>
-                        <td>{{ user.userSeeding }}</td>
-                    </tr>
-                     <tr class="no-participants" v-if="rankings.length === 0">
-                        <td>No participants in current tournament</td>
-                        <td></td>
-                    </tr>
-                </table>
+                
+                <div class="headers">
+                    <h2>Name / Nickname</h2>
+                    <h2>Seeding:</h2>
+                </div>
+                    
+                <div class="user-card" v-for="user in rankings" :key="user.id">
+                    <div class="user-image"><img :src="[user.userUrl ? user.userUrl : require('@/assets/profile-placeholder.png')]" alt="Picture or Avatar of Participant" /></div>
+                    <div class="user-name">{{ user.userNickname ? (user.userNickname != "NICKNAME" ? user.userNickname : user.firstName + ' ' + user.lastName) : user.firstName + ' ' + user.lastName }}</div>
+                    <div class="user-seed">{{ user.userSeeding ? user.userSeeding : 'UnRnkd' }}</div>
+                </div>
+                
+                <div class="no-participants" v-if="rankings.length === 0">
+                    <p>No participants in current tournament</p>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -181,30 +183,55 @@ export default {
     justify-content: flex-start;
 }
 .tournament-seeding {
-    margin: 50px 90px 0 0;
     color: white;
+    width: 80%;
 }
-
-h2{
-    border-bottom: 2px solid #e74c3c;
-    display: inline-block;
-    margin-bottom: 10px;
+.headers {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+.headers h2 {
+    border: none;
+}
+.headers h2:last-child {
+    width: 19%;
+    margin-right: 20px;
+    text-align: center;
 }
 input.update:hover{
     background-color: #d85b4d;
     -webkit-box-shadow: 0 0 0 1000px #d85b4d inset;
 }
-th {
-    text-align: left;
-    text-decoration: underline;
+.user-card{
+    background: rgba(255,255,255,0.6);
+    color: black;
+    display: flex;
+    flex-direction: row;
+    height: 5vh;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    justify-content: flex-start;
 }
-tr.no-participants td {
-    color: #e74c3c;
-    text-transform: uppercase;
-    padding-top: 20px;
-}
-tr td:nth-child(2) {
-    text-align: center;
-}
+.user-card > div:not(div:last-child) {
 
+}
+.user-image {
+    width: 20%;
+    margin:0; padding: 0;
+    
+}
+.user-image img {
+    max-height:50px;
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+.user-name {
+    width: 60%;
+}
+.user-seed {
+    text-align: center;
+    width: 20%;
+}
 </style>

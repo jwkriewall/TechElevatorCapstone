@@ -10,9 +10,17 @@ public class UserRanking {
 	private String lastName;
 	private boolean notify;
 	private String userEmail;
+	private String userUrl;
 	
 	
 	
+	
+	public String getUserUrl() {
+		return userUrl;
+	}
+	public void setUserUrl(String userUrl) {
+		this.userUrl = userUrl;
+	}
 	public String getUserEmail() {
 		return userEmail;
 	}
