@@ -80,7 +80,7 @@ export default {
   }
 
   /* Input Styling */
-input {
+input, input:not(input[type="button"]) {
     border-radius: 15px;
     height: 2.2rem;
     width: 18vw;

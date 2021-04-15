@@ -19,7 +19,7 @@
         </div>
         <div class="buttons">
             <input class="submit" type="button" value="Update" @click="updateOrganizer" />
-            <input type="button" value="Cancel" @click="$store.commit('TOGGLE_MODIFY_ORGANIZER')" />
+            <input type="button" v-if="$route == 'create'" value="Cancel" @click="$store.commit('TOGGLE_MODIFY_ORGANIZER')" />
         </div>
     </div>
 </template>

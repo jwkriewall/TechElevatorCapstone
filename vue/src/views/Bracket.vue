@@ -1,36 +1,44 @@
 <template>
-  <div class="content">
+  <div class="content-full-width">
     <h1>{{ tournament.name }} Bracket</h1>
-    <div class="tournament" :style="{ 'grid-template-columns': getColumns}">
-      <div class="participant-list">Participants List
-        
+    
+    <div class="full-bracket">
+
+      <div class="participant-list">
+        <h2>Participant List</h2>
         <draggable v-model="rankings" group="tasks" :disabled="!isCurrentOrganizer">
-          <div class="list-group-item" v-for="user in rankings" :key="user.name">
-              <div class="username-participant">
-                  <strong> {{ user.userNickname ? user.userNickname : user.firstName + ' ' + user.lastName }} </strong>
+          <div class="list-items" v-for="user in rankings" :key="user.name">
+              <div class="participant">
+                  <div class="seed">{{ !user.userSeeding ? "" : user.userSeeding }}</div>
+                  <div class="name">{{ user.userNickname ? user.userNickname : user.firstName + ' ' + user.lastName }}</div>
               </div>
           </div>
         </draggable>
       </div>
 
-      <h2 v-for="headerIndex in roundMatchups.length" :key="headerIndex.id">Round {{headerIndex}}  </h2>
-      <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
-        <draggable v-model="bracketSeeding[roundIndex-1]" :disabled="!isCurrentOrganizer" group="tasks" class="draggable"  @add="checkForSlot" @remove="createPlaceholder">
-          <div :class="`participant ${index+1}`" @dblclick="advanceToNextRound" v-for="(participant, index) in bracketSeeding[roundIndex-1]" :key="participant.id">
-            <div class="seed">{{ participant ? index + 1 : '&nbsp;' }}</div>
-            <div class="name">{{ participant.userNickname ? participant.userNickname : 
+      <div class="bracket">
+        <div v-for="roundIndex in roundMatchups.length" :key="roundIndex.id" :class="`round ${roundIndex}`">
+          <h2>Round {{ roundIndex }}</h2>
+          <draggable v-model="bracketSeeding[roundIndex-1]" :disabled="!isCurrentOrganizer" easing="cubic-bezier(0.45, 0, 0.55, 1)" group="tasks" class="draggable"  
+            @add="checkForSlot"
+            @remove="createPlaceholder"
+          >
+            <div :class="`participant ${index+1}`" @dblclick="advanceToNextRound" v-for="(participant, index) in bracketSeeding[roundIndex-1]" :key="participant.id">
+              <div class="seed">{{ tournamentSeeding[roundIndex-1][index] }}</div>
+              <div class="name">{{ participant.userNickname ? participant.userNickname : 
                 ( (participant.firstName + participant.lastName) ? participant.firstName + ' ' + participant.lastName : "" ) }}</div>
-          </div>
-        </draggable>
-        
+            </div>
+          </draggable>
+        </div>
       </div>
-      <div class="buttons">
-        <input type="button" value="Back to Details" @click="$router.push(`/tournaments/${tournament.id}`)" />
-        <input type="button" v-if="isCurrentOrganizer" :value="[autoSeeded ? 'Cancel Auto Seed' : 'Auto Seed']" @click="toggleAutoSeed" />
-        <input type="button" v-if="isCurrentOrganizer" value="Save Bracket" @click="saveTournament" /> 
-      </div>
-      
     </div>
+
+    <div class="buttons">
+      <input type="button" value="Back to Details" @click="$router.push(`/tournaments/${tournament.id}`)" />
+      <input type="button"  :value="[autoSeeded ? 'Cancel Auto Seed' : 'Auto Seed']" @click="toggleAutoSeed" />
+      <input type="button" v-if="isCurrentOrganizer" value="Save Bracket" @click="saveTournament" /> 
+    </div>
+      
   </div>
 </template>
 
@@ -52,7 +60,7 @@ export default {
       // totalParticipants: 10,
       roundMatchups: [0],
       tournamentMatchups: [],
-      //tournamentSeeding: [],  //keep for future 
+      tournamentSeeding: [],  //keep for future 
       bracketSeeding: [],
       bracketArray: [],
       // numberCheck: '',
@@ -73,7 +81,7 @@ export default {
         this.$forceUpdate();
         this.autoSeeded = !this.autoSeeded
     },
-    saveTournament() {
+    saveTournament() {    // saves current tournament 
       this.tournament.rankArray = Array.from(this.bracketSeeding);
         tournamentService.updateTournament(this.tournament).then(response =>{
           if(response.status===200) {
@@ -81,16 +89,25 @@ export default {
           }
         })
     },
-    fillRankings(rankArray) {
+    /** This populates the participants list to match the max participants
+     * allowed in this tournament. It fills in the difference with "Bye"
+     */
+    fillRankings(rankArray) {   
       let rankSize = rankArray.length;
+      let total = this.maxParticipants;
+        if(total % 2 != 0) { total = total + 1 }   // if odd number, increase by one
+
       let bye = { userNickname: 'Bye' }
-        if(rankSize < this.maxParticipants) {
-              for(let i = rankSize; i < this.maxParticipants; i++) {
+        if(rankSize < total) {
+              for(let i = rankSize; i < total; i++) {
                 rankArray.push(bye);
               }
         }
         this.rankings = rankArray;
     },
+    /** Checks to see if there is a slot available to drag and drop a participant into a round
+     * if there is no room, the participant is placed back into the list of origination
+     */
     checkForSlot(evt) {
      let newIndex = evt.newIndex;
      let roundIndex = evt.to.parentElement.classList[1] - 1;
@@ -111,35 +128,38 @@ export default {
         this.rankings.push(oldValue);
         }
     },
+    /** When draggable is removed from bracket list, a temporary placeholder is created to show
+     * the empty bracket spot
+    */
     createPlaceholder(evt) {
       let position = evt.oldIndex;
       let roundIndex = evt.from.parentElement.classList[1] - 1;
       this.bracketSeeding[roundIndex].splice(position,0,' ');
-      console.log(evt.oldDraggableIndex);
     },
+    /** Double click advances the participant to the proper spot in the next round */
     advanceToNextRound(evt) {
-      let newIndex = 0;
+      let currentSlotIndex = 0;   // iterator
       
-      let roundIndex = evt.path[3].classList[1] - 1;
-      let oldPosition = evt.srcElement.parentElement.classList[1] - 1;
-      const winnerObject = this.bracketSeeding[roundIndex][oldPosition]
-      let bracketSize = this.bracketSeeding.length;
+      let roundIndex = evt.path[3].classList[1] - 1;  // find current round index
+      let oldPosition = evt.srcElement.parentElement.classList[1] - 1;   // find the position in the current round
+      const winnerObject = this.bracketSeeding[roundIndex][oldPosition]  // grab the object that is double clicked on
+      let bracketSize = this.bracketSeeding.length; // what is the number of total rounds in this tournament
 
-      for(let i = 1; i < this.bracketSeeding[roundIndex].length; i++) {
+      for(let i = 1; i < this.bracketSeeding[roundIndex].length; i++) {   // loop as many times as the number of slots in current round index
             
-        if(oldPosition <= i && (roundIndex < (bracketSize-1) ) ) { 
-            if(roundIndex === 0 && this.bracketSeeding[roundIndex+1][newIndex] != ' ') {
-              newIndex++
+        if(oldPosition <= i && (roundIndex < (bracketSize-1) ) ) {  // if the old position is less than current iterator && roundIndex < bracketsize index
+            
+            if(roundIndex === 0 && this.bracketSeeding[roundIndex+1][currentSlotIndex] != ' ') {  // check to see if destination in the corresponding slot in the next round is filled
+              currentSlotIndex++                                                                  // if it is, go to the next slot in the same matchup
             } 
-              this.bracketSeeding[roundIndex+1].splice(newIndex,1,winnerObject);
+              this.bracketSeeding[roundIndex+1].splice(currentSlotIndex,1,winnerObject);          // put the object into the proper slot in the next round
               break;
         }
-        newIndex += 1;
-        i++;
-      }
-      this.$forceUpdate();
-
+        currentSlotIndex += 1;               // advance slot iterator to look for next slot
+        i++;                         // advance count iterator - every matchup is two participants, so cycle through two iterators each cycle
+      }     
     },
+
     getMatchupNumber(index) {
       return index + 1;
     },
@@ -166,85 +186,172 @@ export default {
             }
         }
     },
-    createTournamentArray() {
+    autoSeedBrackets() {
         let roundMatches = Array.from(this.roundMatchups);
         let total = this.tournament.maxParticipants;
+          if(total % 2 != 0) { total = total +1 }
+
         let participants = Array.from(this.rankings);
         
         let allMatchups = [];
 
-        let variance = total - (roundMatches[0] * 2);  // determines how many many we skip for round 1
+        let variance = total - (roundMatches[0] * 2);  // determines how many many we skip for round 1 / how many filled spots in round two?
+        
+        let roundParticipants = roundMatches[1] * 2;  // how many slots in round two?
+
+        let fillSlot = []; // where do those empty spaces go?
+
+        for(let i = 0; i < variance; i++) {
+          fillSlot.push(i); 
+          fillSlot.push(roundParticipants-(1+i));
+          i++;
+        }
+
+        let sortedPositions = fillSlot.sort((a, b) => 
+            a > b ? 1 : -1
+        );
+
+        fillSlot = Array.from(sortedPositions);
+
 
         for(let j = 0; j < roundMatches.length; j++) {     // how many round we have - iterate through
-        
-            let roundMatchups = [];
+          let roundMatchups = [];
+            
+                    
+                      
+
+                     
             
             for(let i = 0; i < roundMatches[j] * 2; i++) {    // multiple by 2 because there are two participants per match
 
-                if(j==0) {  // if round one
+
+                if(j===0) {  // if round one
                     roundMatchups.push(participants[0 + variance]);
                     participants.splice(0 + variance, 1);
-                } 
-                else if(j==1 && participants.length) { //if round two
-                    let buffer = total - roundMatches[0];  // how many are we adding to this round?
-                    let emptySpaces = roundMatches[0];    // how many empty spaces do we need
-                    let emptyPosition = []; // where do those empty spaces go?
+                }
 
-                    console.log(emptyPosition);
-                    if(emptySpaces === 2) { 
-                      emptyPosition.push(0 + 1); 
-                      emptyPosition.push(buffer-2) 
-                    }  
-                    if(emptyPosition[0] === i) {
+                else if(j===1) { //if round two
+                      
+                    if(fillSlot[0] != i) {
                       roundMatchups.push(' ');
-                      emptyPosition.splice(0,1);
-
                     } else {
                       roundMatchups.push(participants[0]);
                       participants.splice(0,1);
+                      fillSlot.splice(0,1);
                     }
-                    
-                } else {
+
+                } 
+                
+                else {
                     roundMatchups.push(' ');
                 }
+                
             }
+            // add one slot if last round (for the winner)
             if(j === roundMatches.length -1) { roundMatchups.push(' '); }
             
             allMatchups.push(roundMatchups);
-            if(j==0) { variance = 0; }
         }
 
         this.tournamentMatchups = allMatchups;
     },
-    //not working at the moment
+    // Get the correct seeding positions for the bracket
     createTournamentSeeding() {
-        let total = this.totalParticipants;
-        let halvedTotal = total / 2;
-        
-        let topBracket = [1,2,3];
-        let count = total;
+        let total = this.tournament.maxParticipants;
+        let round1number = this.roundMatchups[0] * 2
 
-        for(let i = 0; i < halvedTotal; i++) {
-            count++;
-            topBracket.pop(count);
+      let round1Bracket = []
+      let round2Bracket = []
+
+        for(let i = round1number; i > 0; i--) {
+            round1Bracket.push(total);
+            total = total - 1;
+        }
+        let currentTotal = total
+        for(let i = currentTotal; i > 0; i--) {
+          round2Bracket.push(total);
+          total = total -1;
+        }
+        let round1Final = []
+        let bracketLength = round1Bracket.length;
+
+        for(let i = 0; i < bracketLength/2; i++) {
+          if(i % 2 == 0) {
+            round1Final.push(round1Bracket[0]);
+            round1Bracket.splice(0,1);
+            round1Final.unshift(round1Bracket[0]);
+            round1Bracket.splice(0,1);
+          } else {
+            round1Final.unshift(round1Bracket[0]);
+            round1Bracket.splice(0,1);
+            round1Final.push(round1Bracket[0]);
+            round1Bracket.splice(0,1);
+          }
         }
 
-        let bottomBracket = [];
-
-        for(let i = 0; i < halvedTotal; i++) {
-            count++;
-            bottomBracket.unshift(count);
+        let round2Prelim = []
+        bracketLength = round2Bracket.length;
+        for(let i = 0; i < bracketLength/2; i++) {
+          if(i % 2 == 0) {
+            round2Prelim.push(round2Bracket[0]);
+            round2Bracket.splice(0,1);
+            round2Prelim.unshift(round2Bracket[0]);
+            round2Bracket.splice(0,1);
+          } else {
+            round2Prelim.unshift(round2Bracket[0]);
+            round2Bracket.splice(0,1);
+            round2Prelim.push(round2Bracket[0]);
+            round2Bracket.splice(0,1);
+          }
         }
 
+        let fillSlot = [];
+        total = this.tournament.maxParticipants;
+        let roundMatches = Array.from(this.roundMatchups);
+        let roundParticipants = roundMatches[1] * 2;
+        let variance = total - (roundMatches[0] * 2);
+
+        for(let i = 0; i < variance; i++) {
+          fillSlot.push(i); 
+          fillSlot.push(roundParticipants-(1+i));
+          i++;
+        }
+
+        let sortedPositions = fillSlot.sort((a, b) => 
+            a > b ? 1 : -1
+        );
+
+        fillSlot = Array.from(sortedPositions);
+
+        let round2Final = []
+        let round2Length = this.roundMatchups[1] * 2
+        for(let i = 0; i < round2Length; i++) {
+          if(fillSlot[0] == i) {
+            round2Final.push(round2Prelim[0])
+            round2Prelim.splice(0,1);
+            fillSlot.splice(0,1);
+          } else {
+            round2Final.push('-');
+          }
+        }
 
         let seedBracket = [];
-        for(let i = 0; i < halvedTotal; i++) {
-            seedBracket.push(topBracket[i]);
-            seedBracket.push(bottomBracket[i]);
+        seedBracket[0] = round1Final;
+        seedBracket[1] = round2Final;
+        console.log(this.roundMatchups.length)
+        for(let i=2; i < this.roundMatchups.length; i++) {
+          let thisSeedRound = [];
+          for(let j = 0; j < this.roundMatchups[i] * 2; j++) {
+            thisSeedRound.push('-');
+          }
+          if(i == this.roundMatchups.length-1) { thisSeedRound.push('-'); }
+          seedBracket[i] = thisSeedRound;
         }
 
+
+
+
         this.tournamentSeeding = seedBracket;
-        count = 0;
     },
     fillDraggableArrays() {
       for(let j = 0; j < this.roundMatchups.length; j++) {
@@ -283,7 +390,7 @@ export default {
                     this.fillRankings(response.data);
                     this.createRoundMatchups();
                     this.fillDraggableArrays();
-                    this.createTournamentArray();
+                    this.autoSeedBrackets();
                     this.createTournamentSeeding();
                     
                 }
@@ -298,40 +405,45 @@ export default {
 
 
   },
-  computed: {
-    getColumns() {
-      let total = this.roundMatchups.length;
-      let columnStyle = '1fr ';
-      for(let i = 0; i < total; i++) {
-        columnStyle += '1fr'
-        if(i<total-1) { columnStyle += ' ' }
-      }
-      return columnStyle;
-    },
-  },
-  
 }
 </script>
 
 <style scoped>
-.tournament {
-  display: grid;
+.content-full-width {
+  background: #2c3e50;
+  align-items: flex-start;
+}
+.full-bracket {
+  display: flex;
+  flex-direction: row;
+}
+.bracket {
+  display: flex;
   flex-direction: row;
 }
 .participant-list {
-  background: white;
-  grid-row-start: 1;
-  grid-row-end: span 2;
+  /* background: rgba(255,255,255,1); */
   display: flex;
   flex-direction: column;
   align-items: center;
   color: black;
-  width: 15vw;
+  width: 167px;
+  margin-right: 50px;
+  padding: 0;
+}
+.participant-list h2 {
+  font-weight: bold;
+  font-size: 1.1rem;
+  background-color: #e74c3c;
+  margin: 0 ;
+   width: 100%;
+   color: white;
 }
 .round {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 20px;
 }
 .draggable {
   height: 100%;
@@ -339,12 +451,11 @@ export default {
   flex-direction: column;
   justify-content: space-around;
 }
-
-.participant, .champion {
+.participant {
   display: flex;
   flex-direction: row;
   border: 1px solid black;
-  line-height: 1.3rem;
+  line-height: 2.3rem;
   background-color: #f4f4f4;
   color: black;
   justify-content: space-around;
@@ -353,19 +464,25 @@ export default {
   border-top: none;
   margin-bottom: 20px;
 }
-
 .seed {
-  background-color:lightblue;
+  background-color:#e74c3c;
   font-size: 0.8rem;
   color: black;
-  width: 20px;
+  width: 30px;
   text-align:center;
+}
+.participant-list .seed {
+  background-color: hsl(207, 33%, 63%);
 }
 .name {
   font-size: 0.8rem;
   padding-left:5px;
   margin:0;
+  width: 8vw;
   min-width: 110px;
+}
+.participant-list .name {
+  width: 132px;
 }
 h2 {
   border-bottom: none;
