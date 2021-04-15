@@ -35,7 +35,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	public List<Tournament> listAllTournaments() {
 		List<Tournament> tournaments = new ArrayList<Tournament>();
 		
-		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email, start_date, end_date, ended, rank_array FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
+		String sql = "SELECT id, tournament_name, organizer.organizer_id, max_participants, is_team, is_double, organizer_first_name, organizer_last_name, organizer_phone, organizer_email, start_date, end_date, ended FROM tournament JOIN organizer ON organizer.organizer_id = tournament.organizer_id";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 		
 		while (rows.next()) {
@@ -47,7 +47,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
-		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended, rank_array FROM tournament WHERE id = ?";
+		String sql = "SELECT id, tournament_name, organizer_id, max_participants, is_team, is_double, start_date, end_date, ended FROM tournament WHERE id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		
 		if(rows.next()) {
@@ -58,9 +58,9 @@ public class JDBCTournamentDAO implements TournamentDAO{
 
 	@Override
 	public void updateTournament(Tournament tournament) {
-		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ?, ended = ?, rank_array = ? " + 
+		String sql = "UPDATE tournament SET tournament_name = ?, organizer_id = ?, max_participants = ?, is_team = ?, is_double = ?, start_date = ?, end_date = ?, ended = ? " + 
 				"WHERE id = ?";
-		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.isEnded(), tournament.getRankArray(), tournament.getId());
+		jdbcTemplate.update(sql, tournament.getName(), tournament.getOrganizerId(), tournament.getMaxParticipants(), tournament.isTeam(), tournament.isDouble(), tournament.getStartDate(), tournament.getEndDate(), tournament.isEnded(), tournament.getId());
 		
 	}
 	
@@ -91,7 +91,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 	@Override
 	public List<Tournament> listAllTournamentsByOrganizerId(int organizerId) {
 		List<Tournament> organizerTournaments = new ArrayList<Tournament>();
-		String sql = "SELECT id, tournament_name, tournament.organizer_id, max_participants, is_team, is_double, start_date, end_date, ended, rank_array FROM tournament " + 
+		String sql = "SELECT id, tournament_name, tournament.organizer_id, max_participants, is_team, is_double, start_date, end_date, ended FROM tournament " + 
 				"JOIN organizer ON organizer.organizer_id = tournament.organizer_id " + 
 				"WHERE organizer.organizer_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, organizerId);
@@ -174,15 +174,7 @@ public class JDBCTournamentDAO implements TournamentDAO{
 		tournament.setDouble(rows.getBoolean("is_double"));
 		tournament.setStartDate(rows.getDate("start_date").toLocalDate());
 		tournament.setEndDate(rows.getDate("end_date").toLocalDate());
-<<<<<<< HEAD
-		if(rows.getBoolean("ended") == true) {
-			tournament.setEnded(rows.getBoolean("ended"));
-		}
-		//tournament.setRankArray(rows.getObject("rank_array"));
-=======
 		tournament.setEnded(rows.getBoolean("ended"));
-//		tournament.setRankArray(rows.getObject("rank_array"));
->>>>>>> fe9d3957d59f4d9a75070670fe94e87eccc91b43
 		return tournament;
 	}
 
